@@ -11,7 +11,7 @@ const projects = [
     process: "5-Axis CNC Milling", 
     material: "Titanium Grade 5",
     specs: "Tolerance: +/- 0.002mm | Surface: Polished",
-    img: "https://images.unsplash.com/photo-1565439398533-6c8a51351b62?q=80&w=2070&auto=format&fit=crop"
+    img: "./propeller.png"
   },
   { 
     id: 2,
@@ -20,7 +20,7 @@ const projects = [
     process: "MIG & TIG Welding",
     material: "Structural Steel",
     specs: "Certified: AWS D1.1 | NDT Tested",
-    img: "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?q=80&w=2070&auto=format&fit=crop"
+    img: "./weldings.png"
   },
   { 
     id: 3,
@@ -29,7 +29,7 @@ const projects = [
     process: "CNC Turning (Lathe)",
     material: "Hardened Steel 4140",
     specs: "Concentricity: 0.01mm | High Volume",
-    img: "https://images.unsplash.com/photo-1616400619175-5beda3a17896?q=80&w=2070&auto=format&fit=crop"
+    img: "./shafts.png"
   },
   { 
     id: 4,
@@ -38,7 +38,7 @@ const projects = [
     process: "Laser Cutting & Folding",
     material: "Aluminum 5052",
     specs: "Complex Bend Radii | Powder Coated",
-    img: "https://images.unsplash.com/photo-1532187643603-ba119cdd7512?q=80&w=2070&auto=format&fit=crop"
+    img: "./laser_cutting.png"
   },
   { 
     id: 5,
@@ -47,7 +47,7 @@ const projects = [
     process: "High-Pressure Die Casting",
     material: "Aluminum Alloy",
     specs: "Mold Life: 100k Shots | Porosity Free",
-    img: "https://images.unsplash.com/photo-1595304653523-a55b4105436b?q=80&w=2072&auto=format&fit=crop"
+    img: "./dies_casting.png"
   },
   { 
     id: 6,
@@ -56,7 +56,7 @@ const projects = [
     process: "Heat Treatment & Hardening",
     material: "Carbon Steel",
     specs: "Hardness: 58-62 HRC | Carburized",
-    img: "https://images.unsplash.com/photo-1579930776735-a7b538797f1c?q=80&w=2070&auto=format&fit=crop"
+    img: "./industrial_gears.png"
   }
 ];
 
