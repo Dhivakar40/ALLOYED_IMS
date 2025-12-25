@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 const NAV_ITEMS = [
   { label: "ABOUT US", targetId: "about" },
   { label: "SECTORS", targetId: "sectors" }, 
-  { label: "SERVICES", targetId: "portfolio" }, // Note: Target ID is portfolio based on your previous code
+  { label: "SERVICES", targetId: "portfolio" },
   { label: "METRICS", targetId: "metrics" }, 
   { label: "CERTIFICATIONS", targetId: "certifications" } 
 ];
@@ -13,7 +13,7 @@ const NAV_ITEMS = [
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false); // New: Track Menu State
+  const [menuOpen, setMenuOpen] = useState(false);
 
   // 1. Detect Scroll for Glass Effect
   useEffect(() => {
@@ -26,7 +26,7 @@ export default function Navbar() {
 
   // 2. Detect Mobile Screen Size
   useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 1000); // Increased threshold for tablets
+    const checkMobile = () => setIsMobile(window.innerWidth < 1000);
     window.addEventListener('resize', checkMobile);
     checkMobile(); 
     return () => window.removeEventListener('resize', checkMobile);
@@ -35,7 +35,7 @@ export default function Navbar() {
   // 3. Smooth Scroll Logic
   const scrollToSection = (e, targetId) => {
     e.preventDefault(); 
-    setMenuOpen(false); // Close menu when link clicked
+    setMenuOpen(false); // Close mobile menu if open
     
     const element = document.getElementById(targetId);
     
@@ -65,8 +65,8 @@ export default function Navbar() {
           top: 0,
           left: 0,
           width: '100%',
-          zIndex: 100,
-          padding: isScrolled ? '15px 20px' : '25px 40px', // Adjusted padding for mobile
+          zIndex: 100, // Main Navbar Z-Index
+          padding: isScrolled ? '15px 20px' : '25px 40px',
           background: isScrolled ? 'rgba(15, 17, 21, 0.9)' : 'transparent', 
           backdropFilter: isScrolled ? 'blur(10px)' : 'none',
           borderBottom: isScrolled ? '1px solid rgba(255,255,255,0.05)' : 'none',
@@ -85,7 +85,7 @@ export default function Navbar() {
             flexDirection: 'column', 
             justifyContent: 'center',
             lineHeight: '1',
-            zIndex: 102 // Ensure logo stays above mobile menu
+            zIndex: 200 // High Z-Index to stay above mobile menu
           }}
         >
           <h1 style={{
@@ -103,7 +103,7 @@ export default function Navbar() {
 
           <span style={{
             fontFamily: '"Montserrat", sans-serif',
-            fontSize: '0.6rem', // Smaller for mobile safety
+            fontSize: '0.6rem', 
             color: '#FFFFFF',
             letterSpacing: '0.3em', 
             textTransform: 'uppercase',
@@ -115,14 +115,20 @@ export default function Navbar() {
           </span>
         </div>
 
-        {/* --- DESKTOP NAVIGATION LINKS (Hidden on Mobile) --- */}
+        {/* --- DESKTOP NAVIGATION (THE "FRAME") --- */}
         {!isMobile && (
           <ul style={{ 
             display: 'flex', 
             gap: '30px', 
             listStyle: 'none', 
             margin: 0, 
-            padding: 0 
+            // --- NEW FRAME STYLING ---
+            padding: '12px 35px', // Padding inside the frame
+            border: '1px solid rgba(255,255,255,0.15)', // Very light visible border
+            borderRadius: '50px', // Pill shape
+            backgroundColor: 'rgba(255,255,255,0.03)', // Subtle background tint
+            backdropFilter: 'blur(5px)', // Slight blur inside the frame
+            boxShadow: '0 4px 20px rgba(0,0,0,0.1)' // Subtle shadow for depth
           }}>
             {NAV_ITEMS.map((item) => (
               <li key={item.label} style={{ position: 'relative' }}>
@@ -136,7 +142,7 @@ export default function Navbar() {
                     fontSize: '0.85rem', 
                     textTransform: 'uppercase',
                     letterSpacing: '0.1em',
-                    opacity: 0.7,
+                    opacity: 0.9,
                     transition: 'opacity 0.3s, color 0.3s',
                     fontWeight: '500',
                     position: 'relative',
@@ -145,14 +151,15 @@ export default function Navbar() {
                   }}
                   className="nav-link"
                   onMouseOver={(e) => { e.target.style.opacity = 1; e.target.style.color = '#fff'; }}
-                  onMouseOut={(e) => { e.target.style.opacity = 0.7; }}
+                  onMouseOut={(e) => { e.target.style.opacity = 0.9; }}
                 >
                   {item.label}
                   <span style={{
                       position: 'absolute',
                       bottom: 0,
-                      left: 0,
-                      width: '0%',
+                      left: '50%',
+                      transform: 'translateX(-50%)',
+                      width: '0%', // Starts invisible
                       height: '2px',
                       backgroundColor: '#FFFFFF',
                       transition: 'width 0.3s ease-out'
@@ -163,7 +170,7 @@ export default function Navbar() {
           </ul>
         )}
 
-        {/* --- DESKTOP CTA BUTTON (Hidden on Mobile) --- */}
+        {/* --- DESKTOP CTA BUTTON --- */}
         {!isMobile && (
           <button 
             onClick={(e) => scrollToSection(e, 'contact')} 
@@ -195,7 +202,7 @@ export default function Navbar() {
           </button>
         )}
 
-        {/* --- MOBILE HAMBURGER BUTTON --- */}
+        {/* --- MOBILE HAMBURGER / CLOSE BUTTON --- */}
         {isMobile && (
           <button 
             onClick={() => setMenuOpen(!menuOpen)}
@@ -205,10 +212,16 @@ export default function Navbar() {
               color: '#FFF',
               fontSize: '1.8rem',
               cursor: 'pointer',
-              zIndex: 102, // Above overlay
-              padding: '10px'
+              zIndex: 200, // CRITICAL: This keeps it ON TOP of the overlay
+              padding: '10px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: '50px',
+              height: '50px'
             }}
           >
+            {/* Toggle between Menu Icon and X Icon */}
             {menuOpen ? '✕' : '☰'}
           </button>
         )}
@@ -218,18 +231,18 @@ export default function Navbar() {
       <AnimatePresence>
         {isMobile && menuOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.3 }}
+            initial={{ opacity: 0, x: "100%" }} // Slides in from right
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: "100%" }}
+            transition={{ type: "spring", stiffness: 300, damping: 30 }}
             style={{
               position: 'fixed',
               top: 0,
               left: 0,
               width: '100vw',
               height: '100vh',
-              backgroundColor: '#0F1115', // Theme Background
-              zIndex: 101, // Below logo/button
+              backgroundColor: '#0F1115', 
+              zIndex: 150, // Below the X button (200) but above everything else
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'center',
@@ -277,7 +290,6 @@ export default function Navbar() {
         )}
       </AnimatePresence>
 
-      {/* Global Styles for Hover Effects */}
       <style>{`
         .nav-link:hover .hover-underline {
           width: 100% !important;
