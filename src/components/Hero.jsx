@@ -1,6 +1,5 @@
 import React, { useState, useEffect, Suspense } from 'react';
 import { motion } from 'framer-motion';
-import RoboticClaw from './RoboticClaw'; // Ensure this path is correct
 
 const IMAGES = [
   "https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?q=80&w=2070&auto=format&fit=crop", 
@@ -151,34 +150,6 @@ export default function Hero() {
               <span style={{ display: 'block' }}>Solutions</span>
             </motion.h1>
 
-            {/* --- WELDING SPARK (Hidden on Mobile) --- */}
-            {!isMobile && (
-              <motion.div
-                  animate={{ 
-                      opacity: showSpark ? [1, 0.3, 1, 0.1, 0.8, 1, 0.2] : 0, 
-                      scale: showSpark ? [1, 1.4, 0.9, 1.2, 0.8, 1.3] : 1 
-                  }}
-                  transition={{ 
-                      duration: 0.08, 
-                      repeat: Infinity, 
-                      repeatType: "mirror",
-                      ease: "linear"
-                  }}
-                  style={{
-                      position: 'absolute',
-                      top: '26%',     
-                      right: '149px', 
-                      width: '10px',  
-                      height: '10px',
-                      borderRadius: '50%',
-                      backgroundColor: '#FFFFFF', 
-                      boxShadow: '0 0 5px 2px #fff, 0 0 15px 5px #ffdd00, 0 0 30px 10px #ff5500', 
-                      zIndex: 25,
-                      pointerEvents: 'none',
-                  }}
-              />
-            )}
-
             {/* 2. HR & TAGLINE */}
             <motion.div
               initial={{ opacity: 0, x: -100 }}
@@ -202,32 +173,8 @@ export default function Hero() {
                  THE HARDWARE OF INDUSTRIAL EVOLUTION
               </p>
             </motion.div>
-
-            {/* 3. THE 3D MODEL */}
-            {/* Added Suspense to prevent crashing if model loads slow */}
-            <motion.div
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: startAnimation ? 1 : 0, x: startAnimation ? 0 : 50 }}
-              transition={{ delay: 2.0, duration: 1 }}
-              style={{
-                position: 'absolute',
-                right: isMobile ? '50%' : '-65px', 
-                top: isMobile ? '110%' : '-20px', 
-                transform: isMobile ? 'translateX(50%)' : 'none', 
-                height: isMobile ? '280px' : '350px',
-                width: isMobile ? '280px' : '350px',
-                zIndex: 20, 
-                pointerEvents: 'none',
-              }}
-            >
-               <Suspense fallback={null}>
-                  <RoboticClaw startAnimation={startAnimation} />
-               </Suspense>
-            </motion.div>
-
-        </motion.div>
-      </div>
-
-    </section>
-  );
+          </motion.div>
+        </div>
+      </section>
+    );
 }
