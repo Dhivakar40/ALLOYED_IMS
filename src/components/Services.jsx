@@ -1,7 +1,7 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
-// 1. DATA - UPDATED TO 6 ITEMS FOR SYMMETRY
+// 1. DATA - 6 ITEMS
 const capabilities = [
     {
         id: "01",
@@ -31,7 +31,6 @@ const capabilities = [
         desc: "Powering global infrastructure. We deliver corrosion-resistant, pressure-tested components built to survive the harshest oil and gas environments.",
         image: "oil.png" 
     },
-    // --- NEW ITEM 5 ---
     {
         id: "05",
         title: "Medical Robotics",
@@ -39,7 +38,6 @@ const capabilities = [
         desc: "Precision that saves lives. We fabricate ultra-precise, sterile-ready components for next-generation surgical robots and medical devices.",
         image: "med.png"
     },
-    // --- NEW ITEM 6 ---
     {
         id: "06",
         title: "Defense & Marine",
@@ -52,6 +50,12 @@ const capabilities = [
 const materials = "ALUMINUM 6061 • STAINLESS STEEL 304 • TITANIUM • INCONEL • BRASS • TOOL STEEL • CARBON FIBER • ABS PLASTIC • ";
 
 export default function Services() {
+    // STATE TO TOGGLE VIEW
+    const [showAll, setShowAll] = useState(false);
+
+    // Determine which items to show
+    const visibleCapabilities = showAll ? capabilities : capabilities.slice(0, 3);
+
     return (
         <section 
             id="sectors" 
@@ -119,114 +123,143 @@ export default function Services() {
                 {/* --- GRID CONTAINER --- */}
                 <div style={{
                     display: 'grid',
-                    // Using 300px min width ensures 3 columns on desktop, 2 on tablet, 1 on mobile
                     gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', 
                     gap: '60px', 
                     width: '100%',
                     alignItems: 'start' 
                 }}>
-                    {capabilities.map((service, i) => (
-                        <motion.div 
-                            key={i} 
-                            initial="initial"
-                            whileHover="hover" 
-                            style={{ 
-                                position: 'relative',
-                                width: '100%',
-                                cursor: 'pointer'
-                            }}
-                        >
-                            {/* Text Content */}
-                            <div style={{ marginBottom: '2rem', position: 'relative', zIndex: 1, paddingRight: '20px' }}>
-                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
-                                    <span style={{ 
-                                        fontSize: '4rem', 
-                                        fontFamily: '"Oswald", sans-serif', 
-                                        opacity: 0.2,
-                                        fontWeight: 'bold'
-                                    }}>
-                                        {service.id}
-                                    </span>
-                                    {/* Tech Tags */}
-                                    <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', justifyContent: 'flex-end' }}>
-                                        {service.tags.map((tag, t) => (
-                                            <span key={t} style={{ 
-                                                fontSize: '0.8rem', 
-                                                border: '1px solid #444', 
-                                                padding: '6px 12px', 
-                                                borderRadius: '4px',
-                                                color: '#CCC',
-                                                backgroundColor: 'rgba(0,0,0,0.3)'
-                                            }}>
-                                                {tag}
-                                            </span>
-                                        ))}
-                                    </div>
-                                </div>
-
-                                <h3 style={{ 
-                                    fontSize: '2.5rem', 
-                                    fontFamily: '"Oswald", sans-serif', 
-                                    marginBottom: '1rem',
-                                    color: '#FFF'
-                                }}>
-                                    {service.title}
-                                </h3>
-                                <p style={{ 
-                                    fontSize: '1.1rem', 
-                                    color: '#B0B0B0',
-                                    lineHeight: '1.6',
-                                    maxWidth: '95%'
-                                }}>
-                                    {service.desc}
-                                </p>
-                            </div>
-
-                            {/* FRAME IMAGE */}
+                    <AnimatePresence mode='popLayout'>
+                        {visibleCapabilities.map((service, i) => (
                             <motion.div 
-                                variants={{
-                                    initial: { 
-                                        scale: 1, 
-                                        y: 0,
-                                        boxShadow: "0 0 0 rgba(0,0,0,0)",
-                                        zIndex: 1,
-                                        border: '1px solid rgba(255,255,255,0.1)'
-                                    },
-                                    hover: { 
-                                        scale: 1.03, // Slight Frame Pop
-                                        y: -10,      
-                                        boxShadow: "0 30px 60px rgba(0,0,0,0.5)", 
-                                        zIndex: 10,
-                                        border: '1px solid rgba(255,255,255,0.4)'
-                                    }
-                                }}
-                                transition={{ duration: 0.4, ease: "easeOut" }}
+                                layout
+                                key={service.id} 
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, scale: 0.9 }}
+                                transition={{ duration: 0.4 }}
+                                whileHover="hover" 
                                 style={{ 
-                                    width: '100%', 
-                                    height: '450px', 
-                                    overflow: 'hidden', 
-                                    borderRadius: '8px',
-                                    background: '#000' 
+                                    position: 'relative',
+                                    width: '100%',
+                                    cursor: 'pointer'
                                 }}
                             >
-                                <motion.img 
-                                    src={service.image} 
-                                    alt={service.title}
+                                {/* Text Content */}
+                                <div style={{ marginBottom: '2rem', position: 'relative', zIndex: 1, paddingRight: '20px' }}>
+                                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+                                        <span style={{ 
+                                            fontSize: '4rem', 
+                                            fontFamily: '"Oswald", sans-serif', 
+                                            opacity: 0.2,
+                                            fontWeight: 'bold'
+                                        }}>
+                                            {service.id}
+                                        </span>
+                                        {/* Tech Tags */}
+                                        <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', justifyContent: 'flex-end' }}>
+                                            {service.tags.map((tag, t) => (
+                                                <span key={t} style={{ 
+                                                    fontSize: '0.8rem', 
+                                                    border: '1px solid #444', 
+                                                    padding: '6px 12px', 
+                                                    borderRadius: '4px',
+                                                    color: '#CCC',
+                                                    backgroundColor: 'rgba(0,0,0,0.3)'
+                                                }}>
+                                                    {tag}
+                                                </span>
+                                            ))}
+                                        </div>
+                                    </div>
+
+                                    <h3 style={{ 
+                                        fontSize: '2.5rem', 
+                                        fontFamily: '"Oswald", sans-serif', 
+                                        marginBottom: '1rem',
+                                        color: '#FFF'
+                                    }}>
+                                        {service.title}
+                                    </h3>
+                                    <p style={{ 
+                                        fontSize: '1.1rem', 
+                                        color: '#B0B0B0',
+                                        lineHeight: '1.6',
+                                        maxWidth: '95%'
+                                    }}>
+                                        {service.desc}
+                                    </p>
+                                </div>
+
+                                {/* FRAME IMAGE */}
+                                <motion.div 
                                     variants={{
-                                        initial: { scale: 1 }, 
-                                        hover: { scale: 1.05 }
+                                        initial: { 
+                                            scale: 1, 
+                                            y: 0,
+                                            boxShadow: "0 0 0 rgba(0,0,0,0)",
+                                            zIndex: 1,
+                                            border: '1px solid rgba(255,255,255,0.1)'
+                                        },
+                                        hover: { 
+                                            scale: 1.03, // Slight Frame Pop
+                                            y: -10,      
+                                            boxShadow: "0 30px 60px rgba(0,0,0,0.5)", 
+                                            zIndex: 10,
+                                            border: '1px solid rgba(255,255,255,0.4)'
+                                        }
                                     }}
-                                    transition={{ duration: 0.4 }}
+                                    transition={{ duration: 0.4, ease: "easeOut" }}
                                     style={{ 
                                         width: '100%', 
-                                        height: '100%', 
-                                        objectFit: 'cover' 
+                                        height: '450px', 
+                                        overflow: 'hidden', 
+                                        borderRadius: '8px',
+                                        background: '#000' 
                                     }}
-                                />
+                                >
+                                    <motion.img 
+                                        src={service.image} 
+                                        alt={service.title}
+                                        variants={{
+                                            initial: { scale: 1 }, 
+                                            hover: { scale: 1.05 }
+                                        }}
+                                        transition={{ duration: 0.4 }}
+                                        style={{ 
+                                            width: '100%', 
+                                            height: '100%', 
+                                            objectFit: 'cover' 
+                                        }}
+                                    />
+                                </motion.div>
                             </motion.div>
-                        </motion.div>
-                    ))}
+                        ))}
+                    </AnimatePresence>
                 </div>
+
+                {/* --- TOGGLE BUTTON --- */}
+                <div style={{ textAlign: 'center', marginTop: '80px' }}>
+                    <motion.button
+                        onClick={() => setShowAll(!showAll)}
+                        whileHover={{ scale: 1.05, backgroundColor: '#FFFFFF', color: '#000000' }}
+                        whileTap={{ scale: 0.95 }}
+                        style={{
+                            background: 'transparent',
+                            color: '#FFFFFF',
+                            border: '1px solid rgba(255,255,255,0.3)',
+                            padding: '15px 40px',
+                            fontSize: '0.9rem',
+                            textTransform: 'uppercase',
+                            letterSpacing: '0.2em',
+                            cursor: 'pointer',
+                            fontFamily: '"Oswald", sans-serif',
+                            transition: 'all 0.3s ease'
+                        }}
+                    >
+                        {showAll ? 'View Less Sectors' : 'View More Sectors'}
+                    </motion.button>
+                </div>
+
             </div>
         </section>
     );

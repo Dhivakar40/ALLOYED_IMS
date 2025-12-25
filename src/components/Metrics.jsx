@@ -1,18 +1,27 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
+import { useInView } from "framer-motion";
 
 // --- CONFIGURATION ---
 const SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRKJwf4jetoCtkbDfjaPqDS_aAwBfZkP0wY3F9Nst9IGxqME3XILukM4NuI5IgzBZyW7-ijF2zoIgJv/pub?output=csv";
 
-/* ---------------- SLOT DIGIT (Unchanged) ---------------- */
+// Fallback values
+const INITIAL_STATE = {
+  machines: 50,
+  shipped: 9800000,
+  tolerance: 2,
+  legacy: 35
+};
+
+/* ---------------- SLOT DIGIT ---------------- */
 const SlotDigit = ({ digit }) => {
-  const DIGIT_HEIGHT = 48;
+  const DIGIT_HEIGHT = 48; // Kept constant for JS logic
 
   return (
     <div
       style={{
         overflow: "hidden",
         height: `${DIGIT_HEIGHT}px`,
-        width: "28px",
+        width: "28px", // Fixed width per digit
         display: "inline-block",
       }}
     >
@@ -32,6 +41,7 @@ const SlotDigit = ({ digit }) => {
               justifyContent: "center",
               fontSize: "3rem",
               fontWeight: 300,
+              color: '#FFF'
             }}
           >
             {n}
@@ -42,9 +52,8 @@ const SlotDigit = ({ digit }) => {
   );
 };
 
-/* ---------------- SLOT NUMBER (Unchanged) ---------------- */
+/* ---------------- SLOT NUMBER ---------------- */
 const SlotNumber = ({ value }) => {
-  // Ensure we always have a valid number to split
   const safeValue = Math.floor(value || 0);
   const digits = safeValue.toString().split("").map(Number);
 
@@ -57,46 +66,49 @@ const SlotNumber = ({ value }) => {
   );
 };
 
-/* ---------------- LIVE SLOT COUNTER (Updated logic, same look) ---------------- */
-const LiveSlotCounter = ({ value, suffix }) => {
-  return (
-    <div style={{ display: "flex", alignItems: "flex-end" }}>
-      <SlotNumber value={value} />
-      <span
-        style={{
-          marginLeft: "6px",
-          fontSize: "1.6rem",
-          color: "var(--color-accent)",
-        }}
-      >
-        {suffix}
-      </span>
-    </div>
-  );
-};
-
-/* ---------------- STAT ITEM (Unchanged layout) ---------------- */
+/* ---------------- STAT ITEM ---------------- */
 const StatItem = ({ value, suffix, text, live }) => (
   <div
     style={{
       textAlign: "center",
-      padding: "1rem 2rem",
-      minWidth: "220px",
+      padding: "1rem 0.5rem", // Reduced padding for mobile
+      minWidth: "150px",      // Reduced min-width to fit 2 per row on phone
       display: "flex",
       flexDirection: "column",
       alignItems: "center",
     }}
   >
-    <LiveSlotCounter value={value} suffix={suffix} />
+    {/* SCALER WRAPPER: Shrinks the big numbers on small screens */}
+    <div style={{ 
+        display: "flex", 
+        alignItems: "flex-end",
+        transform: 'scale(0.8)', // Default slight shrink
+        transformOrigin: 'bottom center',
+        // Media query logic handled via inline style hack or JS, 
+        // but scale(0.8) is generally safe for mobile & desktop looks fine
+    }}>
+      <SlotNumber value={value} />
+      <span
+        style={{
+          marginLeft: "6px",
+          fontSize: "1.6rem",
+          color: "var(--color-accent)", // Ensure this var exists or use #00ffcc
+          color: '#00cc88', 
+          marginBottom: '5px'
+        }}
+      >
+        {suffix}
+      </span>
+    </div>
 
     {/* LARGE LABEL */}
     <p
       style={{
-        marginTop: "1.25rem",
-        fontSize: "1.15rem",
+        marginTop: "0.5rem",
+        fontSize: "1rem", // Slightly smaller
         textTransform: "uppercase",
-        letterSpacing: "0.18em",
-        color: "var(--color-text-primary)",
+        letterSpacing: "0.15em",
+        color: "#A0A0A0",
         fontWeight: "800",
         minHeight: "1.6rem",
       }}
@@ -104,7 +116,7 @@ const StatItem = ({ value, suffix, text, live }) => (
       {text}
     </p>
 
-    {/* FIXED HEIGHT LIVE AREA */}
+    {/* LIVE INDICATOR */}
     <div
       style={{
         height: "22px",
@@ -117,18 +129,18 @@ const StatItem = ({ value, suffix, text, live }) => (
       {live && (
         <div
           style={{
-            fontSize: "0.85rem",
+            fontSize: "0.75rem",
             color: "limegreen",
             letterSpacing: "0.15em",
             display: "flex",
             alignItems: "center",
-            gap: "8px",
+            gap: "6px",
           }}
         >
           <span
             style={{
-              width: "8px",
-              height: "8px",
+              width: "6px",
+              height: "6px",
               borderRadius: "50%",
               background: "limegreen",
               animation: "pulse 1.5s infinite",
@@ -138,106 +150,92 @@ const StatItem = ({ value, suffix, text, live }) => (
         </div>
       )}
     </div>
+    
+    {/* CSS for Pulse Animation */}
+    <style>{`
+      @keyframes pulse {
+        0% { opacity: 1; box-shadow: 0 0 0 0 rgba(50, 205, 50, 0.7); }
+        70% { opacity: 1; box-shadow: 0 0 0 6px rgba(50, 205, 50, 0); }
+        100% { opacity: 1; box-shadow: 0 0 0 0 rgba(50, 205, 50, 0); }
+      }
+    `}</style>
   </div>
 );
 
 /* ---------------- MAIN ---------------- */
 export default function Metrics() {
-  // Default Initial State
-  const [metrics, setMetrics] = useState({
-    machines: 50,
-    shipped: 9800000,
-    tolerance: 2,
-    legacy: 35
-  });
+  const [metrics, setMetrics] = useState(INITIAL_STATE);
 
-  // Fetch Google Sheet Data on Mount
- useEffect(() => {
+  useEffect(() => {
     const fetchMetrics = async () => {
       try {
-        // TRICK: We add ?t=Timestamp to force the browser to get a fresh version
-        // This stops your browser from 'remembering' old numbers.
         const cacheBuster = new Date().getTime();
         const response = await fetch(`${SHEET_URL}&t=${cacheBuster}`);
         const text = await response.text();
         
-        console.log("Raw CSV Data:", text); // Check your console to see what arrives!
-
-        // ROBUST PARSING: Handles Windows (\r\n) and Mac (\n) line breaks
         const rows = text.split(/\r?\n/);
         const newMetrics = { ...metrics };
 
         rows.forEach(row => {
-          // Split by comma
           const parts = row.split(',');
-          // We assume Column A is Key, Column B is Value
           if (parts.length >= 2) {
             const key = parts[0].trim().toLowerCase();
-            // If the value has commas (e.g. "9,000"), remove them
             const valString = parts[1].replace(/,/g, '').trim(); 
             const val = parseFloat(valString);
             
             if (!isNaN(val)) {
-               newMetrics[cleanKey(key)] = val;
+                // Map keys safely
+                if(key.includes('machine')) newMetrics.machines = val;
+                if(key.includes('shipped')) newMetrics.shipped = val;
+                if(key.includes('tolerance')) newMetrics.tolerance = val;
+                if(key.includes('legacy')) newMetrics.legacy = val;
             }
           }
         });
-
         setMetrics(newMetrics);
       } catch (error) {
         console.error("Error fetching metrics:", error);
       }
     };
-
     fetchMetrics();
   }, []);
 
-  // Helper to map sheet keys to state keys (just in case of typos)
-  const cleanKey = (key) => {
-      if(key.includes('machine')) return 'machines';
-      if(key.includes('shipped')) return 'shipped';
-      if(key.includes('legacy')) return 'legacy';
-      if(key.includes('tolerance')) return 'tolerance';
-      return key;
-  };
   return (
     <section
       id="metrics"
       className="section-padding"
       style={{
-        background: "var(--color-bg)",
+        background: "#0F1115",
         borderBottom: "1px solid rgba(255,255,255,0.05)",
+        padding: "80px 0"
       }}
     >
-      <div className="container">
+      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 20px' }}>
 
         {/* SECTION TITLE */}
-        <div
-          style={{
-            textAlign: "center",
-            marginBottom: "2.5rem",
-          }}
-        >
+        <div style={{ textAlign: "center", marginBottom: "3rem" }}>
           <h2
             style={{
-              fontSize: "3rem",
+              // RESPONSIVE FONT SIZE: Fits on mobile, big on desktop
+              fontSize: "clamp(2rem, 6vw, 3.5rem)", 
               fontWeight: "700",
-              letterSpacing: "0.08em",
-              color: "var(--color-text-primary)",
+              letterSpacing: "0.05em",
+              color: "#FFFFFF",
               textTransform: "uppercase",
+              lineHeight: 1.1,
+              marginBottom: "1rem"
             }}
           >
-            We Value Transparency...
+            We Value Transparency
           </h2>
 
-          {/* Optional subtitle */}
           <p
             style={{
-              marginTop: "0.75rem",
-              fontSize: "1.5rem",
-              color: "var(--color-text-secondary)",
-              maxWidth: "520px",
+              fontSize: "clamp(1rem, 4vw, 1.2rem)",
+              color: "#A0A0A0",
+              maxWidth: "500px",
               marginInline: "auto",
+              lineHeight: 1.6
             }}
           >
             Real-time metrics that reflect our commitment to precision,
@@ -245,35 +243,27 @@ export default function Metrics() {
           </p>
         </div>
 
-        {/* OUTER ROUNDED RECTANGLE */}
+        {/* METRICS BOX */}
         <div
           style={{
             border: "1px solid rgba(255,255,255,0.12)",
             borderRadius: "20px",
-            padding: "3rem 2rem",
+            padding: "2rem 1rem",
             background: "rgba(255,255,255,0.03)",
           }}
         >
           <div
             style={{
               display: "flex",
-              justifyContent: "space-between",
-              alignItems: "stretch",
-              flexWrap: "wrap",
-              gap: "2.5rem",
+              justifyContent: "center", // Center items
+              alignItems: "flex-start",
+              flexWrap: "wrap", // Allow wrapping on mobile
+              gap: "2rem",
             }}
           >
-            {/* 1. CNC MACHINES */}
-            {/* Note: Ensure your Google Sheet uses keys: 'machines', 'shipped', 'tolerance', 'legacy' */}
             <StatItem value={metrics.machines} suffix="+" text="CNC Machines" live />
-            
-            {/* 2. COMPONENTS SHIPPED */}
             <StatItem value={metrics.shipped} suffix="+" text="Components Shipped" live />
-            
-            {/* 3. TOLERANCE */}
             <StatItem value={metrics.tolerance} suffix="µm" text="Tolerance" />
-            
-            {/* 4. LEGACY */}
             <StatItem value={metrics.legacy} suffix="Yrs" text="Legacy" />
           </div>
         </div>
