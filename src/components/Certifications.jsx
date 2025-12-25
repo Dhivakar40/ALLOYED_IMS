@@ -4,16 +4,18 @@ import { motion } from 'framer-motion';
 const certifications = [
     { 
         text: "ISO 9001:2015", 
-        metallic: "linear-gradient(135deg, #C0C0C0 0%, #E8E8E8 25%, #A8A8A8 50%, #FFFFFF 75%, #B8B8B8 100%)", // Silver
-        desc: "Quality Management",
-        icon: "✓",
+        metallic: "linear-gradient(135deg, #C0C0C0 0%, #E8E8E8 25%, #A8A8A8 50%, #FFFFFF 75%, #B8B8B8 100%)", 
+        desc: "Quality Management System",
+        // REPLACE THIS URL WITH YOUR ISO LOGO IMAGE PATH
+        img: "iso.png", 
         color: "#C0C0C0"
     },
     { 
-        text: "MSME", 
-        metallic: "linear-gradient(135deg, #0066CC 0%, #3399FF 25%, #007ACC 50%, #E6F3FF 75%, #0066CC 100%)", // Professional Blue
+        text: "MSME Registered", 
+        metallic: "linear-gradient(135deg, #0066CC 0%, #3399FF 25%, #007ACC 50%, #E6F3FF 75%, #0066CC 100%)", 
         desc: "Micro, Small & Medium Enterprises",
-        icon: "🏭",
+        // REPLACE THIS URL WITH YOUR MSME LOGO IMAGE PATH
+        img: "msme.png",
         color: "#0066CC"
     }
 ];
@@ -38,16 +40,14 @@ const CertLogo = ({ cert, index }) => (
         }}
         style={{
             position: 'relative',
-            padding: '2.5rem 2rem',
+            padding: '3rem 2rem', // Increased padding for better spacing
             color: '#FFFFFF',
             fontFamily: 'inherit',
-            fontWeight: '700',
-            fontSize: '1.4rem',
             cursor: 'pointer',
-            background: 'transparent',
+            background: 'rgba(255,255,255,0.02)', // Slight fill
             textAlign: 'center',
             minWidth: '280px',
-            borderRadius: '8px',
+            borderRadius: '16px', // Softer corners
             overflow: 'visible'
         }}
     >
@@ -55,12 +55,12 @@ const CertLogo = ({ cert, index }) => (
         <div style={{
             position: 'absolute',
             inset: 0,
-            border: '2px solid rgba(255,255,255,0.1)',
-            borderRadius: '8px',
+            border: '1px solid rgba(255,255,255,0.1)',
+            borderRadius: '16px',
             zIndex: 0
         }} />
 
-        {/* Animated Running Border - Top & Bottom */}
+        {/* Animated Running Border */}
         <motion.div
             animate={{
                 backgroundPosition: ['0% 0%', '200% 0%']
@@ -72,202 +72,116 @@ const CertLogo = ({ cert, index }) => (
             }}
             style={{
                 position: 'absolute',
-                inset: -2,
+                inset: -1,
                 background: `linear-gradient(90deg, transparent, transparent 30%, ${cert.color}, transparent 70%, transparent)`,
                 backgroundSize: '200% 100%',
                 WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
                 WebkitMaskComposite: 'xor',
                 maskComposite: 'exclude',
-                padding: '2px',
-                borderRadius: '8px',
-                opacity: 0.4,
+                padding: '1px',
+                borderRadius: '16px',
+                opacity: 0.5,
                 zIndex: 1,
                 pointerEvents: 'none'
             }}
         />
 
-        {/* Metallic Running Border on Hover */}
+        {/* Content Container */}
+        <div style={{ position: 'relative', zIndex: 10, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            
+            {/* --- LOGO IMAGE CONTAINER --- */}
+            <motion.div
+                variants={{
+                    initial: { scale: 1, filter: "brightness(1) drop-shadow(0 0 0px transparent)" },
+                    hover: { 
+                        scale: 1.1,
+                        filter: `brightness(1.1) drop-shadow(0 0 15px ${cert.color}60)`
+                    }
+                }}
+                transition={{ duration: 0.4 }}
+                style={{
+                    width: '120px', // Increased size
+                    height: '120px', // Increased size
+                    marginBottom: '1.5rem',
+                    position: 'relative',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    background: `radial-gradient(circle at center, ${cert.color}20 0%, transparent 70%)`, // Glow behind image
+                    borderRadius: '50%'
+                }}
+            >
+                <img 
+                    src={cert.img} 
+                    alt={cert.text}
+                    style={{
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'contain', // Keeps logo aspect ratio
+                        filter: 'drop-shadow(0 5px 5px rgba(0,0,0,0.5))'
+                    }}
+                />
+            </motion.div>
+
+            {/* Certification Text */}
+            <motion.h3
+                variants={{
+                    initial: { color: '#FFFFFF' },
+                    hover: { 
+                        color: cert.color, // Changes text color to match logo on hover
+                        textShadow: `0 0 20px ${cert.color}40`
+                    }
+                }}
+                transition={{ duration: 0.3 }}
+                style={{
+                    fontSize: '1.5rem',
+                    fontWeight: '800',
+                    letterSpacing: '0.05em',
+                    marginBottom: '0.5rem',
+                    margin: '0 0 0.5rem 0'
+                }}
+            >
+                {cert.text}
+            </motion.h3>
+
+            {/* Description */}
+            <motion.p
+                style={{
+                    fontSize: '0.9rem',
+                    fontWeight: '500',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.1em',
+                    color: '#888',
+                    margin: 0
+                }}
+            >
+                {cert.desc}
+            </motion.p>
+        </div>
+
+        {/* Background Hover Glow */}
         <motion.div
             variants={{
                 initial: { opacity: 0 },
                 hover: { opacity: 1 }
             }}
-            animate={{
-                backgroundPosition: ['0% 0%', '200% 0%']
-            }}
-            transition={{
-                opacity: { duration: 0.3 },
-                backgroundPosition: {
-                    duration: 2,
-                    repeat: Infinity,
-                    ease: 'linear'
-                }
-            }}
+            transition={{ duration: 0.5 }}
             style={{
                 position: 'absolute',
-                inset: -3,
-                background: cert.metallic,
-                backgroundSize: '200% 100%',
-                WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
-                WebkitMaskComposite: 'xor',
-                maskComposite: 'exclude',
-                padding: '3px',
-                borderRadius: '8px',
-                zIndex: 2,
-                pointerEvents: 'none',
-                boxShadow: `0 0 20px ${cert.color}60, inset 0 0 20px ${cert.color}40`
+                inset: 0,
+                background: `radial-gradient(circle at center, ${cert.color}15 0%, transparent 80%)`,
+                borderRadius: '16px',
+                zIndex: -1,
+                pointerEvents: 'none'
             }}
         />
-
-        {/* Rotating Border Chase Light */}
-        <motion.div
-            variants={{
-                hover: {
-                    rotate: 360,
-                    transition: {
-                        duration: 2,
-                        repeat: Infinity,
-                        ease: 'linear'
-                    }
-                }
-            }}
-            style={{
-                position: 'absolute',
-                inset: -4,
-                borderRadius: '8px',
-                background: `conic-gradient(from 0deg, transparent 0deg, ${cert.color} 90deg, transparent 180deg, transparent 360deg)`,
-                WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
-                WebkitMaskComposite: 'xor',
-                maskComposite: 'exclude',
-                padding: '4px',
-                opacity: 0,
-                zIndex: 3,
-                pointerEvents: 'none',
-                filter: `drop-shadow(0 0 10px ${cert.color})`
-            }}
-        >
-            <motion.div
-                variants={{
-                    initial: { opacity: 0 },
-                    hover: { opacity: 1 }
-                }}
-                transition={{ duration: 0.3 }}
-                style={{
-                    position: 'absolute',
-                    inset: 0
-                }}
-            />
-        </motion.div>
-
-        {/* Content */}
-        <div style={{ position: 'relative', zIndex: 10 }}>
-            {/* Icon */}
-            <motion.div
-                variants={{
-                    initial: { scale: 1, rotate: 0 },
-                    hover: { 
-                        scale: 1.2,
-                        rotate: 360
-                    }
-                }}
-                transition={{ duration: 0.6 }}
-                style={{
-                    fontSize: '3rem',
-                    marginBottom: '1rem',
-                    opacity: 0.4,
-                    filter: 'drop-shadow(0 0 8px rgba(255,255,255,0.3))'
-                }}
-            >
-                {cert.icon}
-            </motion.div>
-
-            {/* Certification Text with Metallic Effect */}
-            <motion.div
-                variants={{
-                    initial: { 
-                        color: '#FFFFFF'
-                    },
-                    hover: { 
-                        background: cert.metallic,
-                        WebkitBackgroundClip: 'text',
-                        WebkitTextFillColor: 'transparent',
-                        scale: 1.05,
-                        filter: `drop-shadow(0 0 15px ${cert.color}80)`
-                    }
-                }}
-                transition={{ duration: 0.4 }}
-                style={{
-                    letterSpacing: '0.05em',
-                    marginBottom: '0.75rem',
-                    backgroundSize: '200% 200%',
-                    fontWeight: '800'
-                }}
-            >
-                {cert.text}
-            </motion.div>
-
-            {/* Description */}
-            <motion.div
-                variants={{
-                    initial: { opacity: 0, height: 0 },
-                    hover: { 
-                        opacity: 1,
-                        height: 'auto',
-                        transition: { duration: 0.3 }
-                    }
-                }}
-                style={{
-                    fontSize: '0.85rem',
-                    fontWeight: '500',
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.15em',
-                    color: '#CCCCCC',
-                    overflow: 'hidden'
-                }}
-            >
-                {cert.desc}
-            </motion.div>
-
-            {/* Corner Glow Effects */}
-            <motion.div
-                variants={{
-                    hover: { opacity: 1 }
-                }}
-                style={{
-                    position: 'absolute',
-                    top: -20,
-                    right: -20,
-                    width: '40px',
-                    height: '40px',
-                    background: `radial-gradient(circle, ${cert.color}60, transparent 70%)`,
-                    opacity: 0,
-                    pointerEvents: 'none',
-                    filter: 'blur(10px)'
-                }}
-            />
-            <motion.div
-                variants={{
-                    hover: { opacity: 1 }
-                }}
-                style={{
-                    position: 'absolute',
-                    bottom: -20,
-                    left: -20,
-                    width: '40px',
-                    height: '40px',
-                    background: `radial-gradient(circle, ${cert.color}60, transparent 70%)`,
-                    opacity: 0,
-                    pointerEvents: 'none',
-                    filter: 'blur(10px)'
-                }}
-            />
-        </div>
     </motion.div>
 );
 
 export default function Certifications() {
     return (
         <section 
+            id="certifications"
             style={{ 
                 backgroundColor: '#0A0F1C',
                 padding: '120px 0',
@@ -288,18 +202,12 @@ export default function Certifications() {
             <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '0 60px', position: 'relative', zIndex: 1 }}>
                 
                 {/* Header */}
-                <motion.div 
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.8 }}
-                    style={{ textAlign: 'center', marginBottom: '80px' }}
-                >
+                <div style={{ textAlign: 'center', marginBottom: '80px' }}>
                     <motion.p 
                         initial={{ opacity: 0 }}
                         whileInView={{ opacity: 0.6 }}
                         viewport={{ once: true }}
-                        transition={{ duration: 0.8, delay: 0.2 }}
+                        transition={{ duration: 0.8 }}
                         style={{ 
                             textTransform: 'uppercase', 
                             letterSpacing: '0.3em', 
@@ -316,7 +224,7 @@ export default function Certifications() {
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        transition={{ duration: 0.8, delay: 0.3 }}
+                        transition={{ duration: 0.8, delay: 0.2 }}
                         style={{
                             fontSize: 'clamp(2.5rem, 5vw, 4rem)',
                             fontWeight: '700',
@@ -328,49 +236,31 @@ export default function Certifications() {
                         Industry Certifications
                     </motion.h2>
 
-                    <motion.div
-                        initial={{ scaleX: 0 }}
-                        whileInView={{ scaleX: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 1, delay: 0.5 }}
-                        style={{
-                            position: 'relative',
-                            width: '100px',
-                            height: '3px',
-                            margin: '2rem auto 0',
-                            transformOrigin: 'center',
-                            overflow: 'hidden',
-                            background: 'rgba(255,255,255,0.1)'
-                        }}
-                    >
-                        {/* Running color through line - Updated for 2 certifications */}
-                        <motion.div
-                            animate={{
-                                x: ['-100%', '200%']
-                            }}
-                            transition={{
-                                duration: 2,
-                                repeat: Infinity,
-                                ease: 'linear'
-                            }}
+                    <div style={{
+                        width: '100px',
+                        height: '3px',
+                        background: 'rgba(255,255,255,0.1)',
+                        margin: '2rem auto',
+                        position: 'relative',
+                        overflow: 'hidden'
+                    }}>
+                        <motion.div 
+                            animate={{ x: ['-100%', '100%'] }}
+                            transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
                             style={{
-                                position: 'absolute',
-                                top: 0,
-                                left: 0,
-                                width: '50%',
-                                height: '100%',
-                                background: 'linear-gradient(90deg, transparent, #C0C0C0, #0066CC, transparent)'
+                                position: 'absolute', inset: 0,
+                                background: 'linear-gradient(90deg, transparent, #FFFFFF, transparent)'
                             }}
                         />
-                    </motion.div>
-                </motion.div>
+                    </div>
+                </div>
 
-                {/* Certifications Grid - Now 2-column perfect alignment */}
+                {/* Certifications Grid */}
                 <div style={{
                     display: 'grid',
-                    gridTemplateColumns: 'repeat(2, 1fr)',
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
                     gap: '40px',
-                    maxWidth: '620px',
+                    maxWidth: '800px', // Constrained width to keep them centered
                     margin: '0 auto',
                     justifyItems: 'center'
                 }}>
@@ -379,65 +269,38 @@ export default function Certifications() {
                     ))}
                 </div>
 
-                {/* Additional Info with Running Border */}
+                {/* --- BOTTOM TEXT WITH GLOW FRAME --- */}
                 <motion.div
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.8, delay: 0.6 }}
+                    transition={{ duration: 0.8, delay: 0.4 }}
                     style={{
-                        textAlign: 'center',
-                        marginTop: '80px',
-                        padding: '40px',
-                        background: 'transparent',
-                        borderRadius: '8px',
-                        position: 'relative'
+                        marginTop: '70px',
+                        maxWidth: '800px',
+                        marginInline: 'auto',
+                        padding: '30px 40px',
+                        // Subtle metallic blue/silver border
+                        border: '1px solid rgba(100, 150, 255, 0.2)', 
+                        borderRadius: '20px',
+                        // The glow effect: Outer blueish glow + subtle inner glow
+                        boxShadow: '0 0 30px -5px rgba(0, 102, 204, 0.25), inset 0 0 20px -10px rgba(0, 102, 204, 0.15)',
+                        // Very slight dark tint background to make it feel solid
+                        background: 'rgba(0, 10, 30, 0.3)', 
+                        position: 'relative',
                     }}
                 >
-                    {/* Static border */}
-                    <div style={{
-                        position: 'absolute',
-                        inset: 0,
-                        border: '1px solid rgba(255,255,255,0.1)',
-                        borderRadius: '8px'
-                    }} />
-
-                    {/* Running border - Updated colors */}
-                    <motion.div
-                        animate={{
-                            backgroundPosition: ['0% 0%', '200% 0%']
-                        }}
-                        transition={{
-                            duration: 4,
-                            repeat: Infinity,
-                            ease: 'linear'
-                        }}
-                        style={{
-                            position: 'absolute',
-                            inset: -2,
-                            background: 'linear-gradient(90deg, transparent, transparent 40%, #C0C0C0, #0066CC, transparent 60%, transparent)',
-                            backgroundSize: '200% 100%',
-                            WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
-                            WebkitMaskComposite: 'xor',
-                            maskComposite: 'exclude',
-                            padding: '2px',
-                            borderRadius: '8px',
-                            opacity: 0.6
-                        }}
-                    />
-                    
                     <p style={{
-                        fontSize: '1.1rem',
-                        lineHeight: '1.8',
-                        color: '#CCCCCC',
-                        maxWidth: '800px',
-                        margin: '0 auto',
-                        fontWeight: '300',
-                        position: 'relative',
-                        zIndex: 1
+                        textAlign: 'center',
+                        fontSize: '1.25rem',
+                        lineHeight: '1.7',
+                        // Slightly brighter text inside the frame
+                        color: '#E0E0E0', 
+                        margin: 0,
+                        fontWeight: '400',
+                        letterSpacing: '0.02em'
                     }}>
-                        Our commitment to excellence is validated through rigorous international standards. 
-                        Every process is audited, every component traceable, ensuring aerospace-grade quality across all sectors.
+                        Our commitment to excellence is validated through rigorous international standards, ensuring aerospace-grade quality across all sectors.
                     </p>
                 </motion.div>
             </div>

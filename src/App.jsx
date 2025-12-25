@@ -43,10 +43,10 @@ function App() {
 
       <main>
         <Hero />
-        <Metrics />
         <About />
         <Services />
         <Portfolio />
+        <Metrics />
         <Certifications />
         <Contact />
       </main>

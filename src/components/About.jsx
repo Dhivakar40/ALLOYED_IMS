@@ -12,19 +12,6 @@ export default function About() {
 
                 {/* --- LEFT SIDE: TEXT --- */}
                 <div className="about-text" style={{ flex: '1 1 300px' }}>
-                    <div className="reveal-text">
-                        <span style={{ 
-                            fontSize: '0.9rem', 
-                            textTransform: 'uppercase', 
-                            letterSpacing: '0.2em', 
-                            marginBottom: '1rem', 
-                            opacity: 0.6, 
-                            color: 'var(--color-accent)', 
-                            display: 'block' 
-                        }}>
-                            About Us
-                        </span>
-                    </div>
 
                     <h2>
                         <div className="reveal-text"><span style={{ transitionDelay: '0.1s' }}>Precision is</span></div>

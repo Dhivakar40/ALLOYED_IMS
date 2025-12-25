@@ -70,7 +70,7 @@ export default function Portfolio() {
 
   return (
     <section
-      id="capabilities"
+      id="portfolio"
       style={{
         backgroundColor: '#0F1115',
         color: '#FFFFFF',
@@ -122,7 +122,7 @@ export default function Portfolio() {
         layout
         style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(380px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
           gap: '30px',
           padding: '0 20px',
           maxWidth: '1400px',

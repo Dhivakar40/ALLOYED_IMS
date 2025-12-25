@@ -57,11 +57,12 @@ export default function RoboticClaw({ startAnimation }) {
     // FIX 1: Set explicit 100% width/height so it respects the parent container in Hero.jsx strictly
     <div style={{ width: '100%', height: '100%' }}>
       <Canvas
-        dpr={[1, 2]}
+        dpr={[1, 1.5]}
         // FIX 2: Prevent Canvas from recalculating on scroll events
+        performance={{ min: 0.5 }}
         resize={{ scroll: false }}
         camera={{ position: [4, 2, 8], fov: 45 }}
-        gl={{ antialias: true, alpha: true }}
+        gl={{ antialias: false, powerPreference: "high-performance" }}
       >
         <ambientLight intensity={1} />
         <directionalLight position={[5, 10, 5]} intensity={2} />

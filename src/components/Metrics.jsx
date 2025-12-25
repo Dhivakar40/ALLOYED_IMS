@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 
-/* ---------------- SLOT DIGIT ---------------- */
+// --- CONFIGURATION ---
+const SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRKJwf4jetoCtkbDfjaPqDS_aAwBfZkP0wY3F9Nst9IGxqME3XILukM4NuI5IgzBZyW7-ijF2zoIgJv/pub?output=csv";
 
+/* ---------------- SLOT DIGIT (Unchanged) ---------------- */
 const SlotDigit = ({ digit }) => {
   const DIGIT_HEIGHT = 48;
 
@@ -20,7 +22,7 @@ const SlotDigit = ({ digit }) => {
           transition: "transform 1.4s cubic-bezier(0.25, 0.8, 0.25, 1)",
         }}
       >
-        {[0,1,2,3,4,5,6,7,8,9].map((n) => (
+        {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((n) => (
           <div
             key={n}
             style={{
@@ -40,10 +42,11 @@ const SlotDigit = ({ digit }) => {
   );
 };
 
-/* ---------------- SLOT NUMBER ---------------- */
-
+/* ---------------- SLOT NUMBER (Unchanged) ---------------- */
 const SlotNumber = ({ value }) => {
-  const digits = Math.floor(value).toString().split("").map(Number);
+  // Ensure we always have a valid number to split
+  const safeValue = Math.floor(value || 0);
+  const digits = safeValue.toString().split("").map(Number);
 
   return (
     <div style={{ display: "flex" }}>
@@ -54,24 +57,8 @@ const SlotNumber = ({ value }) => {
   );
 };
 
-/* ---------------- LIVE SLOT COUNTER ---------------- */
-
-const LiveSlotCounter = ({ start, suffix, live }) => {
-  const [value, setValue] = useState(start);
-
-  useEffect(() => {
-    if (!live) return;
-
-    let current = start;
-
-    const interval = setInterval(() => {
-      current += Math.random() * 3 + 1;
-      setValue(current);
-    }, 1800);
-
-    return () => clearInterval(interval);
-  }, [live, start]);
-
+/* ---------------- LIVE SLOT COUNTER (Updated logic, same look) ---------------- */
+const LiveSlotCounter = ({ value, suffix }) => {
   return (
     <div style={{ display: "flex", alignItems: "flex-end" }}>
       <SlotNumber value={value} />
@@ -88,9 +75,8 @@ const LiveSlotCounter = ({ start, suffix, live }) => {
   );
 };
 
-/* ---------------- STAT ITEM ---------------- */
-
-const StatItem = ({ start, suffix, text, live }) => (
+/* ---------------- STAT ITEM (Unchanged layout) ---------------- */
+const StatItem = ({ value, suffix, text, live }) => (
   <div
     style={{
       textAlign: "center",
@@ -101,7 +87,7 @@ const StatItem = ({ start, suffix, text, live }) => (
       alignItems: "center",
     }}
   >
-    <LiveSlotCounter start={start} suffix={suffix} live={live} />
+    <LiveSlotCounter value={value} suffix={suffix} />
 
     {/* LARGE LABEL */}
     <p
@@ -156,10 +142,67 @@ const StatItem = ({ start, suffix, text, live }) => (
 );
 
 /* ---------------- MAIN ---------------- */
-
 export default function Metrics() {
+  // Default Initial State
+  const [metrics, setMetrics] = useState({
+    machines: 50,
+    shipped: 9800000,
+    tolerance: 2,
+    legacy: 35
+  });
+
+  // Fetch Google Sheet Data on Mount
+ useEffect(() => {
+    const fetchMetrics = async () => {
+      try {
+        // TRICK: We add ?t=Timestamp to force the browser to get a fresh version
+        // This stops your browser from 'remembering' old numbers.
+        const cacheBuster = new Date().getTime();
+        const response = await fetch(`${SHEET_URL}&t=${cacheBuster}`);
+        const text = await response.text();
+        
+        console.log("Raw CSV Data:", text); // Check your console to see what arrives!
+
+        // ROBUST PARSING: Handles Windows (\r\n) and Mac (\n) line breaks
+        const rows = text.split(/\r?\n/);
+        const newMetrics = { ...metrics };
+
+        rows.forEach(row => {
+          // Split by comma
+          const parts = row.split(',');
+          // We assume Column A is Key, Column B is Value
+          if (parts.length >= 2) {
+            const key = parts[0].trim().toLowerCase();
+            // If the value has commas (e.g. "9,000"), remove them
+            const valString = parts[1].replace(/,/g, '').trim(); 
+            const val = parseFloat(valString);
+            
+            if (!isNaN(val)) {
+               newMetrics[cleanKey(key)] = val;
+            }
+          }
+        });
+
+        setMetrics(newMetrics);
+      } catch (error) {
+        console.error("Error fetching metrics:", error);
+      }
+    };
+
+    fetchMetrics();
+  }, []);
+
+  // Helper to map sheet keys to state keys (just in case of typos)
+  const cleanKey = (key) => {
+      if(key.includes('machine')) return 'machines';
+      if(key.includes('shipped')) return 'shipped';
+      if(key.includes('legacy')) return 'legacy';
+      if(key.includes('tolerance')) return 'tolerance';
+      return key;
+  };
   return (
     <section
+      id="metrics"
       className="section-padding"
       style={{
         background: "var(--color-bg)",
@@ -220,10 +263,18 @@ export default function Metrics() {
               gap: "2.5rem",
             }}
           >
-            <StatItem start={50} suffix="+" text="CNC Machines" live />
-            <StatItem start={9800000} suffix="+" text="Components Shipped" live />
-            <StatItem start={2} suffix="µm" text="Tolerance" />
-            <StatItem start={35} suffix="Yrs" text="Legacy" />
+            {/* 1. CNC MACHINES */}
+            {/* Note: Ensure your Google Sheet uses keys: 'machines', 'shipped', 'tolerance', 'legacy' */}
+            <StatItem value={metrics.machines} suffix="+" text="CNC Machines" live />
+            
+            {/* 2. COMPONENTS SHIPPED */}
+            <StatItem value={metrics.shipped} suffix="+" text="Components Shipped" live />
+            
+            {/* 3. TOLERANCE */}
+            <StatItem value={metrics.tolerance} suffix="µm" text="Tolerance" />
+            
+            {/* 4. LEGACY */}
+            <StatItem value={metrics.legacy} suffix="Yrs" text="Legacy" />
           </div>
         </div>
 

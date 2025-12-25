@@ -1,14 +1,13 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
-// 1. DATA - UPDATED FOR CLIENT INDUSTRIES
+// 1. DATA - UPDATED TO 6 ITEMS FOR SYMMETRY
 const capabilities = [
     {
         id: "01",
         title: "Automotive Precision",
         tags: ["Engine Blocks", "Transmission", "Chassis", "EV Systems"],
-        desc: "Driving the future of mobility. We manufacture high-tolerance components for internal combustion and electric vehicles, ensuring performance at every turn.",
-        // Image: A close up of a high-performance car engine/mechanics
+        desc: "Driving the future of mobility. We manufacture high-tolerance components for internal combustion and electric vehicles.",
         image: "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?q=80&w=2072&auto=format&fit=crop" 
     },
     {
@@ -16,24 +15,37 @@ const capabilities = [
         title: "Aerospace Systems",
         tags: ["Turbine Blades", "Avionics Housing", "Landing Gear", "Structural"],
         desc: "Flight-critical engineering. Our components meet the rigorous safety and precision standards required for commercial aviation and defense sectors.",
-        // Image: Jet engine turbine details
-        image: "./flight.jpeg" 
+        image: "flight.jpeg" 
     },
     {
         id: "03",
         title: "Locomotive & Rail",
         tags: ["Wheel Sets", "Braking Systems", "Heavy Suspension", "Couplers"],
-        desc: "Keeping the world moving. We machine heavy-duty, durable parts designed to withstand the extreme loads and long-haul demands of the rail industry.",
-        // Image: Industrial train/rail mechanical context
-        image: "./train.png" 
+        desc: "We manufacture heavy-duty, durable parts designed to withstand the extreme loads and long-haul demands of the rail industry.",
+        image: "train.png" 
     },
     {
         id: "04",
         title: "Energy & Petrochemical",
         tags: ["High-Pressure Valves", "Drilling Rigs", "Pipeline", "Offshore"],
         desc: "Powering global infrastructure. We deliver corrosion-resistant, pressure-tested components built to survive the harshest oil and gas environments.",
-        // Image: Industrial refinery/piping
-        image: "./oil.png" 
+        image: "oil.png" 
+    },
+    // --- NEW ITEM 5 ---
+    {
+        id: "05",
+        title: "Medical Robotics",
+        tags: ["Surgical Arms", "Implants", "Micro-Gears", "Bio-Compatible"],
+        desc: "Precision that saves lives. We fabricate ultra-precise, sterile-ready components for next-generation surgical robots and medical devices.",
+        image: "med.png"
+    },
+    // --- NEW ITEM 6 ---
+    {
+        id: "06",
+        title: "Defense & Marine",
+        tags: ["Naval Shafts", "Armor Plating", "Sonar Casings", "Ballistics"],
+        desc: "Mission-ready hardware. We provide heavy-gauge, element-resistant manufacturing for naval fleets and tactical defense systems.",
+        image: "marine.png"
     }
 ];
 
@@ -42,7 +54,7 @@ const materials = "ALUMINUM 6061 • STAINLESS STEEL 304 • TITANIUM • INCONE
 export default function Services() {
     return (
         <section 
-            id="services" 
+            id="sectors" 
             style={{ 
                 backgroundColor: '#0F1115', 
                 color: '#FFFFFF', 
@@ -97,21 +109,21 @@ export default function Services() {
                         textTransform: 'uppercase',
                         marginBottom: '20px'
                     }}>
-                        {/* CHANGED TITLE TO FIT NEW SCOPE */}
                         Industries <br /> We Power.
                     </h2>
                     <p style={{ maxWidth: '600px', color: '#A0A0A0', lineHeight: '1.6', fontSize: '1.1rem' }}>
-                        {/* CHANGED TAGLINE TO FIT NEW SCOPE */}
                         From the tarmac to the tracks, we provide the hardware backbone for the world's most critical sectors.
                     </p>
                 </div>
 
-                {/* --- 2-COLUMN GRID CONTAINER --- */}
+                {/* --- GRID CONTAINER --- */}
                 <div style={{
                     display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fit, minmax(600px, 1fr))', 
+                    // Using 300px min width ensures 3 columns on desktop, 2 on tablet, 1 on mobile
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', 
                     gap: '60px', 
-                    width: '100%'
+                    width: '100%',
+                    alignItems: 'start' 
                 }}>
                     {capabilities.map((service, i) => (
                         <motion.div 
@@ -170,7 +182,7 @@ export default function Services() {
                                 </p>
                             </div>
 
-                            {/* BIGGER FRAME IMAGE (450px Height) */}
+                            {/* FRAME IMAGE */}
                             <motion.div 
                                 variants={{
                                     initial: { 
@@ -202,7 +214,7 @@ export default function Services() {
                                     alt={service.title}
                                     variants={{
                                         initial: { scale: 1 }, 
-                                        hover: { scale: 1.05 } // Simple zoom only
+                                        hover: { scale: 1.05 }
                                     }}
                                     transition={{ duration: 0.4 }}
                                     style={{ 
