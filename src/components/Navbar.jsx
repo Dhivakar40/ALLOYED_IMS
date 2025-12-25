@@ -35,7 +35,7 @@ export default function Navbar() {
   // 3. Smooth Scroll Logic
   const scrollToSection = (e, targetId) => {
     e.preventDefault(); 
-    setMenuOpen(false); // Close mobile menu if open
+    setMenuOpen(false); // Close menu when link clicked
     
     const element = document.getElementById(targetId);
     
@@ -65,7 +65,7 @@ export default function Navbar() {
           top: 0,
           left: 0,
           width: '100%',
-          zIndex: 100, // Main Navbar Z-Index
+          zIndex: 100, 
           padding: isScrolled ? '15px 20px' : '25px 40px',
           background: isScrolled ? 'rgba(15, 17, 21, 0.9)' : 'transparent', 
           backdropFilter: isScrolled ? 'blur(10px)' : 'none',
@@ -85,7 +85,7 @@ export default function Navbar() {
             flexDirection: 'column', 
             justifyContent: 'center',
             lineHeight: '1',
-            zIndex: 200 // High Z-Index to stay above mobile menu
+            zIndex: 201 
           }}
         >
           <h1 style={{
@@ -122,13 +122,12 @@ export default function Navbar() {
             gap: '30px', 
             listStyle: 'none', 
             margin: 0, 
-            // --- NEW FRAME STYLING ---
-            padding: '12px 35px', // Padding inside the frame
-            border: '1px solid rgba(255,255,255,0.15)', // Very light visible border
-            borderRadius: '50px', // Pill shape
-            backgroundColor: 'rgba(255,255,255,0.03)', // Subtle background tint
-            backdropFilter: 'blur(5px)', // Slight blur inside the frame
-            boxShadow: '0 4px 20px rgba(0,0,0,0.1)' // Subtle shadow for depth
+            padding: '12px 35px', 
+            border: '1px solid rgba(255,255,255,0.15)', 
+            borderRadius: '50px', 
+            backgroundColor: 'rgba(255,255,255,0.03)', 
+            backdropFilter: 'blur(5px)',
+            boxShadow: '0 4px 20px rgba(0,0,0,0.1)'
           }}>
             {NAV_ITEMS.map((item) => (
               <li key={item.label} style={{ position: 'relative' }}>
@@ -159,7 +158,7 @@ export default function Navbar() {
                       bottom: 0,
                       left: '50%',
                       transform: 'translateX(-50%)',
-                      width: '0%', // Starts invisible
+                      width: '0%',
                       height: '2px',
                       backgroundColor: '#FFFFFF',
                       transition: 'width 0.3s ease-out'
@@ -202,17 +201,17 @@ export default function Navbar() {
           </button>
         )}
 
-        {/* --- MOBILE HAMBURGER / CLOSE BUTTON --- */}
-        {isMobile && (
+        {/* --- MOBILE HAMBURGER BUTTON (Visible only when menu is CLOSED) --- */}
+        {isMobile && !menuOpen && (
           <button 
-            onClick={() => setMenuOpen(!menuOpen)}
+            onClick={() => setMenuOpen(true)}
             style={{
               background: 'transparent',
               border: 'none',
               color: '#FFF',
               fontSize: '1.8rem',
               cursor: 'pointer',
-              zIndex: 200, // CRITICAL: This keeps it ON TOP of the overlay
+              zIndex: 202, 
               padding: '10px',
               display: 'flex',
               alignItems: 'center',
@@ -221,8 +220,7 @@ export default function Navbar() {
               height: '50px'
             }}
           >
-            {/* Toggle between Menu Icon and X Icon */}
-            {menuOpen ? '✕' : '☰'}
+            ☰
           </button>
         )}
       </motion.nav>
@@ -231,7 +229,7 @@ export default function Navbar() {
       <AnimatePresence>
         {isMobile && menuOpen && (
           <motion.div
-            initial={{ opacity: 0, x: "100%" }} // Slides in from right
+            initial={{ opacity: 0, x: "100%" }} 
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: "100%" }}
             transition={{ type: "spring", stiffness: 300, damping: 30 }}
@@ -242,7 +240,7 @@ export default function Navbar() {
               width: '100vw',
               height: '100vh',
               backgroundColor: '#0F1115', 
-              zIndex: 150, // Below the X button (200) but above everything else
+              zIndex: 190, 
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'center',
@@ -250,6 +248,29 @@ export default function Navbar() {
               gap: '2rem'
             }}
           >
+            {/* --- CLOSE BUTTON INSIDE THE MENU --- */}
+            <button 
+              onClick={() => setMenuOpen(false)}
+              style={{
+                position: 'absolute',
+                top: '30px',
+                right: '30px',
+                background: 'transparent',
+                border: '1px solid rgba(255,255,255,0.2)',
+                borderRadius: '50%',
+                color: '#FFF',
+                fontSize: '1.2rem',
+                cursor: 'pointer',
+                width: '50px',
+                height: '50px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}
+            >
+              ✕
+            </button>
+
             {NAV_ITEMS.map((item) => (
               <a 
                 key={item.label}
