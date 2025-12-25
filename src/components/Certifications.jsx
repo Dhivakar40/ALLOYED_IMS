@@ -16,7 +16,7 @@ const certifications = [
         desc: "Micro, Small & Medium Enterprises",
         // REPLACE THIS URL WITH YOUR MSME LOGO IMAGE PATH
         img: "msme.png",
-        color: "#0066CC"
+        color: "#C0C0C0"
     }
 ];
 

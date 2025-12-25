@@ -62,7 +62,7 @@ export default function Services() {
             style={{ 
                 backgroundColor: '#0F1115', 
                 color: '#FFFFFF', 
-                position: 'relative',
+                position: 'relative', 
                 paddingBottom: '100px',
                 minHeight: '100vh' 
             }}
@@ -128,15 +128,17 @@ export default function Services() {
                     width: '100%',
                     alignItems: 'start' 
                 }}>
-                    <AnimatePresence mode='popLayout'>
+                    {/* CHANGED: Removed mode='popLayout' for smoother layout slide */}
+                    <AnimatePresence initial={false}>
                         {visibleCapabilities.map((service, i) => (
                             <motion.div 
                                 layout
                                 key={service.id} 
-                                initial={{ opacity: 0, y: 20 }}
+                                initial={{ opacity: 0, y: 50 }} // Increased distance for effect
                                 animate={{ opacity: 1, y: 0 }}
-                                exit={{ opacity: 0, scale: 0.9 }}
-                                transition={{ duration: 0.4 }}
+                                exit={{ opacity: 0, scale: 0.95, transition: { duration: 0.5 } }} // Smoother exit
+                                // CHANGED: Increased duration and used a smooth ease curve
+                                transition={{ duration: 0.8, ease: [0.04, 0.62, 0.23, 0.98] }}
                                 whileHover="hover" 
                                 style={{ 
                                     position: 'relative',

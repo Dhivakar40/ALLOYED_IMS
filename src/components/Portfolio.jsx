@@ -7,11 +7,10 @@ const projects = [
     id: 1,
     title: "Aerospace Impellers", 
     industry: "AEROSPACE",
-    // The "Bread & Butter" Service
     process: "5-Axis CNC Milling", 
     material: "Titanium Grade 5",
     specs: "Tolerance: +/- 0.002mm | Surface: Polished",
-    img: "./propeller.png"
+    img: "https://images.unsplash.com/photo-1580674285054-bed31e145f59?q=80&w=2070&auto=format&fit=crop" // Replaced placeholder
   },
   { 
     id: 2,
@@ -20,7 +19,7 @@ const projects = [
     process: "MIG & TIG Welding",
     material: "Structural Steel",
     specs: "Certified: AWS D1.1 | NDT Tested",
-    img: "./weldings.png"
+    img: "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?q=80&w=2070&auto=format&fit=crop" // Replaced placeholder
   },
   { 
     id: 3,
@@ -29,7 +28,7 @@ const projects = [
     process: "CNC Turning (Lathe)",
     material: "Hardened Steel 4140",
     specs: "Concentricity: 0.01mm | High Volume",
-    img: "./shafts.png"
+    img: "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=2069&auto=format&fit=crop" // Replaced placeholder
   },
   { 
     id: 4,
@@ -38,7 +37,7 @@ const projects = [
     process: "Laser Cutting & Folding",
     material: "Aluminum 5052",
     specs: "Complex Bend Radii | Powder Coated",
-    img: "./laser_cutting.png"
+    img: "https://images.unsplash.com/photo-1565514020176-db99c857e231?q=80&w=2070&auto=format&fit=crop" // Replaced placeholder
   },
   { 
     id: 5,
@@ -47,7 +46,7 @@ const projects = [
     process: "High-Pressure Die Casting",
     material: "Aluminum Alloy",
     specs: "Mold Life: 100k Shots | Porosity Free",
-    img: "./dies_casting.png"
+    img: "https://images.unsplash.com/photo-1517976487492-5750f3195933?q=80&w=2070&auto=format&fit=crop" // Replaced placeholder
   },
   { 
     id: 6,
@@ -56,7 +55,7 @@ const projects = [
     process: "Heat Treatment & Hardening",
     material: "Carbon Steel",
     specs: "Hardness: 58-62 HRC | Carburized",
-    img: "./industrial_gears.png"
+    img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop" // Replaced placeholder
   }
 ];
 
@@ -118,8 +117,7 @@ export default function Portfolio() {
       </div>
 
       {/* --- GRID LAYOUT --- */}
-      <motion.div
-        layout
+      <div
         style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
@@ -129,15 +127,15 @@ export default function Portfolio() {
           margin: '0 auto'
         }}
       >
-        <AnimatePresence mode='popLayout'>
+        <AnimatePresence initial={false}>
           {visibleProjects.map((project) => (
             <motion.div
               layout
               key={project.id}
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.9 }}
-              transition={{ duration: 0.5, ease: [0.25, 1, 0.5, 1] }}
+              exit={{ opacity: 0, scale: 0.95, transition: { duration: 0.5 } }} // Smooth exit
+              transition={{ duration: 0.8, ease: [0.04, 0.62, 0.23, 0.98] }} // Smooth ease
               
               onMouseEnter={() => setHoveredId(project.id)}
               onMouseLeave={() => setHoveredId(null)}
@@ -148,7 +146,7 @@ export default function Portfolio() {
                 borderRadius: '6px',
                 overflow: 'hidden',
                 cursor: 'pointer',
-                backgroundColor: '#151515', // Fallback color
+                backgroundColor: '#151515',
                 border: '1px solid #333'
               }}
             >
@@ -228,7 +226,7 @@ export default function Portfolio() {
                              <div style={{ 
                                  width: '8px', 
                                  height: '8px', 
-                                 background: '#00ffcc', // Cyan accent
+                                 background: '#00ffcc', 
                                  borderRadius: '50%',
                                  boxShadow: '0 0 8px #00ffcc'
                              }}></div>
@@ -238,7 +236,7 @@ export default function Portfolio() {
                                  letterSpacing: '0.05em',
                                  fontSize: '1rem'
                              }}>
-                                {project.process}
+                                 {project.process}
                              </span>
                           </div>
 
@@ -255,7 +253,7 @@ export default function Portfolio() {
             </motion.div>
           ))}
         </AnimatePresence>
-      </motion.div>
+      </div>
 
       {/* --- EXPAND BUTTON --- */}
       <div style={{ textAlign: 'center', marginTop: '60px' }}>
@@ -279,6 +277,7 @@ export default function Portfolio() {
           {showAll ? 'View Less Capabilities' : 'View Full Capability List'}
         </motion.button>
       </div>
+
     </section>
   );
 }

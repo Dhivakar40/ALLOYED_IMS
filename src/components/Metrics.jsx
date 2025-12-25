@@ -6,10 +6,10 @@ const SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRKJwf4jetoCt
 
 // Fallback values
 const INITIAL_STATE = {
-  machines: 50,
-  shipped: 9800000,
+  machines: 30,
+  shipped: 900,
   tolerance: 2,
-  legacy: 35
+  legacy: 10
 };
 
 /* ---------------- SLOT DIGIT ---------------- */
@@ -263,7 +263,7 @@ export default function Metrics() {
           >
             <StatItem value={metrics.machines} suffix="+" text="CNC Machines" live />
             <StatItem value={metrics.shipped} suffix="+" text="Components Shipped" live />
-            <StatItem value={metrics.tolerance} suffix="µm" text="Tolerance" />
+            <StatItem value={metrics.tolerance} suffix="+" text="Certifications" />
             <StatItem value={metrics.legacy} suffix="Yrs" text="Legacy" />
           </div>
         </div>
