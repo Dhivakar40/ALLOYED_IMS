@@ -10,6 +10,7 @@ import Certifications from './components/Certifications';
 
 import Portfolio from './components/Portfolio';
 import Contact from './components/Contact';
+import Footer from './components/Footer';
 
 function App() {
   useEffect(() => {
@@ -49,6 +50,7 @@ function App() {
         <Metrics />
         <Certifications />
         <Contact />
+        <Footer />
       </main>
     </div>
   );
