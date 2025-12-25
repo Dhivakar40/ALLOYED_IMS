@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { motion } from 'framer-motion';
-import RoboticClaw from './RoboticClaw';
+import RoboticClaw from './RoboticClaw'; // Ensure this path is correct
 
 const IMAGES = [
   "https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?q=80&w=2070&auto=format&fit=crop", 
@@ -14,22 +14,27 @@ export default function Hero() {
   const [showSpark, setShowSpark] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false); // New loading state
 
-  // 1. Mobile Detection Logic
+  // 1. Mobile Detection
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
     window.addEventListener('resize', checkMobile);
-    checkMobile(); // Run once on mount
+    checkMobile(); 
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // 2. Trigger Main Animation
+  // 2. Wait for page load, then start animation
   useEffect(() => {
-    const timer = setTimeout(() => { setStartAnimation(true); }, 500); 
+    // We add a small delay to ensure the 3D canvas has mounted
+    const timer = setTimeout(() => { 
+        setIsLoaded(true);
+        setStartAnimation(true); 
+    }, 1000); 
     return () => clearTimeout(timer);
   }, []);
 
-  // 3. Trigger Spark (Only if not mobile, to save resources)
+  // 3. Spark Trigger
   useEffect(() => {
     if (startAnimation && !isMobile) {
         const sparkTimer = setTimeout(() => { setShowSpark(true); }, 3200);
@@ -53,8 +58,9 @@ export default function Hero() {
     return "inactive";
   };
 
-  // Responsive Font Size
-  const titleFontSize = isMobile ? '3rem' : 'clamp(3rem, 50vw, 7rem)';
+  // FIX: This was breaking the layout. 
+  // On mobile we use a fixed size, on desktop we use clamp.
+  const titleFontSize = isMobile ? '3rem' : 'clamp(3rem, 6vw, 7rem)';
 
   return (
     <section 
@@ -93,24 +99,26 @@ export default function Hero() {
         zIndex: 10, 
         height: '100%', 
         width: '100%',
-        overflow: 'hidden', // Prevent scrollbars from animations
+        overflow: 'visible', 
         pointerEvents: 'none',
       }}>
         
         {/* MAIN MOVING CONTAINER */}
         <motion.div
           style={{
-            textAlign: isMobile ? 'center' : 'left', // Center text on mobile
+            textAlign: isMobile ? 'center' : 'left',
             width: 'fit-content', 
             height: 'fit-content',
             pointerEvents: 'auto',
             position: 'absolute', 
             top: '50%', 
-            left: '50%', // Always pivot from center
+            left: '50%', 
+            // Fix for visual centering on mobile
+            maxWidth: '100%',
+            padding: '0 20px', 
           }}
           initial={{ x: "-50%", y: "-50%", scale: 1.3 }} 
           animate={{ 
-            // Mobile: Stay centered. Desktop: Slide left.
             left: isMobile ? "50%" : (startAnimation ? "10%" : "50%"), 
             x: isMobile ? "-50%" : (startAnimation ? "0%" : "-50%"), 
             y: "-50%",
@@ -146,7 +154,6 @@ export default function Hero() {
             {/* --- WELDING SPARK (Hidden on Mobile) --- */}
             {!isMobile && (
               <motion.div
-                  initial={{ opacity: 0 }} 
                   animate={{ 
                       opacity: showSpark ? [1, 0.3, 1, 0.1, 0.8, 1, 0.2] : 0, 
                       scale: showSpark ? [1, 1.4, 0.9, 1.2, 0.8, 1.3] : 1 
@@ -187,7 +194,7 @@ export default function Hero() {
               <p style={{ 
                 fontFamily: '"Manrope", sans-serif', 
                 letterSpacing: '0.2em', 
-                fontSize: isMobile ? '1rem' : '1.5rem', // Smaller on mobile
+                fontSize: isMobile ? '1rem' : '1.5rem', 
                 fontWeight: '600',
                 margin: 0,
                 color: '#A0A0A0'
@@ -196,28 +203,26 @@ export default function Hero() {
               </p>
             </motion.div>
 
-            {/* 3. THE 3D MODEL (Responsive Positioning) */}
+            {/* 3. THE 3D MODEL */}
+            {/* Added Suspense to prevent crashing if model loads slow */}
             <motion.div
               initial={{ opacity: 0, x: 50 }}
               animate={{ opacity: startAnimation ? 1 : 0, x: startAnimation ? 0 : 50 }}
               transition={{ delay: 2.0, duration: 1 }}
               style={{
                 position: 'absolute',
-                // DESKTOP: Right side (-65px)
-                // MOBILE: Centered at bottom (50% right, translated)
                 right: isMobile ? '50%' : '-65px', 
-                top: isMobile ? '110%' : '-20px', // Pushed down below text on mobile
+                top: isMobile ? '110%' : '-20px', 
                 transform: isMobile ? 'translateX(50%)' : 'none', 
-                
-                // Slightly smaller model on mobile
                 height: isMobile ? '280px' : '350px',
                 width: isMobile ? '280px' : '350px',
-                
                 zIndex: 20, 
                 pointerEvents: 'none',
               }}
             >
-               <RoboticClaw startAnimation={startAnimation} />
+               <Suspense fallback={null}>
+                  <RoboticClaw startAnimation={startAnimation} />
+               </Suspense>
             </motion.div>
 
         </motion.div>
