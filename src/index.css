@@ -598,3 +598,33 @@ img {
   50% { opacity: 1; }
   100% { opacity: 0.4; }
 }
+
+/* --- CUSTOM SCROLLBAR (Dark Industrial Theme) --- */
+
+/* 1. The Scrollbar Container */
+::-webkit-scrollbar {
+  width: 10px; /* Width of the vertical scrollbar */
+}
+
+/* 2. The Track (Background) */
+::-webkit-scrollbar-track {
+  background: #0F1115; /* Matches your website background */
+}
+
+/* 3. The Thumb (The moving part) */
+::-webkit-scrollbar-thumb {
+  background: #333333; /* Dark Metallic Gray */
+  border-radius: 5px;  /* Rounded corners */
+  border: 2px solid #0F1115; /* Creates a "padding" effect around the thumb */
+}
+gitg 
+/* 4. The Thumb on Hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555555; /* Lighter Gray when grabbing */
+}
+
+/* --- FIREFOX SUPPORT --- */
+html {
+  scrollbar-width: thin;      /* Makes it slimmer */
+  scrollbar-color: #333 #0F1115; /* Thumb Color | Track Color */
+}
