@@ -31,7 +31,7 @@ export default function About() {
               transition={{ duration: 0.8 }}
               viewport={{ once: true }}
             >
-              <span style={{ color: '#888', letterSpacing: '0.2em', textTransform: 'uppercase', fontSize: '0.9rem', display: 'block', marginBottom: '1rem' }}>
+              <span style={{ color: '#888', letterSpacing: '0.2em', textTransform: 'uppercase', fontSize: '1.2rem', display: 'block', marginBottom: '1rem' }}>
                 Who We Are
               </span>
               <h2 style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', fontFamily: '"Oswald", sans-serif', textTransform: 'uppercase', lineHeight: '1.1', marginBottom: '1.5rem' }}>
@@ -123,15 +123,25 @@ export default function About() {
                     <h3 style={{ color: '#FFF', fontFamily: '"Oswald", sans-serif', fontSize: '1.8rem', margin: '0 0 5px 0' }}>Mr. R. Chinnadurai</h3>
                     <p style={{ color: '#00ffcc', fontSize: '0.9rem', letterSpacing: '0.1em', fontWeight: 'bold', marginBottom: '20px' }}>PARTNER (DME) | 35+ YEARS EXP</p>
                     <p style={{ color: '#888', lineHeight: '1.6' }}>
-                        With over 35 years of extensive experience in CNC machining and quality assurance, Mr. Chinnadurai brings deep technical expertise. 
+                        With over 35 years of extensive experience in CNC machining,
+quality assurance, and production operations, Mr. R. Chinnadurai brings deep technical expertise and
+hands-on leadership to Integrity Machining Solutions. His strong background in precision
+manufacturing and process control ensures consistent quality, optimized production, and adherence
+to the highest engineering standards. 
                     </p>
                 </div>
                 {/* Partner 2 */}
                 <div style={{ background: '#15161A', padding: '40px' }}>
-                    <h3 style={{ color: '#FFF', fontFamily: '"Oswald", sans-serif', fontSize: '1.8rem', margin: '0 0 5px 0' }}>Mr. S. V. Perumal</h3>
+                    <h3 style={{ color: '#FFF', fontFamily: '"Oswald", sans-serif', fontSize: '1.8rem', margin: '0 0 5px 0' }}>Mr. S. Varatharajaperumal</h3>
                     <p style={{ color: '#00ffcc', fontSize: '0.9rem', letterSpacing: '0.1em', fontWeight: 'bold', marginBottom: '20px' }}>PARTNER (DME, BBA) | 33+ YEARS EXP</p>
                     <p style={{ color: '#888', lineHeight: '1.6' }}>
-                        Combining technical knowledge with business administration, Mr. Perumal drives strategic planning and supply chain management.
+                        Mr. S. V Perumal has over 33 years of rich
+experience in CNC machining, quality systems, production planning, purchase, and overall
+management. With a blend of technical knowledge and business administration, he plays a key role in
+strategic planning, customer coordination, supply chain management, and continuous improvement
+initiatives, driving the company’s growth with a strong focus on operational excellence and customer
+satisfaction.
+
                     </p>
                 </div>
             </div>

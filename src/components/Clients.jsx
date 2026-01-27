@@ -1,68 +1,155 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
-[cite_start]// Specific Group Customers List [cite: 61-70]
+// Specific Group Customers List
 const CLIENTS = [
     "ASHOK LEYLAND",
     "TATA ELECTRONICS",
-    "TITAN ENGINEERING",
     "SHEFFLER INDIA",
     "HUBBEL INDIA",
     "MINI AEROSPACE",
+    "TITAN ENGINEERING",
     "SFO GROUP",
     "ICON MEDICARE"
 ];
+
+const ClientCard = ({ name, index }) => {
+    return (
+        <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: index * 0.1 }}
+            whileHover={{ y: -5, scale: 1.02 }}
+            style={{
+                position: 'relative',
+                backgroundColor: 'rgba(255, 255, 255, 0.03)',
+                border: '1px solid rgba(255, 255, 255, 0.1)',
+                padding: '40px 20px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                textAlign: 'center',
+                cursor: 'default',
+                overflow: 'hidden'
+            }}
+        >
+            {/* Hover Glow Effect */}
+            <motion.div 
+                className="glow-effect"
+                initial={{ opacity: 0 }}
+                whileHover={{ opacity: 1 }}
+                transition={{ duration: 0.3 }}
+                style={{
+                    position: 'absolute',
+                    inset: 0,
+                    background: 'radial-gradient(circle at center, rgba(50, 150, 255, 0.15), transparent 70%)',
+                    zIndex: 0
+                }}
+            />
+
+            {/* Corner Accents (Tech Look) */}
+            <div style={{ position: 'absolute', top: 0, left: 0, width: '10px', height: '10px', borderTop: '2px solid rgba(255,255,255,0.3)', borderLeft: '2px solid rgba(255,255,255,0.3)' }} />
+            <div style={{ position: 'absolute', bottom: 0, right: 0, width: '10px', height: '10px', borderBottom: '2px solid rgba(255,255,255,0.3)', borderRight: '2px solid rgba(255,255,255,0.3)' }} />
+
+            {/* Client Name */}
+            <h3 style={{ 
+                fontFamily: '"Oswald", sans-serif', 
+                fontSize: '1.5rem', 
+                color: '#FFFFFF', 
+                textTransform: 'uppercase', 
+                letterSpacing: '0.05em',
+                margin: 0,
+                zIndex: 1,
+                position: 'relative'
+            }}>
+                {name}
+            </h3>
+        </motion.div>
+    );
+};
 
 export default function Clients() {
   return (
     <section style={{ 
         backgroundColor: '#0F1115', 
-        padding: '60px 0', 
+        padding: '120px 0', 
         borderTop: '1px solid rgba(255,255,255,0.05)',
+        position: 'relative',
         overflow: 'hidden'
     }}>
-        <div style={{ textAlign: 'center', marginBottom: '40px', padding: '0 20px' }}>
-            <p style={{ 
-                color: '#888', 
-                fontSize: '0.9rem', 
-                letterSpacing: '0.2em', 
-                textTransform: 'uppercase',
-                fontFamily: '"Manrope", sans-serif',
-                marginBottom: '10px'
-            }}>
-                Our Group Customers
-            </p>
-            <p style={{ color: '#555', fontSize: '0.8rem', maxWidth: '600px', margin: '0 auto' }}>
-                Serving leading OEMs and Tier-1 customers across automobile, automation, aerospace, and medical sectors.
-            </p>
-        </div>
+        {/* Background Subtle Grid */}
+        <div style={{
+            position: 'absolute', inset: 0,
+            backgroundImage: 'linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px)',
+            backgroundSize: '100px 100px', opacity: 0.3, pointerEvents: 'none'
+        }} />
 
-        {/* MARQUEE CONTAINER */}
-        <div style={{ display: 'flex', overflow: 'hidden', whiteSpace: 'nowrap', position: 'relative' }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 20px', position: 'relative', zIndex: 1 }}>
             
-            {/* Gradient Masks */}
-            <div style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: '100px', background: 'linear-gradient(to right, #0F1115, transparent)', zIndex: 2 }}></div>
-            <div style={{ position: 'absolute', right: 0, top: 0, bottom: 0, width: '100px', background: 'linear-gradient(to left, #0F1115, transparent)', zIndex: 2 }}></div>
-
-            {/* Moving Track */}
-            <motion.div 
-                animate={{ x: [0, -1000] }}
-                transition={{ repeat: Infinity, duration: 25, ease: "linear" }}
-                style={{ display: 'flex', gap: '80px', paddingLeft: '80px' }}
-            >
-                {[...CLIENTS, ...CLIENTS, ...CLIENTS].map((client, i) => (
-                    <h3 key={i} style={{ 
-                        fontFamily: '"Oswald", sans-serif', 
-                        fontSize: '2rem', 
-                        color: 'rgba(255,255,255,0.15)', 
-                        margin: 0,
+            {/* --- HEADER SECTION --- */}
+            <div style={{ textAlign: 'center', marginBottom: '80px', maxWidth: '900px', marginInline: 'auto' }}>
+                <motion.span 
+                    initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
+                    style={{ 
+                        color: '#3399FF', // Electric Blue (Professional)
+                        fontSize: '0.9rem', 
+                        letterSpacing: '0.2em', 
                         textTransform: 'uppercase',
-                        whiteSpace: 'nowrap'
-                    }}>
-                        {client}
-                    </h3>
+                        fontWeight: 'bold',
+                        display: 'block',
+                        marginBottom: '15px'
+                    }}
+                >
+                    Major Group Customers
+                </motion.span>
+                
+                <motion.h2 
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.8 }}
+                    style={{ 
+                        fontFamily: '"Oswald", sans-serif',
+                        fontSize: 'clamp(2.5rem, 5vw, 4rem)', 
+                        color: '#FFFFFF', 
+                        textTransform: 'uppercase',
+                        lineHeight: '1.1',
+                        marginBottom: '30px'
+                    }}
+                >
+                    Trusted by <br /> Industry Giants
+                </motion.h2>
+
+                <motion.p
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.8, delay: 0.2 }}
+                    style={{ 
+                        color: '#B0B0B0', 
+                        fontSize: '1.1rem', 
+                        lineHeight: '1.8'
+                    }}
+                >
+                    Integrity Machining Solutions is part of a manufacturing group serving leading OEMs 
+                    and Tier-1 customers across the Automobile, Automation, Aerospace, and Medical sectors. 
+                    Our promoters bring decades of proven performance through these long-standing relationships.
+                </motion.p>
+            </div>
+
+            {/* --- CLIENTS GRID --- */}
+            <div style={{ 
+                display: 'grid', 
+                gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', // Responsive Grid
+                gap: '20px',
+                marginTop: '60px'
+            }}>
+                {CLIENTS.map((client, index) => (
+                    <ClientCard key={index} name={client} index={index} />
                 ))}
-            </motion.div>
+            </div>
+
         </div>
     </section>
   );

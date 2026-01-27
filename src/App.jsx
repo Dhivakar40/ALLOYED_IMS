@@ -7,7 +7,7 @@ import About from './components/About';
 import Services from './components/Services';
 import Metrics from './components/Metrics';
 import Certifications from './components/Certifications';
-
+import Clients from './components/Clients';
 import Portfolio from './components/Portfolio';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
@@ -39,7 +39,7 @@ function App() {
 
   return (
     <div className="app-main">
-      <CustomCursor />
+      {/* <CustomCursor /> */}
       <Navbar />
 
       <main>
@@ -48,6 +48,7 @@ function App() {
         <Services />
         <Portfolio />
         <Metrics />
+        <Clients />
         <Certifications />
         <Contact />
         <Footer />
