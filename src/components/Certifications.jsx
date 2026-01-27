@@ -6,7 +6,6 @@ const certifications = [
         text: "ISO 9001:2015", 
         metallic: "linear-gradient(135deg, #C0C0C0 0%, #E8E8E8 25%, #A8A8A8 50%, #FFFFFF 75%, #B8B8B8 100%)", 
         desc: "Quality Management System",
-        // REPLACE THIS URL WITH YOUR ISO LOGO IMAGE PATH
         img: "iso.png", 
         color: "#C0C0C0"
     },
@@ -14,10 +13,17 @@ const certifications = [
         text: "MSME Registered", 
         metallic: "linear-gradient(135deg, #0066CC 0%, #3399FF 25%, #007ACC 50%, #E6F3FF 75%, #0066CC 100%)", 
         desc: "Micro, Small & Medium Enterprises",
-        // REPLACE THIS URL WITH YOUR MSME LOGO IMAGE PATH
         img: "msme.png",
-        color: "#C0C0C0"
+        color: "#3399FF" 
     }
+];
+
+const qualityFocusPoints = [
+    { title: "Customer Satisfaction", desc: "Achieved through consistent product quality and service excellence." },
+    { title: "Risk-Based Thinking", desc: "Adopting a proactive process approach to mitigate risks." },
+    { title: "Continuous Improvement", desc: "Relentless optimization of manufacturing and quality systems." },
+    { title: "Regulatory Compliance", desc: "Strict adherence to statutory and regulatory requirements." },
+    { title: "Documentation & Control", desc: "Complete traceability and rigorous control of records." }
 ];
 
 const CertLogo = ({ cert, index }) => (
@@ -31,150 +37,73 @@ const CertLogo = ({ cert, index }) => (
             inView: { 
                 opacity: 1, 
                 y: 0,
-                transition: { 
-                    duration: 0.6,
-                    delay: index * 0.1,
-                    ease: [0.25, 1, 0.5, 1]
-                }
+                transition: { duration: 0.6, delay: index * 0.1, ease: [0.25, 1, 0.5, 1] }
             }
         }}
         style={{
             position: 'relative',
-            padding: '3rem 2rem', // Increased padding for better spacing
+            padding: '3rem 2rem',
             color: '#FFFFFF',
             fontFamily: 'inherit',
             cursor: 'pointer',
-            background: 'rgba(255,255,255,0.02)', // Slight fill
+            background: 'rgba(255,255,255,0.02)',
             textAlign: 'center',
             minWidth: '280px',
-            borderRadius: '16px', // Softer corners
+            borderRadius: '16px',
             overflow: 'visible'
         }}
     >
         {/* Static Border */}
-        <div style={{
-            position: 'absolute',
-            inset: 0,
-            border: '1px solid rgba(255,255,255,0.1)',
-            borderRadius: '16px',
-            zIndex: 0
-        }} />
+        <div style={{ position: 'absolute', inset: 0, border: '1px solid rgba(255,255,255,0.1)', borderRadius: '16px', zIndex: 0 }} />
 
         {/* Animated Running Border */}
         <motion.div
-            animate={{
-                backgroundPosition: ['0% 0%', '200% 0%']
-            }}
-            transition={{
-                duration: 3,
-                repeat: Infinity,
-                ease: 'linear'
-            }}
+            animate={{ backgroundPosition: ['0% 0%', '200% 0%'] }}
+            transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}
             style={{
-                position: 'absolute',
-                inset: -1,
+                position: 'absolute', inset: -1,
                 background: `linear-gradient(90deg, transparent, transparent 30%, ${cert.color}, transparent 70%, transparent)`,
                 backgroundSize: '200% 100%',
                 WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
                 WebkitMaskComposite: 'xor',
                 maskComposite: 'exclude',
-                padding: '1px',
-                borderRadius: '16px',
-                opacity: 0.5,
-                zIndex: 1,
-                pointerEvents: 'none'
+                padding: '1px', borderRadius: '16px', opacity: 0.5, zIndex: 1, pointerEvents: 'none'
             }}
         />
 
-        {/* Content Container */}
+        {/* Content */}
         <div style={{ position: 'relative', zIndex: 10, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            
-            {/* --- LOGO IMAGE CONTAINER --- */}
             <motion.div
                 variants={{
                     initial: { scale: 1, filter: "brightness(1) drop-shadow(0 0 0px transparent)" },
-                    hover: { 
-                        scale: 1.1,
-                        filter: `brightness(1.1) drop-shadow(0 0 15px ${cert.color}60)`
-                    }
+                    hover: { scale: 1.1, filter: `brightness(1.1) drop-shadow(0 0 15px ${cert.color}60)` }
                 }}
                 transition={{ duration: 0.4 }}
                 style={{
-                    width: '120px', // Increased size
-                    height: '120px', // Increased size
-                    marginBottom: '1.5rem',
-                    position: 'relative',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    background: `radial-gradient(circle at center, ${cert.color}20 0%, transparent 70%)`, // Glow behind image
+                    width: '120px', height: '120px', marginBottom: '1.5rem',
+                    position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    background: `radial-gradient(circle at center, ${cert.color}20 0%, transparent 70%)`,
                     borderRadius: '50%'
                 }}
             >
-                <img 
-                    src={cert.img} 
-                    alt={cert.text}
-                    style={{
-                        width: '100%',
-                        height: '100%',
-                        objectFit: 'contain', // Keeps logo aspect ratio
-                        filter: 'drop-shadow(0 5px 5px rgba(0,0,0,0.5))'
-                    }}
-                />
+                <img src={cert.img} alt={cert.text} style={{ width: '100%', height: '100%', objectFit: 'contain', filter: 'drop-shadow(0 5px 5px rgba(0,0,0,0.5))' }} />
             </motion.div>
 
-            {/* Certification Text */}
             <motion.h3
                 variants={{
                     initial: { color: '#FFFFFF' },
-                    hover: { 
-                        color: cert.color, // Changes text color to match logo on hover
-                        textShadow: `0 0 20px ${cert.color}40`
-                    }
+                    hover: { color: cert.color, textShadow: `0 0 20px ${cert.color}40` }
                 }}
                 transition={{ duration: 0.3 }}
-                style={{
-                    fontSize: '1.5rem',
-                    fontWeight: '800',
-                    letterSpacing: '0.05em',
-                    marginBottom: '0.5rem',
-                    margin: '0 0 0.5rem 0'
-                }}
+                style={{ fontSize: '1.5rem', fontWeight: '800', letterSpacing: '0.05em', margin: '0 0 0.5rem 0' }}
             >
                 {cert.text}
             </motion.h3>
 
-            {/* Description */}
-            <motion.p
-                style={{
-                    fontSize: '0.9rem',
-                    fontWeight: '500',
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.1em',
-                    color: '#888',
-                    margin: 0
-                }}
-            >
+            <p style={{ fontSize: '0.9rem', fontWeight: '500', textTransform: 'uppercase', letterSpacing: '0.1em', color: '#888', margin: 0 }}>
                 {cert.desc}
-            </motion.p>
+            </p>
         </div>
-
-        {/* Background Hover Glow */}
-        <motion.div
-            variants={{
-                initial: { opacity: 0 },
-                hover: { opacity: 1 }
-            }}
-            transition={{ duration: 0.5 }}
-            style={{
-                position: 'absolute',
-                inset: 0,
-                background: `radial-gradient(circle at center, ${cert.color}15 0%, transparent 80%)`,
-                borderRadius: '16px',
-                zIndex: -1,
-                pointerEvents: 'none'
-            }}
-        />
     </motion.div>
 );
 
@@ -192,117 +121,108 @@ export default function Certifications() {
         >
             {/* Background Grid */}
             <div style={{
-                position: 'absolute',
-                inset: 0,
+                position: 'absolute', inset: 0,
                 backgroundImage: 'linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px)',
-                backgroundSize: '80px 80px',
-                opacity: 0.4
+                backgroundSize: '80px 80px', opacity: 0.4
             }} />
 
-            <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '0 60px', position: 'relative', zIndex: 1 }}>
+            <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '0 40px', position: 'relative', zIndex: 1 }}>
                 
-                {/* Header */}
+                {/* --- HEADER --- */}
                 <div style={{ textAlign: 'center', marginBottom: '80px' }}>
                     <motion.p 
-                        initial={{ opacity: 0 }}
-                        whileInView={{ opacity: 0.6 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.8 }}
-                        style={{ 
-                            textTransform: 'uppercase', 
-                            letterSpacing: '0.3em', 
-                            fontSize: '0.85rem',
-                            color: '#FFFFFF',
-                            marginBottom: '1rem',
-                            fontWeight: '600'
-                        }}
+                        initial={{ opacity: 0 }} whileInView={{ opacity: 0.6 }} viewport={{ once: true }} transition={{ duration: 0.8 }}
+                        style={{ textTransform: 'uppercase', letterSpacing: '0.3em', fontSize: '0.85rem', color: '#FFFFFF', marginBottom: '1rem', fontWeight: '600' }}
                     >
                         Trust & Compliance
                     </motion.p>
-                    
                     <motion.h2
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.8, delay: 0.2 }}
-                        style={{
-                            fontSize: 'clamp(2.5rem, 5vw, 4rem)',
-                            fontWeight: '700',
-                            letterSpacing: '-0.02em',
-                            color: '#FFFFFF',
-                            margin: 0
-                        }}
+                        initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: 0.2 }}
+                        style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', fontWeight: '700', letterSpacing: '-0.02em', color: '#FFFFFF', margin: 0 }}
                     >
                         Industry Certifications
                     </motion.h2>
-
-                    <div style={{
-                        width: '100px',
-                        height: '3px',
-                        background: 'rgba(255,255,255,0.1)',
-                        margin: '2rem auto',
-                        position: 'relative',
-                        overflow: 'hidden'
-                    }}>
+                    <div style={{ width: '100px', height: '3px', background: 'rgba(255,255,255,0.1)', margin: '2rem auto', position: 'relative', overflow: 'hidden' }}>
                         <motion.div 
-                            animate={{ x: ['-100%', '100%'] }}
-                            transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
-                            style={{
-                                position: 'absolute', inset: 0,
-                                background: 'linear-gradient(90deg, transparent, #FFFFFF, transparent)'
-                            }}
+                            animate={{ x: ['-100%', '100%'] }} transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
+                            style={{ position: 'absolute', inset: 0, background: 'linear-gradient(90deg, transparent, #FFFFFF, transparent)' }}
                         />
                     </div>
                 </div>
 
-                {/* Certifications Grid */}
-                <div style={{
-                    display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-                    gap: '40px',
-                    maxWidth: '800px', // Constrained width to keep them centered
-                    margin: '0 auto',
-                    justifyItems: 'center'
-                }}>
+                {/* --- LOGOS GRID --- */}
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '40px', maxWidth: '800px', margin: '0 auto', justifyItems: 'center' }}>
                     {certifications.map((cert, index) => (
                         <CertLogo key={index} cert={cert} index={index} />
                     ))}
                 </div>
 
-                {/* --- BOTTOM TEXT WITH GLOW FRAME --- */}
-                <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.8, delay: 0.4 }}
-                    style={{
-                        marginTop: '70px',
-                        maxWidth: '800px',
-                        marginInline: 'auto',
-                        padding: '30px 40px',
-                        // Subtle metallic blue/silver border
-                        border: '1px solid rgba(100, 150, 255, 0.2)', 
-                        borderRadius: '20px',
-                        // The glow effect: Outer blueish glow + subtle inner glow
-                        boxShadow: '0 0 30px -5px rgba(0, 102, 204, 0.25), inset 0 0 20px -10px rgba(0, 102, 204, 0.15)',
-                        // Very slight dark tint background to make it feel solid
-                        background: 'rgba(0, 10, 30, 0.3)', 
-                        position: 'relative',
-                    }}
-                >
-                    <p style={{
-                        textAlign: 'center',
-                        fontSize: '1.25rem',
-                        lineHeight: '1.7',
-                        // Slightly brighter text inside the frame
-                        color: '#E0E0E0', 
-                        margin: 0,
-                        fontWeight: '400',
-                        letterSpacing: '0.02em'
+                {/* --- QUALITY COMMITMENT SECTION --- */}
+                <div style={{ marginTop: '120px' }}>
+                    <motion.div 
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.8 }}
+                        style={{ textAlign: 'center', maxWidth: '900px', margin: '0 auto 60px auto' }}
+                    >
+                        <h3 style={{ fontFamily: '"Oswald", sans-serif', fontSize: '2.5rem', color: '#FFF', marginBottom: '20px' }}>
+                            OUR QUALITY COMMITMENT
+                        </h3>
+                        <p style={{ color: '#AAA', fontSize: '1.1rem', lineHeight: '1.6' }}>
+                            Integrity Machining Solutions is committed to implementing and maintaining robust quality
+                            management systems in line with international standards. Our quality system is aligned with ISO 9001
+                            requirements.
+                        </p>
+                    </motion.div>
+
+                    {/* MODULAR QUALITY GRID (Flexbox for 3-2 Layout) */}
+                    <div style={{ 
+                        display: 'flex', 
+                        flexWrap: 'wrap', 
+                        justifyContent: 'center', // This centers the last row (the 2 items)
+                        gap: '24px', 
+                        maxWidth: '1200px', 
+                        margin: '0 auto' 
                     }}>
-                        Our commitment to excellence is validated through rigorous international standards, ensuring aerospace-grade quality across all sectors.
-                    </p>
-                </motion.div>
+                        {qualityFocusPoints.map((point, i) => (
+                            <motion.div
+                                key={i}
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.5, delay: i * 0.1 }}
+                                whileHover={{ y: -5, backgroundColor: 'rgba(255,255,255,0.05)' }}
+                                style={{
+                                    background: 'rgba(255,255,255,0.02)',
+                                    border: '1px solid rgba(255,255,255,0.05)',
+                                    padding: '30px',
+                                    borderRadius: '12px',
+                                    borderLeft: `3px solid ${i % 2 === 0 ? '#00ffcc' : '#3399FF'}`,
+                                    // Flex properties for responsive layout:
+                                    // Grow: 1, Shrink: 1, Basis: 300px. 
+                                    // Max Width creates the "card" look without filling full width on last row.
+                                    flex: '1 1 300px',
+                                    maxWidth: '360px' 
+                                }}
+                            >
+                                <div style={{ 
+                                    fontFamily: '"Oswald", sans-serif', 
+                                    fontSize: '1.2rem', 
+                                    color: '#FFF', 
+                                    marginBottom: '10px',
+                                    letterSpacing: '0.05em'
+                                }}>
+                                    {point.title}
+                                </div>
+                                <p style={{ margin: 0, color: '#888', fontSize: '0.95rem', lineHeight: '1.5' }}>
+                                    {point.desc}
+                                </p>
+                            </motion.div>
+                        ))}
+                    </div>
+                </div>
+
             </div>
         </section>
     );

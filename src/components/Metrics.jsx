@@ -1,15 +1,14 @@
-import React, { useEffect, useState, useRef } from "react";
-import { useInView } from "framer-motion";
+import React, { useEffect, useState } from "react";
 
 // --- CONFIGURATION ---
 const SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRKJwf4jetoCtkbDfjaPqDS_aAwBfZkP0wY3F9Nst9IGxqME3XILukM4NuI5IgzBZyW7-ijF2zoIgJv/pub?output=csv";
 
 // Fallback values
 const INITIAL_STATE = {
-  machines: 30,
-  shipped: 900,
+  machines: 50,
+  shipped: 9800000,
   tolerance: 2,
-  legacy: 10
+  legacy: 35
 };
 
 /* ---------------- SLOT DIGIT ---------------- */
@@ -71,29 +70,26 @@ const StatItem = ({ value, suffix, text, live }) => (
   <div
     style={{
       textAlign: "center",
-      padding: "1rem 0.5rem", // Reduced padding for mobile
-      minWidth: "150px",      // Reduced min-width to fit 2 per row on phone
+      padding: "1rem 0.5rem",
+      minWidth: "150px",
       display: "flex",
       flexDirection: "column",
       alignItems: "center",
     }}
   >
-    {/* SCALER WRAPPER: Shrinks the big numbers on small screens */}
+    {/* SCALER WRAPPER */}
     <div style={{ 
         display: "flex", 
         alignItems: "flex-end",
-        transform: 'scale(0.8)', // Default slight shrink
+        transform: 'scale(0.8)', 
         transformOrigin: 'bottom center',
-        // Media query logic handled via inline style hack or JS, 
-        // but scale(0.8) is generally safe for mobile & desktop looks fine
     }}>
       <SlotNumber value={value} />
       <span
         style={{
           marginLeft: "6px",
           fontSize: "1.6rem",
-          color: "var(--color-accent)", // Ensure this var exists or use #00ffcc
-          color: '#00cc88', 
+          color: '#00cc88', // FIXED: Removed duplicate key
           marginBottom: '5px'
         }}
       >
@@ -105,7 +101,7 @@ const StatItem = ({ value, suffix, text, live }) => (
     <p
       style={{
         marginTop: "0.5rem",
-        fontSize: "1rem", // Slightly smaller
+        fontSize: "1rem", 
         textTransform: "uppercase",
         letterSpacing: "0.15em",
         color: "#A0A0A0",
@@ -151,7 +147,6 @@ const StatItem = ({ value, suffix, text, live }) => (
       )}
     </div>
     
-    {/* CSS for Pulse Animation */}
     <style>{`
       @keyframes pulse {
         0% { opacity: 1; box-shadow: 0 0 0 0 rgba(50, 205, 50, 0.7); }
@@ -184,7 +179,6 @@ export default function Metrics() {
             const val = parseFloat(valString);
             
             if (!isNaN(val)) {
-                // Map keys safely
                 if(key.includes('machine')) newMetrics.machines = val;
                 if(key.includes('shipped')) newMetrics.shipped = val;
                 if(key.includes('tolerance')) newMetrics.tolerance = val;
@@ -216,7 +210,6 @@ export default function Metrics() {
         <div style={{ textAlign: "center", marginBottom: "3rem" }}>
           <h2
             style={{
-              // RESPONSIVE FONT SIZE: Fits on mobile, big on desktop
               fontSize: "clamp(2rem, 6vw, 3.5rem)", 
               fontWeight: "700",
               letterSpacing: "0.05em",
@@ -255,15 +248,15 @@ export default function Metrics() {
           <div
             style={{
               display: "flex",
-              justifyContent: "center", // Center items
+              justifyContent: "center",
               alignItems: "flex-start",
-              flexWrap: "wrap", // Allow wrapping on mobile
+              flexWrap: "wrap",
               gap: "2rem",
             }}
           >
             <StatItem value={metrics.machines} suffix="+" text="CNC Machines" live />
             <StatItem value={metrics.shipped} suffix="+" text="Components Shipped" live />
-            <StatItem value={metrics.tolerance} suffix="+" text="Certifications" />
+            <StatItem value={metrics.tolerance} suffix="µm" text="Tolerance" />
             <StatItem value={metrics.legacy} suffix="Yrs" text="Legacy" />
           </div>
         </div>

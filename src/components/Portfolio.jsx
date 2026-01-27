@@ -1,61 +1,92 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-// ---------------- DATA: THE 6 STANDARD INDUSTRIAL PROCESSES ----------------
+// ---------------- DATA: UPDATED PROCESS CAPABILITIES ----------------
 const projects = [
   { 
     id: 1,
-    title: "Aerospace Impellers", 
-    industry: "AEROSPACE",
-    process: "5-Axis CNC Milling", 
-    material: "Titanium Grade 5",
-    specs: "Tolerance: +/- 0.002mm | Surface: Polished",
-    img: "https://images.unsplash.com/photo-1580674285054-bed31e145f59?q=80&w=2070&auto=format&fit=crop" // Replaced placeholder
+    title: "CNC Turning", 
+    industry: "CORE CAPABILITY",
+    process: "High-Precision Lathe Operations", 
+    material: "Steel, Aluminum, Brass",
+    specs: "Dia: 165mm - 210mm | LMW Machines",
+    img: "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=2069&auto=format&fit=crop" 
   },
   { 
     id: 2,
-    title: "Heavy Structural Frames", 
-    industry: "CONSTRUCTION",
-    process: "MIG & TIG Welding",
-    material: "Structural Steel",
-    specs: "Certified: AWS D1.1 | NDT Tested",
-    img: "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?q=80&w=2070&auto=format&fit=crop" // Replaced placeholder
+    title: "CNC Turn-Milling", 
+    industry: "ADVANCED MACHINING",
+    process: "Integrated Mill-Turn Operations",
+    material: "Stainless Steel & Alloys",
+    specs: "Complex Geometries | Single Setup",
+    img: "https://images.unsplash.com/photo-1580674285054-bed31e145f59?q=80&w=2070&auto=format&fit=crop" 
   },
   { 
     id: 3,
-    title: "Precision Drive Shafts", 
-    industry: "AUTOMOTIVE",
-    process: "CNC Turning (Lathe)",
-    material: "Hardened Steel 4140",
-    specs: "Concentricity: 0.01mm | High Volume",
-    img: "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=2069&auto=format&fit=crop" // Replaced placeholder
+    title: "Precision Manufacturing", 
+    industry: "COMPONENT FABRICATION",
+    process: "End-to-End Production",
+    material: "All Engineering Metals",
+    specs: "ISO 9001 Standards | Zero Defect",
+    img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop" 
   },
   { 
     id: 4,
-    title: "Electronic Enclosures", 
-    industry: "ELECTRONICS",
-    process: "Laser Cutting & Folding",
-    material: "Aluminum 5052",
-    specs: "Complex Bend Radii | Powder Coated",
-    img: "https://images.unsplash.com/photo-1565514020176-db99c857e231?q=80&w=2070&auto=format&fit=crop" // Replaced placeholder
+    title: "Prototype & Batch", 
+    industry: "SCALABLE SOLUTIONS",
+    process: "Development to Mass Production",
+    material: "Rapid Prototyping",
+    specs: "Flexible Volumes | Fast Turnaround",
+    img: "https://images.unsplash.com/photo-1565514020176-db99c857e231?q=80&w=2070&auto=format&fit=crop" 
   },
   { 
     id: 5,
-    title: "Engine Housings", 
-    industry: "AUTOMATION",
-    process: "High-Pressure Die Casting",
-    material: "Aluminum Alloy",
-    specs: "Mold Life: 100k Shots | Porosity Free",
-    img: "https://images.unsplash.com/photo-1517976487492-5750f3195933?q=80&w=2070&auto=format&fit=crop" // Replaced placeholder
+    title: "Tight Tolerance", 
+    industry: "HIGH ACCURACY",
+    process: "Micron-Level Machining",
+    material: "Titanium, Inconel, Copper",
+    specs: "+/- 0.005mm | Super Finishing",
+    img: "https://images.unsplash.com/photo-1517976487492-5750f3195933?q=80&w=2070&auto=format&fit=crop" 
   },
   { 
     id: 6,
-    title: "Industrial Gears", 
-    industry: "MINING & OIL",
-    process: "Heat Treatment & Hardening",
-    material: "Carbon Steel",
-    specs: "Hardness: 58-62 HRC | Carburized",
-    img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop" // Replaced placeholder
+    title: "Multi-Material Machining", 
+    industry: "MATERIAL EXPERTISE",
+    process: "Steel, SS, Al, Copper, Brass",
+    material: "Special Alloys & Hardened Steel",
+    specs: "Hardness up to 62 HRC",
+    img: "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?q=80&w=2070&auto=format&fit=crop" 
+  }
+];
+
+// ---------------- INFRASTRUCTURE DATA (FROM PDF) ----------------
+const machines = [
+  {
+    category: "CNC TURNING CENTERS",
+    make: "LMW (Lakshmi Machine Works)",
+    items: [
+      { name: "S Turn 1 (165mm Dia)", count: 2 },
+      { name: "S Turn 1 (210mm Dia)", count: 2 },
+      { name: "Smart Turn 1 (165mm Dia)", count: 2 }
+    ]
+  },
+  {
+    category: "CNC TURN-MILL",
+    make: "LMW (Lakshmi Machine Works)",
+    items: [
+      { name: "TurnMill (210mm Dia)", count: 1 },
+      { name: "Complex Geometry Capable", count: "✓" }
+    ]
+  },
+  {
+    category: "QUALITY ASSURANCE",
+    make: "Precision Metrology Lab",
+    items: [
+      { name: "Vernier Calipers & Micrometers", count: "✓" },
+      { name: "Bore Gauges & Height Gauges", count: "✓" },
+      { name: "Dial Indicators & Surface Plate", count: "✓" },
+      { name: "Thread & Plug Gauges", count: "✓" }
+    ]
   }
 ];
 
@@ -134,8 +165,8 @@ export default function Portfolio() {
               key={project.id}
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, transition: { duration: 0.5 } }} // Smooth exit
-              transition={{ duration: 0.8, ease: [0.04, 0.62, 0.23, 0.98] }} // Smooth ease
+              exit={{ opacity: 0, scale: 0.95, transition: { duration: 0.5 } }} 
+              transition={{ duration: 0.8, ease: [0.04, 0.62, 0.23, 0.98] }} 
               
               onMouseEnter={() => setHoveredId(project.id)}
               onMouseLeave={() => setHoveredId(null)}
@@ -166,7 +197,7 @@ export default function Portfolio() {
                 />
               </motion.div>
 
-              {/* 2. INDUSTRY TAG (Top Left) */}
+              {/* 2. INDUSTRY TAG */}
               <div style={{ position: 'absolute', top: 25, left: 25, zIndex: 10 }}>
                 <span style={{
                     fontFamily: '"Oswald", sans-serif',
@@ -182,7 +213,7 @@ export default function Portfolio() {
                 </span>
               </div>
 
-              {/* 3. CONTENT OVERLAY (Bottom) */}
+              {/* 3. CONTENT OVERLAY */}
               <div style={{
                   position: 'absolute',
                   bottom: 0,
@@ -203,7 +234,7 @@ export default function Portfolio() {
                       {project.title}
                   </h3>
 
-                  {/* 4. SLIDE UP "DATASHEET" DETAILS */}
+                  {/* 4. SLIDE UP DETAILS */}
                   <motion.div
                     initial={{ height: 0, opacity: 0 }}
                     animate={{ 
@@ -221,20 +252,14 @@ export default function Portfolio() {
                           flexDirection: 'column',
                           gap: '8px'
                       }}>
-                          {/* PRIMARY PROCESS HIGHLIGHT */}
                           <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '5px'}}>
                              <div style={{ 
-                                 width: '8px', 
-                                 height: '8px', 
-                                 background: '#00ffcc', 
-                                 borderRadius: '50%',
-                                 boxShadow: '0 0 8px #00ffcc'
+                                 width: '8px', height: '8px', background: '#00ffcc', 
+                                 borderRadius: '50%', boxShadow: '0 0 8px #00ffcc'
                              }}></div>
                              <span style={{ 
-                                 color: '#00ffcc', 
-                                 fontFamily: '"Oswald", sans-serif', 
-                                 letterSpacing: '0.05em',
-                                 fontSize: '1rem'
+                                 color: '#00ffcc', fontFamily: '"Oswald", sans-serif', 
+                                 letterSpacing: '0.05em', fontSize: '1rem'
                              }}>
                                  {project.process}
                              </span>
@@ -249,14 +274,13 @@ export default function Portfolio() {
                       </div>
                   </motion.div>
               </div>
-
             </motion.div>
           ))}
         </AnimatePresence>
       </div>
 
       {/* --- EXPAND BUTTON --- */}
-      <div style={{ textAlign: 'center', marginTop: '60px' }}>
+      <div style={{ textAlign: 'center', marginTop: '60px', marginBottom: '100px' }}>
         <motion.button
           onClick={() => setShowAll(prev => !prev)}
           whileHover={{ scale: 1.05, backgroundColor: '#FFFFFF', color: '#000000' }}
@@ -276,6 +300,103 @@ export default function Portfolio() {
         >
           {showAll ? 'View Less Capabilities' : 'View Full Capability List'}
         </motion.button>
+      </div>
+
+      {/* --- IMPROVED INFRASTRUCTURE SECTION --- */}
+      <div style={{ 
+          maxWidth: '1400px', 
+          margin: '0 auto', 
+          padding: '0 20px' 
+      }}>
+          <div style={{ 
+              display: 'flex', 
+              alignItems: 'center', 
+              gap: '20px', 
+              marginBottom: '40px' 
+          }}>
+             <span style={{ height: '2px', flex: 1, background: 'linear-gradient(to right, transparent, #333)' }}></span>
+             <h3 style={{ 
+                 fontFamily: '"Oswald", sans-serif', 
+                 fontSize: '2rem', 
+                 textAlign: 'center', 
+                 margin: 0,
+                 color: '#FFF',
+                 letterSpacing: '0.1em'
+             }}>
+                 MACHINE INFRASTRUCTURE
+             </h3>
+             <span style={{ height: '2px', flex: 1, background: 'linear-gradient(to left, transparent, #333)' }}></span>
+          </div>
+          
+          <div style={{ 
+              display: 'grid', 
+              gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', 
+              gap: '30px' 
+          }}>
+              {machines.map((cat, i) => (
+                  <motion.div 
+                      key={i}
+                      whileHover={{ y: -5, boxShadow: '0 10px 30px rgba(0,0,0,0.5)' }}
+                      style={{
+                          background: 'linear-gradient(145deg, #1A1A1A 0%, #0F1115 100%)',
+                          border: '1px solid rgba(255,255,255,0.05)',
+                          borderRadius: '8px',
+                          padding: '30px',
+                          position: 'relative',
+                          overflow: 'hidden'
+                      }}
+                  >
+                      {/* Top Accent Line */}
+                      <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '2px', background: 'linear-gradient(90deg, #00ffcc, transparent)' }} />
+                      
+                      <h4 style={{ 
+                          color: '#FFFFFF', 
+                          margin: '0 0 5px 0', 
+                          fontFamily: '"Oswald", sans-serif', 
+                          fontSize: '1.2rem',
+                          letterSpacing: '0.05em'
+                      }}>
+                          {cat.category}
+                      </h4>
+                      <p style={{ 
+                          color: '#666', 
+                          fontSize: '0.8rem', 
+                          margin: '0 0 25px 0', 
+                          fontFamily: '"Manrope", sans-serif',
+                          textTransform: 'uppercase',
+                          letterSpacing: '0.1em'
+                      }}>
+                          {cat.make}
+                      </p>
+
+                      <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+                          {cat.items.map((item, j) => (
+                              <li key={j} style={{ 
+                                  display: 'flex', 
+                                  justifyContent: 'space-between', 
+                                  alignItems: 'center', 
+                                  borderBottom: '1px solid rgba(255,255,255,0.05)',
+                                  padding: '12px 0',
+                                  fontSize: '0.95rem',
+                                  color: '#AAA'
+                              }}>
+                                  <span>{item.name}</span>
+                                  <span style={{ 
+                                      background: 'rgba(0, 255, 204, 0.1)', 
+                                      color: '#00ffcc', 
+                                      padding: '2px 8px', 
+                                      borderRadius: '4px',
+                                      fontSize: '0.8rem',
+                                      fontFamily: '"Oswald", sans-serif'
+                                  }}>
+                                      {typeof item.count === 'number' ? `${item.count} UNITS` : item.count}
+                                  </span>
+                              </li>
+                          ))}
+                      </ul>
+                  </motion.div>
+              ))}
+          </div>
       </div>
 
     </section>
