@@ -55,7 +55,7 @@ const projects = [
     process: "Steel, SS, Al, Copper, Brass",
     material: "Special Alloys & Hardened Steel",
     specs: "Hardness up to 62 HRC",
-    img: "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?q=80&w=2070&auto=format&fit=crop"
+    img: "/multimaterial.webp"
   }
 ];
 
@@ -110,11 +110,9 @@ export default function Portfolio() {
     >
       {/* --- HEADER --- */}
       <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '100px 20px 60px' }}>
-        <motion.span
-          initial={{ width: 0 }}
-          whileInView={{ width: '5rem' }}
-          transition={{ duration: 1 }}
+        <div
           style={{
+            width: '5rem',
             display: 'block',
             height: '3px',
             background: '#FFFFFF',

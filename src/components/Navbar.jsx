@@ -4,10 +4,10 @@ import { motion, AnimatePresence } from 'framer-motion';
 // --- CONFIG: Define Menu Items and their Target IDs ---
 const NAV_ITEMS = [
   { label: "ABOUT US", targetId: "about" },
-  { label: "SECTORS", targetId: "sectors" }, 
+  { label: "SECTORS", targetId: "sectors" },
   { label: "SERVICES", targetId: "portfolio" },
-  { label: "METRICS", targetId: "metrics" }, 
-  { label: "CERTIFICATIONS", targetId: "certifications" } 
+  { label: "METRICS", targetId: "metrics" },
+  { label: "CERTIFICATIONS", targetId: "certifications" }
 ];
 
 export default function Navbar() {
@@ -28,20 +28,20 @@ export default function Navbar() {
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 1000);
     window.addEventListener('resize', checkMobile);
-    checkMobile(); 
+    checkMobile();
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
   // 3. Smooth Scroll Logic
   const scrollToSection = (e, targetId) => {
-    e.preventDefault(); 
+    e.preventDefault();
     setMenuOpen(false); // Close menu when link clicked
-    
+
     const element = document.getElementById(targetId);
-    
+
     if (element) {
       window.scrollTo({
-        top: element.offsetTop - 80, 
+        top: element.offsetTop - 100,
         behavior: 'smooth'
       });
     } else {
@@ -65,171 +65,188 @@ export default function Navbar() {
           top: 0,
           left: 0,
           width: '100%',
-          zIndex: 100, 
-          padding: isScrolled ? '15px 20px' : '25px 40px',
-          background: isScrolled ? 'rgba(15, 17, 21, 0.9)' : 'transparent', 
+          zIndex: 100,
+          padding: isScrolled ? '20px 40px' : '25px 40px',
+          background: isScrolled ? 'rgba(15, 17, 21, 0.95)' : 'transparent',
           backdropFilter: isScrolled ? 'blur(10px)' : 'none',
           borderBottom: isScrolled ? '1px solid rgba(255,255,255,0.05)' : 'none',
           display: 'flex',
-          justifyContent: 'space-between',
           alignItems: 'center',
-          transition: 'all 0.3s ease'
+          transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)'
         }}
       >
-        {/* --- BRAND LOGO --- */}
-        <div 
-          onClick={handleLogoClick}
-          style={{ 
-            cursor: 'pointer', 
-            display: 'flex', 
-            flexDirection: 'column', 
-            justifyContent: 'center',
-            lineHeight: '1',
-            zIndex: 201 
-          }}
-        >
-          <h1 style={{
-            fontFamily: '"Orbitron", sans-serif', 
-            fontWeight: '900',
-            fontSize: '1.2rem', 
-            letterSpacing: '0.05em',
-            color: '#FFFFFF',
-            margin: 0,
-            textTransform: 'uppercase',
-            textShadow: '0 2px 10px rgba(0,0,0,0.5)'
-          }}>
-            INTEGRITY
-          </h1>
+        {/* --- LEFT: BRAND LOGO --- */}
+        <div style={{ flex: 1, display: 'flex', justifyContent: 'flex-start' }}>
+          <div
+            onClick={handleLogoClick}
+            style={{
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '12px',
+              lineHeight: '1',
+              zIndex: 201
+            }}
+          >
+            <img
+              src="/imslogo.png"
+              alt="IMS Logo"
+              style={{
+                height: isScrolled ? '52px' : '58px',
+                width: 'auto',
+                display: 'block',
+                transition: 'height 0.3s ease'
+              }}
+            />
+            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+              <h1 style={{
+                fontFamily: '"Orbitron", sans-serif',
+                fontWeight: '900',
+                fontSize: isScrolled ? '1.22rem' : '1.35rem',
+                letterSpacing: '0.05em',
+                color: '#FFFFFF',
+                margin: 0,
+                textTransform: 'uppercase',
+                textShadow: '0 2px 10px rgba(0,0,0,0.5)',
+                transition: 'font-size 0.3s ease'
+              }}>
+                INTEGRITY
+              </h1>
 
-          <span style={{
-            fontFamily: '"Montserrat", sans-serif',
-            fontSize: '0.6rem', 
-            color: '#FFFFFF',
-            letterSpacing: '0.3em', 
-            textTransform: 'uppercase',
-            fontWeight: '400',
-            marginTop: '4px',
-            marginLeft: '2px' 
-          }}>
-            Machining Solutions
-          </span>
+              <span style={{
+                fontFamily: '"Montserrat", sans-serif',
+                fontSize: '0.55rem',
+                color: '#FFFFFF',
+                letterSpacing: '0.3em',
+                textTransform: 'uppercase',
+                fontWeight: '400',
+                marginTop: '3px',
+                marginLeft: '1px',
+                opacity: 0.8
+              }}>
+                Machining Solutions
+              </span>
+            </div>
+          </div>
         </div>
 
-        {/* --- DESKTOP NAVIGATION (THE "FRAME") --- */}
+        {/* --- CENTER: DESKTOP NAVIGATION --- */}
         {!isMobile && (
-          <ul style={{ 
-            display: 'flex', 
-            gap: '30px', 
-            listStyle: 'none', 
-            margin: 0, 
-            padding: '12px 35px', 
-            border: '1px solid rgba(255,255,255,0.15)', 
-            borderRadius: '50px', 
-            backgroundColor: 'rgba(255,255,255,0.03)', 
-            backdropFilter: 'blur(5px)',
-            boxShadow: '0 4px 20px rgba(0,0,0,0.1)'
-          }}>
-            {NAV_ITEMS.map((item) => (
-              <li key={item.label} style={{ position: 'relative' }}>
-                <a 
-                  href={`#${item.targetId}`}
-                  onClick={(e) => scrollToSection(e, item.targetId)}
-                  style={{
-                    color: '#FFFFFF',
-                    textDecoration: 'none',
-                    fontFamily: '"Manrope", sans-serif',
-                    fontSize: '0.85rem', 
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.1em',
-                    opacity: 0.9,
-                    transition: 'opacity 0.3s, color 0.3s',
-                    fontWeight: '500',
-                    position: 'relative',
-                    display: 'block',
-                    paddingBottom: '5px' 
-                  }}
-                  className="nav-link"
-                  onMouseOver={(e) => { e.target.style.opacity = 1; e.target.style.color = '#fff'; }}
-                  onMouseOut={(e) => { e.target.style.opacity = 0.9; }}
-                >
-                  {item.label}
-                  <span style={{
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <ul style={{
+              display: 'flex',
+              gap: '30px',
+              listStyle: 'none',
+              margin: 0,
+              padding: '10px 30px',
+              border: '1px solid rgba(255,255,255,0.1)',
+              borderRadius: '50px',
+              backgroundColor: 'rgba(255,255,255,0.02)',
+              backdropFilter: 'blur(5px)',
+              boxShadow: '0 4px 20px rgba(0,0,0,0.1)'
+            }}>
+              {NAV_ITEMS.map((item) => (
+                <li key={item.label} style={{ position: 'relative' }}>
+                  <a
+                    href={`#${item.targetId}`}
+                    onClick={(e) => scrollToSection(e, item.targetId)}
+                    style={{
+                      color: '#FFFFFF',
+                      textDecoration: 'none',
+                      fontFamily: '"Manrope", sans-serif',
+                      fontSize: '0.8rem',
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.1em',
+                      opacity: 0.8,
+                      transition: 'opacity 0.3s, color 0.3s',
+                      fontWeight: '500',
+                      position: 'relative',
+                      display: 'block',
+                      paddingBottom: '2px'
+                    }}
+                    className="nav-link"
+                    onMouseOver={(e) => { e.target.style.opacity = 1; e.target.style.color = '#fff'; }}
+                    onMouseOut={(e) => { e.target.style.opacity = 0.8; }}
+                  >
+                    {item.label}
+                    <span style={{
                       position: 'absolute',
                       bottom: 0,
                       left: '50%',
                       transform: 'translateX(-50%)',
                       width: '0%',
-                      height: '2px',
+                      height: '1.5px',
                       backgroundColor: '#FFFFFF',
                       transition: 'width 0.3s ease-out'
-                  }} className="hover-underline"/>
-                </a>
-              </li>
-            ))}
-          </ul>
+                    }} className="hover-underline" />
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
         )}
 
-        {/* --- DESKTOP CTA BUTTON --- */}
-        {!isMobile && (
-          <button 
-            onClick={(e) => scrollToSection(e, 'contact')} 
-            style={{
+        {/* --- RIGHT: DESKTOP CTA / MOBILE BURGER --- */}
+        <div style={{ flex: 1, display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
+          {!isMobile && (
+            <button
+              onClick={(e) => scrollToSection(e, 'contact')}
+              style={{
                 background: 'transparent',
                 border: '1px solid rgba(255,255,255,0.3)',
                 color: '#FFF',
-                padding: '12px 30px',
+                padding: isScrolled ? '10px 25px' : '12px 28px',
                 fontFamily: '"Oswald", sans-serif',
                 textTransform: 'uppercase',
                 letterSpacing: '0.1em',
-                fontSize: '0.9rem',
+                fontSize: '0.85rem',
                 cursor: 'pointer',
                 transition: 'all 0.3s ease',
                 borderRadius: '2px'
-            }}
-            onMouseOver={(e) => {
+              }}
+              onMouseOver={(e) => {
                 e.target.style.background = '#FFF';
                 e.target.style.color = '#000';
                 e.target.style.borderColor = '#FFF';
-            }}
-            onMouseOut={(e) => {
+              }}
+              onMouseOut={(e) => {
                 e.target.style.background = 'transparent';
                 e.target.style.color = '#FFF';
                 e.target.style.borderColor = 'rgba(255,255,255,0.3)';
-            }}
-          >
-            LET'S TALK
-          </button>
-        )}
+              }}
+            >
+              LET'S TALK
+            </button>
+          )}
 
-        {/* --- MOBILE HAMBURGER BUTTON (Visible only when menu is CLOSED) --- */}
-        {isMobile && !menuOpen && (
-          <button 
-            onClick={() => setMenuOpen(true)}
-            style={{
-              background: 'transparent',
-              border: 'none',
-              color: '#FFF',
-              fontSize: '1.8rem',
-              cursor: 'pointer',
-              zIndex: 202, 
-              padding: '10px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              width: '50px',
-              height: '50px'
-            }}
-          >
-            ☰
-          </button>
-        )}
+          {isMobile && !menuOpen && (
+            <button
+              onClick={() => setMenuOpen(true)}
+              style={{
+                background: 'transparent',
+                border: 'none',
+                color: '#FFF',
+                fontSize: '1.5rem',
+                cursor: 'pointer',
+                zIndex: 202,
+                padding: '5px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}
+            >
+              ☰
+            </button>
+          )}
+        </div>
+
       </motion.nav>
 
       {/* --- MOBILE MENU OVERLAY --- */}
       <AnimatePresence>
         {isMobile && menuOpen && (
           <motion.div
-            initial={{ opacity: 0, x: "100%" }} 
+            initial={{ opacity: 0, x: "100%" }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: "100%" }}
             transition={{ type: "spring", stiffness: 300, damping: 30 }}
@@ -239,8 +256,8 @@ export default function Navbar() {
               left: 0,
               width: '100vw',
               height: '100vh',
-              backgroundColor: '#0F1115', 
-              zIndex: 190, 
+              backgroundColor: '#0F1115',
+              zIndex: 190,
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'center',
@@ -249,7 +266,7 @@ export default function Navbar() {
             }}
           >
             {/* --- CLOSE BUTTON INSIDE THE MENU --- */}
-            <button 
+            <button
               onClick={() => setMenuOpen(false)}
               style={{
                 position: 'absolute',
@@ -272,7 +289,7 @@ export default function Navbar() {
             </button>
 
             {NAV_ITEMS.map((item) => (
-              <a 
+              <a
                 key={item.label}
                 href={`#${item.targetId}`}
                 onClick={(e) => scrollToSection(e, item.targetId)}
@@ -288,21 +305,21 @@ export default function Navbar() {
                 {item.label}
               </a>
             ))}
-            
-            <button 
-              onClick={(e) => scrollToSection(e, 'contact')} 
+
+            <button
+              onClick={(e) => scrollToSection(e, 'contact')}
               style={{
-                  marginTop: '20px',
-                  background: '#FFF',
-                  border: '1px solid #FFF',
-                  color: '#000',
-                  padding: '15px 40px',
-                  fontFamily: '"Oswald", sans-serif',
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.1em',
-                  fontSize: '1rem',
-                  cursor: 'pointer',
-                  borderRadius: '2px'
+                marginTop: '20px',
+                background: '#FFF',
+                border: '1px solid #FFF',
+                color: '#000',
+                padding: '15px 40px',
+                fontFamily: '"Oswald", sans-serif',
+                textTransform: 'uppercase',
+                letterSpacing: '0.1em',
+                fontSize: '1rem',
+                cursor: 'pointer',
+                borderRadius: '2px'
               }}
             >
               LET'S TALK
