@@ -341,7 +341,7 @@ export default function Navbar() {
                   marginTop: '10px'
                 }}
             >
-              DOWNLOAD PORTFOLIO ↓
+              DOWNLOAD BROCHURE ↓
             </a>
 
             <button
