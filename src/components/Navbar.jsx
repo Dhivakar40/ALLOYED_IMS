@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
+// --- IMPORT THE PDF AS A CONSTANT ---
+// This ensures the path is correctly resolved by the build tool
+import portfolioPDF from '../assets/portfolio.pdf';
+
 // --- CONFIG: Define Menu Items and their Target IDs ---
 const NAV_ITEMS = [
   { label: "ABOUT US", targetId: "about" },
@@ -35,7 +39,7 @@ export default function Navbar() {
   // 3. Smooth Scroll Logic
   const scrollToSection = (e, targetId) => {
     e.preventDefault();
-    setMenuOpen(false); // Close menu when link clicked
+    setMenuOpen(false);
 
     const element = document.getElementById(targetId);
 
@@ -44,14 +48,32 @@ export default function Navbar() {
         top: element.offsetTop - 100,
         behavior: 'smooth'
       });
-    } else {
-      console.warn(`Section #${targetId} not found`);
     }
   };
 
   const handleLogoClick = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
     setMenuOpen(false);
+  };
+
+  // Common Button Style Helper for Industrial Look
+  const industrialButtonStyle = {
+    background: 'transparent',
+    border: '1px solid rgba(255,255,255,0.3)',
+    color: '#FFF',
+    padding: isScrolled ? '10px 22px' : '12px 26px',
+    fontFamily: '"Oswald", sans-serif',
+    textTransform: 'uppercase',
+    letterSpacing: '0.15em',
+    fontSize: '0.8rem',
+    cursor: 'pointer',
+    transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
+    borderRadius: '2px',
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    textDecoration: 'none',
+    fontWeight: '500'
   };
 
   return (
@@ -112,7 +134,6 @@ export default function Navbar() {
               }}>
                 INTEGRITY
               </h1>
-
               <span style={{
                 fontFamily: '"Montserrat", sans-serif',
                 fontSize: '0.55rem',
@@ -186,37 +207,45 @@ export default function Navbar() {
           </div>
         )}
 
-        {/* --- RIGHT: DESKTOP CTA / MOBILE BURGER --- */}
-        <div style={{ flex: 1, display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
+        {/* --- RIGHT: ACTIONS (Download & Contact) --- */}
+        <div style={{ flex: 1, display: 'flex', justifyContent: 'flex-end', alignItems: 'center', gap: '15px' }}>
           {!isMobile && (
-            <button
-              onClick={(e) => scrollToSection(e, 'contact')}
-              style={{
-                background: 'transparent',
-                border: '1px solid rgba(255,255,255,0.3)',
-                color: '#FFF',
-                padding: isScrolled ? '10px 25px' : '12px 28px',
-                fontFamily: '"Oswald", sans-serif',
-                textTransform: 'uppercase',
-                letterSpacing: '0.1em',
-                fontSize: '0.85rem',
-                cursor: 'pointer',
-                transition: 'all 0.3s ease',
-                borderRadius: '2px'
-              }}
-              onMouseOver={(e) => {
-                e.target.style.background = '#FFF';
-                e.target.style.color = '#000';
-                e.target.style.borderColor = '#FFF';
-              }}
-              onMouseOut={(e) => {
-                e.target.style.background = 'transparent';
-                e.target.style.color = '#FFF';
-                e.target.style.borderColor = 'rgba(255,255,255,0.3)';
-              }}
-            >
-              LET'S TALK
-            </button>
+            <>
+              {/* DOWNLOAD PORTFOLIO BUTTON - PATH UPDATED TO IMPORTED CONSTANT */}
+              <a
+                href={portfolioPDF}
+                download="IMS_Company_Portfolio.pdf"
+                style={industrialButtonStyle}
+                onMouseOver={(e) => {
+                  e.currentTarget.style.background = 'rgba(255,255,255,0.1)';
+                  e.currentTarget.style.borderColor = '#FFF';
+                }}
+                onMouseOut={(e) => {
+                  e.currentTarget.style.background = 'transparent';
+                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.3)';
+                }}
+              >
+                DOWNLOAD BROCHURE
+              </a>
+
+              {/* CONTACT BUTTON */}
+              <button
+                onClick={(e) => scrollToSection(e, 'contact')}
+                style={industrialButtonStyle}
+                onMouseOver={(e) => {
+                  e.target.style.background = '#FFF';
+                  e.target.style.color = '#000';
+                  e.target.style.borderColor = '#FFF';
+                }}
+                onMouseOut={(e) => {
+                  e.target.style.background = 'transparent';
+                  e.target.style.color = '#FFF';
+                  e.target.style.borderColor = 'rgba(255,255,255,0.3)';
+                }}
+              >
+                LET'S TALK
+              </button>
+            </>
           )}
 
           {isMobile && !menuOpen && (
@@ -229,17 +258,13 @@ export default function Navbar() {
                 fontSize: '1.5rem',
                 cursor: 'pointer',
                 zIndex: 202,
-                padding: '5px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center'
+                padding: '5px'
               }}
             >
               ☰
             </button>
           )}
         </div>
-
       </motion.nav>
 
       {/* --- MOBILE MENU OVERLAY --- */}
@@ -265,7 +290,6 @@ export default function Navbar() {
               gap: '2rem'
             }}
           >
-            {/* --- CLOSE BUTTON INSIDE THE MENU --- */}
             <button
               onClick={() => setMenuOpen(false)}
               style={{
@@ -276,8 +300,6 @@ export default function Navbar() {
                 border: '1px solid rgba(255,255,255,0.2)',
                 borderRadius: '50%',
                 color: '#FFF',
-                fontSize: '1.2rem',
-                cursor: 'pointer',
                 width: '50px',
                 height: '50px',
                 display: 'flex',
@@ -306,20 +328,34 @@ export default function Navbar() {
               </a>
             ))}
 
+            {/* MOBILE DOWNLOAD LINK - PATH UPDATED TO IMPORTED CONSTANT */}
+            <a
+                href={portfolioPDF}
+                download
+                style={{
+                  color: 'rgba(255,255,255,0.6)',
+                  textDecoration: 'none',
+                  fontFamily: '"Oswald", sans-serif',
+                  fontSize: '1rem',
+                  letterSpacing: '0.2em',
+                  marginTop: '10px'
+                }}
+            >
+              DOWNLOAD PORTFOLIO ↓
+            </a>
+
             <button
               onClick={(e) => scrollToSection(e, 'contact')}
               style={{
-                marginTop: '20px',
+                marginTop: '10px',
                 background: '#FFF',
-                border: '1px solid #FFF',
                 color: '#000',
                 padding: '15px 40px',
                 fontFamily: '"Oswald", sans-serif',
                 textTransform: 'uppercase',
-                letterSpacing: '0.1em',
                 fontSize: '1rem',
-                cursor: 'pointer',
-                borderRadius: '2px'
+                borderRadius: '2px',
+                border: 'none'
               }}
             >
               LET'S TALK
