@@ -38,7 +38,7 @@ export default function WhyUs() {
                     >
                         The Advantage
                     </motion.h4>
-                    <h2 className="font-serif text-5xl">Why Integrity?</h2>
+                    <h2 style={{ fontFamily: 'var(--font-serif)' }} className="text-5xl">Why Integrity?</h2>
                 </div>
 
                 <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -55,7 +55,7 @@ export default function WhyUs() {
                             <div className="text-[var(--color-sandal)] mb-6 group-hover:scale-110 transition-transform duration-300">
                                 {item.icon}
                             </div>
-                            <h3 className="font-serif text-2xl mb-4 group-hover:text-[var(--color-sandal-dark)] transition-colors">{item.title}</h3>
+                            <h3 style={{ fontFamily: 'var(--font-serif)' }} className="text-2xl mb-4 group-hover:text-[var(--color-sandal-dark)] transition-colors">{item.title}</h3>
                             <p className="text-[var(--color-text-light)] text-sm leading-relaxed">
                                 {item.description}
                             </p>

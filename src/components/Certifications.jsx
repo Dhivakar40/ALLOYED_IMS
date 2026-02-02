@@ -2,19 +2,19 @@ import React from 'react';
 import { motion } from 'framer-motion';
 
 const certifications = [
-    { 
-        text: "ISO 9001:2015", 
-        metallic: "linear-gradient(135deg, #C0C0C0 0%, #E8E8E8 25%, #A8A8A8 50%, #FFFFFF 75%, #B8B8B8 100%)", 
+    {
+        text: "ISO 9001:2015",
+        metallic: "linear-gradient(135deg, #C0C0C0 0%, #E8E8E8 25%, #A8A8A8 50%, #FFFFFF 75%, #B8B8B8 100%)",
         desc: "Quality Management System",
-        img: "iso.png", 
+        img: "iso.png",
         color: "#C0C0C0"
     },
-    { 
-        text: "MSME Registered", 
-        metallic: "linear-gradient(135deg, #0066CC 0%, #3399FF 25%, #007ACC 50%, #E6F3FF 75%, #0066CC 100%)", 
+    {
+        text: "MSME Registered",
+        metallic: "linear-gradient(135deg, #0066CC 0%, #3399FF 25%, #007ACC 50%, #E6F3FF 75%, #0066CC 100%)",
         desc: "Micro, Small & Medium Enterprises",
         img: "msme.png",
-        color: "#3399FF" 
+        color: "#3399FF"
     }
 ];
 
@@ -34,8 +34,8 @@ const CertLogo = ({ cert, index }) => (
         viewport={{ once: true }}
         variants={{
             initial: { opacity: 0, y: 30 },
-            inView: { 
-                opacity: 1, 
+            inView: {
+                opacity: 1,
                 y: 0,
                 transition: { duration: 0.6, delay: index * 0.1, ease: [0.25, 1, 0.5, 1] }
             }
@@ -109,9 +109,9 @@ const CertLogo = ({ cert, index }) => (
 
 export default function Certifications() {
     return (
-        <section 
+        <section
             id="certifications"
-            style={{ 
+            style={{
                 backgroundColor: '#0A0F1C',
                 padding: '120px 0',
                 borderTop: '1px solid rgba(255,255,255,0.08)',
@@ -119,18 +119,18 @@ export default function Certifications() {
                 overflow: 'hidden'
             }}
         >
-            {/* Background Grid */}
+            {/* Background Accent (Simplified for Glossy Look) */}
             <div style={{
                 position: 'absolute', inset: 0,
-                backgroundImage: 'linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px)',
-                backgroundSize: '80px 80px', opacity: 0.4
+                background: 'radial-gradient(circle at 50% 50%, rgba(255,255,255,0.01) 0%, transparent 80%)',
+                opacity: 0.5
             }} />
 
             <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '0 40px', position: 'relative', zIndex: 1 }}>
-                
+
                 {/* --- HEADER --- */}
                 <div style={{ textAlign: 'center', marginBottom: '80px' }}>
-                    <motion.p 
+                    <motion.p
                         initial={{ opacity: 0 }} whileInView={{ opacity: 0.6 }} viewport={{ once: true }} transition={{ duration: 0.8 }}
                         style={{ textTransform: 'uppercase', letterSpacing: '0.3em', fontSize: '0.85rem', color: '#FFFFFF', marginBottom: '1rem', fontWeight: '600' }}
                     >
@@ -143,7 +143,7 @@ export default function Certifications() {
                         Industry Certifications
                     </motion.h2>
                     <div style={{ width: '100px', height: '3px', background: 'rgba(255,255,255,0.1)', margin: '2rem auto', position: 'relative', overflow: 'hidden' }}>
-                        <motion.div 
+                        <motion.div
                             animate={{ x: ['-100%', '100%'] }} transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
                             style={{ position: 'absolute', inset: 0, background: 'linear-gradient(90deg, transparent, #FFFFFF, transparent)' }}
                         />
@@ -159,14 +159,14 @@ export default function Certifications() {
 
                 {/* --- QUALITY COMMITMENT SECTION --- */}
                 <div style={{ marginTop: '120px' }}>
-                    <motion.div 
+                    <motion.div
                         initial={{ opacity: 0, y: 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.8 }}
                         style={{ textAlign: 'center', maxWidth: '900px', margin: '0 auto 60px auto' }}
                     >
-                        <h3 style={{ fontFamily: '"Oswald", sans-serif', fontSize: '2.5rem', color: '#FFF', marginBottom: '20px' }}>
+                        <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: '2.5rem', color: '#FFF', marginBottom: '20px' }}>
                             OUR QUALITY COMMITMENT
                         </h3>
                         <p style={{ color: '#AAA', fontSize: '1.1rem', lineHeight: '1.6' }}>
@@ -177,13 +177,13 @@ export default function Certifications() {
                     </motion.div>
 
                     {/* MODULAR QUALITY GRID (Flexbox for 3-2 Layout) */}
-                    <div style={{ 
-                        display: 'flex', 
-                        flexWrap: 'wrap', 
+                    <div style={{
+                        display: 'flex',
+                        flexWrap: 'wrap',
                         justifyContent: 'center', // This centers the last row (the 2 items)
-                        gap: '24px', 
-                        maxWidth: '1200px', 
-                        margin: '0 auto' 
+                        gap: '24px',
+                        maxWidth: '1200px',
+                        margin: '0 auto'
                     }}>
                         {qualityFocusPoints.map((point, i) => (
                             <motion.div
@@ -203,13 +203,13 @@ export default function Certifications() {
                                     // Grow: 1, Shrink: 1, Basis: 300px. 
                                     // Max Width creates the "card" look without filling full width on last row.
                                     flex: '1 1 300px',
-                                    maxWidth: '360px' 
+                                    maxWidth: '360px'
                                 }}
                             >
-                                <div style={{ 
-                                    fontFamily: '"Oswald", sans-serif', 
-                                    fontSize: '1.2rem', 
-                                    color: '#FFF', 
+                                <div style={{
+                                    fontFamily: 'var(--font-serif)',
+                                    fontSize: '1.2rem',
+                                    color: '#FFF',
                                     marginBottom: '10px',
                                     letterSpacing: '0.05em'
                                 }}>

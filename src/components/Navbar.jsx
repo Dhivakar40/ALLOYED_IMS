@@ -59,15 +59,15 @@ export default function Navbar() {
   // Common Button Style Helper for Industrial Look
   const industrialButtonStyle = {
     background: 'transparent',
-    border: '1px solid rgba(255,255,255,0.3)',
+    border: '1px solid rgba(255,255,255,0.4)',
     color: '#FFF',
     padding: isScrolled ? '10px 22px' : '12px 26px',
-    fontFamily: '"Oswald", sans-serif',
+    fontFamily: 'var(--font-serif)',
     textTransform: 'uppercase',
     letterSpacing: '0.15em',
     fontSize: '0.8rem',
     cursor: 'pointer',
-    transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
+    transition: 'background-color 0.3s, color 0.3s',
     borderRadius: '2px',
     display: 'inline-flex',
     alignItems: 'center',
@@ -89,9 +89,9 @@ export default function Navbar() {
           width: '100%',
           zIndex: 100,
           padding: isScrolled ? '20px 40px' : '25px 40px',
-          background: isScrolled ? 'rgba(15, 17, 21, 0.95)' : 'transparent',
-          backdropFilter: isScrolled ? 'blur(10px)' : 'none',
-          borderBottom: isScrolled ? '1px solid rgba(255,255,255,0.05)' : 'none',
+          background: isScrolled ? 'rgba(15, 17, 21, 0.85)' : 'transparent',
+          backdropFilter: isScrolled ? 'blur(20px) saturate(180%)' : 'none',
+          borderBottom: isScrolled ? '1px solid rgba(255,255,255,0.1)' : 'none',
           display: 'flex',
           alignItems: 'center',
           transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)'
@@ -135,7 +135,7 @@ export default function Navbar() {
                 INTEGRITY
               </h1>
               <span style={{
-                fontFamily: '"Montserrat", sans-serif',
+                fontFamily: 'var(--font-sans)',
                 fontSize: '0.55rem',
                 color: '#FFFFFF',
                 letterSpacing: '0.3em',
@@ -174,7 +174,7 @@ export default function Navbar() {
                     style={{
                       color: '#FFFFFF',
                       textDecoration: 'none',
-                      fontFamily: '"Manrope", sans-serif',
+                      fontFamily: 'var(--font-sans)',
                       fontSize: '0.8rem',
                       textTransform: 'uppercase',
                       letterSpacing: '0.1em',
@@ -212,39 +212,25 @@ export default function Navbar() {
           {!isMobile && (
             <>
               {/* DOWNLOAD PORTFOLIO BUTTON - PATH UPDATED TO IMPORTED CONSTANT */}
-              <a
+              <motion.a
                 href={portfolioPDF}
                 download="IMS_Company_Portfolio.pdf"
                 style={industrialButtonStyle}
-                onMouseOver={(e) => {
-                  e.currentTarget.style.background = 'rgba(255,255,255,0.1)';
-                  e.currentTarget.style.borderColor = '#FFF';
-                }}
-                onMouseOut={(e) => {
-                  e.currentTarget.style.background = 'transparent';
-                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.3)';
-                }}
+                whileHover={{ scale: 1.05, backgroundColor: '#FFFFFF', color: '#000000' }}
+                whileTap={{ scale: 0.95 }}
               >
                 DOWNLOAD BROCHURE
-              </a>
+              </motion.a>
 
               {/* CONTACT BUTTON */}
-              <button
+              <motion.button
                 onClick={(e) => scrollToSection(e, 'contact')}
                 style={industrialButtonStyle}
-                onMouseOver={(e) => {
-                  e.target.style.background = '#FFF';
-                  e.target.style.color = '#000';
-                  e.target.style.borderColor = '#FFF';
-                }}
-                onMouseOut={(e) => {
-                  e.target.style.background = 'transparent';
-                  e.target.style.color = '#FFF';
-                  e.target.style.borderColor = 'rgba(255,255,255,0.3)';
-                }}
+                whileHover={{ scale: 1.05, backgroundColor: '#FFFFFF', color: '#000000' }}
+                whileTap={{ scale: 0.95 }}
               >
                 LET'S TALK
-              </button>
+              </motion.button>
             </>
           )}
 
@@ -318,7 +304,7 @@ export default function Navbar() {
                 style={{
                   color: '#FFFFFF',
                   textDecoration: 'none',
-                  fontFamily: '"Oswald", sans-serif',
+                  fontFamily: 'var(--font-serif)',
                   fontSize: '2rem',
                   textTransform: 'uppercase',
                   letterSpacing: '0.1em'
@@ -330,36 +316,40 @@ export default function Navbar() {
 
             {/* MOBILE DOWNLOAD LINK - PATH UPDATED TO IMPORTED CONSTANT */}
             <a
-                href={portfolioPDF}
-                download
-                style={{
-                  color: 'rgba(255,255,255,0.6)',
-                  textDecoration: 'none',
-                  fontFamily: '"Oswald", sans-serif',
-                  fontSize: '1rem',
-                  letterSpacing: '0.2em',
-                  marginTop: '10px'
-                }}
+              href={portfolioPDF}
+              download
+              style={{
+                color: 'rgba(255,255,255,0.6)',
+                textDecoration: 'none',
+                fontFamily: 'var(--font-serif)',
+                fontSize: '1rem',
+                letterSpacing: '0.2em',
+                marginTop: '10px'
+              }}
             >
               DOWNLOAD BROCHURE ↓
             </a>
 
-            <button
+            <motion.button
               onClick={(e) => scrollToSection(e, 'contact')}
+              whileHover={{ scale: 1.05, backgroundColor: '#FFFFFF', color: '#000000' }}
+              whileTap={{ scale: 0.95 }}
               style={{
                 marginTop: '10px',
-                background: '#FFF',
-                color: '#000',
+                background: 'transparent',
+                color: '#FFF',
                 padding: '15px 40px',
-                fontFamily: '"Oswald", sans-serif',
+                fontFamily: 'var(--font-serif)',
                 textTransform: 'uppercase',
                 fontSize: '1rem',
                 borderRadius: '2px',
-                border: 'none'
+                border: '1px solid rgba(255,255,255,0.4)',
+                cursor: 'pointer',
+                transition: 'background-color 0.3s, color 0.3s'
               }}
             >
               LET'S TALK
-            </button>
+            </motion.button>
           </motion.div>
         )}
       </AnimatePresence>

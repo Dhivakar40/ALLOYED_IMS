@@ -82,7 +82,7 @@ export default function Services() {
                     style={{
                         whiteSpace: 'nowrap',
                         fontSize: '0.9rem',
-                        fontFamily: '"Oswald", sans-serif',
+                        fontFamily: 'var(--font-serif)',
                         letterSpacing: '0.2em',
                         color: '#888',
                         display: 'flex',
@@ -108,7 +108,7 @@ export default function Services() {
                     }}></span>
                     <h2 style={{
                         fontSize: 'clamp(3rem, 5vw, 5rem)',
-                        fontFamily: '"Oswald", sans-serif',
+                        fontFamily: 'var(--font-serif)',
                         lineHeight: '1',
                         textTransform: 'uppercase',
                         marginBottom: '20px'
@@ -151,7 +151,7 @@ export default function Services() {
                                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
                                         <span style={{
                                             fontSize: '4rem',
-                                            fontFamily: '"Oswald", sans-serif',
+                                            fontFamily: 'var(--font-serif)',
                                             opacity: 0.2,
                                             fontWeight: 'bold'
                                         }}>
@@ -176,7 +176,7 @@ export default function Services() {
 
                                     <h3 style={{
                                         fontSize: '2.5rem',
-                                        fontFamily: '"Oswald", sans-serif',
+                                        fontFamily: 'var(--font-serif)',
                                         marginBottom: '1rem',
                                         color: '#FFF'
                                     }}>
@@ -248,14 +248,14 @@ export default function Services() {
                         style={{
                             background: 'transparent',
                             color: '#FFFFFF',
-                            border: '1px solid rgba(255,255,255,0.3)',
+                            border: '1px solid rgba(255,255,255,0.4)',
                             padding: '15px 40px',
                             fontSize: '0.9rem',
                             textTransform: 'uppercase',
                             letterSpacing: '0.2em',
                             cursor: 'pointer',
-                            fontFamily: '"Oswald", sans-serif',
-                            transition: 'all 0.3s ease'
+                            fontFamily: 'var(--font-serif)',
+                            transition: 'background-color 0.3s, color 0.3s'
                         }}
                     >
                         {showAll ? 'View Less Sectors' : 'View More Sectors'}

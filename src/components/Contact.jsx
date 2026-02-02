@@ -204,23 +204,23 @@ export default function Contact() {
                             <FloatingInput label="Email Address" type="email" placeholder="john@company.com" />
                             <FloatingInput label="How can we help?" isTextArea={true} placeholder="Tell us about your project..." />
 
-                            {/* SUBMIT BUTTON */}
                             <motion.button
-                                whileHover={{ scale: 1.02, backgroundColor: 'var(--color-text-primary)', color: 'var(--color-bg)' }}
-                                whileTap={{ scale: 0.98 }}
+                                whileHover={{ scale: 1.05, backgroundColor: 'var(--color-text-primary)', color: 'var(--color-bg)' }}
+                                whileTap={{ scale: 0.95 }}
                                 style={{
                                     marginTop: '20px',
                                     width: '100%',
                                     padding: '20px',
                                     backgroundColor: 'transparent',
                                     color: 'var(--color-text-primary)',
-                                    border: '1px solid var(--color-text-primary)',
+                                    border: '1px solid rgba(255,255,255,0.4)',
                                     borderRadius: '0',
                                     fontSize: '0.875rem',
                                     textTransform: 'uppercase',
                                     letterSpacing: '0.1em',
                                     fontWeight: 'bold',
-                                    cursor: 'pointer'
+                                    cursor: 'pointer',
+                                    transition: 'background-color 0.3s, color 0.3s'
                                 }}
                             >
                                 Send Request

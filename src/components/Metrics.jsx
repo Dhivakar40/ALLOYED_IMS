@@ -78,11 +78,11 @@ const StatItem = ({ value, suffix, text, live }) => (
     }}
   >
     {/* SCALER WRAPPER */}
-    <div style={{ 
-        display: "flex", 
-        alignItems: "flex-end",
-        transform: 'scale(0.8)', 
-        transformOrigin: 'bottom center',
+    <div style={{
+      display: "flex",
+      alignItems: "flex-end",
+      transform: 'scale(0.8)',
+      transformOrigin: 'bottom center',
     }}>
       <SlotNumber value={value} />
       <span
@@ -101,11 +101,12 @@ const StatItem = ({ value, suffix, text, live }) => (
     <p
       style={{
         marginTop: "0.5rem",
-        fontSize: "1rem", 
+        fontSize: "1rem",
         textTransform: "uppercase",
         letterSpacing: "0.15em",
         color: "#A0A0A0",
         fontWeight: "800",
+        fontFamily: "var(--font-serif)",
         minHeight: "1.6rem",
       }}
     >
@@ -146,7 +147,7 @@ const StatItem = ({ value, suffix, text, live }) => (
         </div>
       )}
     </div>
-    
+
     <style>{`
       @keyframes pulse {
         0% { opacity: 1; box-shadow: 0 0 0 0 rgba(50, 205, 50, 0.7); }
@@ -167,7 +168,7 @@ export default function Metrics() {
         const cacheBuster = new Date().getTime();
         const response = await fetch(`${SHEET_URL}&t=${cacheBuster}`);
         const text = await response.text();
-        
+
         const rows = text.split(/\r?\n/);
         const newMetrics = { ...metrics };
 
@@ -175,14 +176,14 @@ export default function Metrics() {
           const parts = row.split(',');
           if (parts.length >= 2) {
             const key = parts[0].trim().toLowerCase();
-            const valString = parts[1].replace(/,/g, '').trim(); 
+            const valString = parts[1].replace(/,/g, '').trim();
             const val = parseFloat(valString);
-            
+
             if (!isNaN(val)) {
-                if(key.includes('machine')) newMetrics.machines = val;
-                if(key.includes('shipped')) newMetrics.shipped = val;
-                if(key.includes('tolerance')) newMetrics.tolerance = val;
-                if(key.includes('legacy')) newMetrics.legacy = val;
+              if (key.includes('machine')) newMetrics.machines = val;
+              if (key.includes('shipped')) newMetrics.shipped = val;
+              if (key.includes('tolerance')) newMetrics.tolerance = val;
+              if (key.includes('legacy')) newMetrics.legacy = val;
             }
           }
         });
@@ -210,9 +211,10 @@ export default function Metrics() {
         <div style={{ textAlign: "center", marginBottom: "3rem" }}>
           <h2
             style={{
-              fontSize: "clamp(2rem, 6vw, 3.5rem)", 
+              fontSize: "clamp(2rem, 6vw, 3.5rem)",
               fontWeight: "700",
               letterSpacing: "0.05em",
+              fontFamily: "var(--font-serif)",
               color: "#FFFFFF",
               textTransform: "uppercase",
               lineHeight: 1.1,
