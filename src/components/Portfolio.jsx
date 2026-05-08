@@ -37,7 +37,7 @@ const projects = [
     process: "Development to Mass Production",
     material: "Rapid Prototyping",
     specs: "Flexible Volumes | Fast Turnaround",
-    img: "https://images.unsplash.com/photo-1565514020176-db99c857e231?q=80&w=2070&auto=format&fit=crop" 
+    img: "https://rlmcastings.com/blog/wp-content/uploads/2021/06/prototype-services-for-small-batch-manufacturing.jpg" 
   },
   { 
     id: 5,

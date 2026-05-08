@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 // 1. DATA - 6 ITEMS
@@ -26,7 +26,7 @@ const capabilities = [
     },
     {
         id: "04",
-        title: "Energy & Petrochemical",
+        title: "Energy & Petrochem", // Shortened slightly to fit better, or minHeight will handle it
         tags: ["High-Pressure Valves", "Drilling Rigs", "Pipeline", "Offshore"],
         desc: "Powering global infrastructure. We deliver corrosion-resistant, pressure-tested components built to survive the harshest oil and gas environments.",
         image: "oil.png" 
@@ -50,11 +50,17 @@ const capabilities = [
 const materials = "ALUMINUM 6061 • STAINLESS STEEL 304 • TITANIUM • INCONEL • BRASS • TOOL STEEL • CARBON FIBER • ABS PLASTIC • ";
 
 export default function Services() {
-    // STATE TO TOGGLE VIEW
     const [showAll, setShowAll] = useState(false);
+    const [isMobile, setIsMobile] = useState(false);
 
-    // Determine which items to show
     const visibleCapabilities = showAll ? capabilities : capabilities.slice(0, 3);
+
+    useEffect(() => {
+        const checkMobile = () => setIsMobile(window.innerWidth < 1000); // Trigger mobile layout slightly earlier for safety
+        window.addEventListener('resize', checkMobile);
+        checkMobile(); 
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
 
     return (
         <section 
@@ -74,11 +80,13 @@ export default function Services() {
                 borderBottom: '1px solid #333',
                 overflow: 'hidden',
                 padding: '15px 0',
-                marginBottom: '80px'
+                marginBottom: '80px',
+                userSelect: 'none', 
+                WebkitUserSelect: 'none'
             }}>
                 <motion.div
                     animate={{ x: [0, -1000] }}
-                    transition={{ repeat: Infinity, duration: 25, ease: "linear" }}
+                    transition={{ repeat: Infinity, duration: 40, ease: "linear" }}
                     style={{
                         whiteSpace: 'nowrap',
                         fontSize: '0.9rem',
@@ -126,73 +134,101 @@ export default function Services() {
                     gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', 
                     gap: '60px', 
                     width: '100%',
-                    alignItems: 'start' 
+                    alignItems: 'stretch' // Force identical row heights
                 }}>
-                    {/* CHANGED: Removed mode='popLayout' for smoother layout slide */}
                     <AnimatePresence initial={false}>
                         {visibleCapabilities.map((service, i) => (
                             <motion.div 
                                 layout
                                 key={service.id} 
-                                initial={{ opacity: 0, y: 50 }} // Increased distance for effect
+                                initial={{ opacity: 0, y: 50 }} 
                                 animate={{ opacity: 1, y: 0 }}
-                                exit={{ opacity: 0, scale: 0.95, transition: { duration: 0.5 } }} // Smoother exit
-                                // CHANGED: Increased duration and used a smooth ease curve
+                                exit={{ opacity: 0, scale: 0.95, transition: { duration: 0.5 } }} 
                                 transition={{ duration: 0.8, ease: [0.04, 0.62, 0.23, 0.98] }}
                                 whileHover="hover" 
                                 style={{ 
                                     position: 'relative',
                                     width: '100%',
-                                    cursor: 'pointer'
+                                    cursor: 'pointer',
+                                    marginBottom: isMobile ? '50px' : '0',
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    height: '100%' 
                                 }}
                             >
-                                {/* Text Content */}
-                                <div style={{ marginBottom: '2rem', position: 'relative', zIndex: 1, paddingRight: '20px' }}>
-                                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
-                                        <span style={{ 
-                                            fontSize: '4rem', 
-                                            fontFamily: '"Oswald", sans-serif', 
-                                            opacity: 0.2,
-                                            fontWeight: 'bold'
-                                        }}>
-                                            {service.id}
-                                        </span>
-                                        {/* Tech Tags */}
-                                        <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', justifyContent: 'flex-end' }}>
-                                            {service.tags.map((tag, t) => (
-                                                <span key={t} style={{ 
-                                                    fontSize: '0.8rem', 
-                                                    border: '1px solid #444', 
-                                                    padding: '6px 12px', 
-                                                    borderRadius: '4px',
-                                                    color: '#CCC',
-                                                    backgroundColor: 'rgba(0,0,0,0.3)'
-                                                }}>
-                                                    {tag}
-                                                </span>
-                                            ))}
-                                        </div>
+                                {/* TEXT CONTENT WRAPPER */}
+                                <div style={{ 
+                                    marginBottom: '1.5rem', 
+                                    position: 'relative', 
+                                    zIndex: 1, 
+                                    paddingRight: '10px',
+                                    flexGrow: 1, // Absorbs empty space to push image to the bottom
+                                    display: 'flex',
+                                    flexDirection: 'column'
+                                }}>
+                                    
+                                    {/* NUMBER */}
+                                    <span style={{ 
+                                        fontSize: '4.5rem', 
+                                        fontFamily: '"Oswald", sans-serif', 
+                                        opacity: 0.2,
+                                        fontWeight: 'bold',
+                                        lineHeight: 1,
+                                        marginBottom: '10px'
+                                    }}>
+                                        {service.id}
+                                    </span>
+
+                                    {/* TAGS (FIX: MinHeight to perfectly align Titles below them) */}
+                                    <div style={{ 
+                                        display: 'flex', 
+                                        gap: '8px', 
+                                        flexWrap: 'wrap', 
+                                        justifyContent: 'flex-start',
+                                        alignContent: 'flex-start',
+                                        minHeight: isMobile ? 'auto' : '70px', // Standardizes tag container height
+                                        marginBottom: '1rem'
+                                    }}>
+                                        {service.tags.map((tag, t) => (
+                                            <span key={t} style={{ 
+                                                fontSize: '0.8rem', 
+                                                border: '1px solid #444', 
+                                                padding: '6px 12px', 
+                                                borderRadius: '4px',
+                                                color: '#CCC',
+                                                backgroundColor: 'rgba(0,0,0,0.3)',
+                                                whiteSpace: 'nowrap'
+                                            }}>
+                                                {tag}
+                                            </span>
+                                        ))}
                                     </div>
 
+                                    {/* TITLE (FIX: MinHeight to perfectly align Descriptions below them) */}
                                     <h3 style={{ 
-                                        fontSize: '2.5rem', 
+                                        fontSize: '2.2rem', 
                                         fontFamily: '"Oswald", sans-serif', 
                                         marginBottom: '1rem',
-                                        color: '#FFF'
+                                        color: '#FFF',
+                                        lineHeight: 1.2,
+                                        minHeight: isMobile ? 'auto' : '85px' // Standardizes title container height
                                     }}>
                                         {service.title}
                                     </h3>
+                                    
+                                    {/* DESCRIPTION */}
                                     <p style={{ 
-                                        fontSize: '1.1rem', 
+                                        fontSize: '1.05rem', 
                                         color: '#B0B0B0',
                                         lineHeight: '1.6',
-                                        maxWidth: '95%'
+                                        maxWidth: '95%',
+                                        margin: 0
                                     }}>
                                         {service.desc}
                                     </p>
                                 </div>
 
-                                {/* FRAME IMAGE */}
+                                {/* FRAME IMAGE (Pushed perfectly to the bottom by flexGrow:1 on the text wrapper) */}
                                 <motion.div 
                                     variants={{
                                         initial: { 
@@ -203,7 +239,7 @@ export default function Services() {
                                             border: '1px solid rgba(255,255,255,0.1)'
                                         },
                                         hover: { 
-                                            scale: 1.03, // Slight Frame Pop
+                                            scale: 1.03, 
                                             y: -10,      
                                             boxShadow: "0 30px 60px rgba(0,0,0,0.5)", 
                                             zIndex: 10,
@@ -213,10 +249,11 @@ export default function Services() {
                                     transition={{ duration: 0.4, ease: "easeOut" }}
                                     style={{ 
                                         width: '100%', 
-                                        height: '450px', 
+                                        aspectRatio: '4/5', // Enforces perfect identical height on all images
                                         overflow: 'hidden', 
                                         borderRadius: '8px',
-                                        background: '#000' 
+                                        background: '#000',
+                                        flexShrink: 0 
                                     }}
                                 >
                                     <motion.img 
@@ -240,26 +277,35 @@ export default function Services() {
                 </div>
 
                 {/* --- TOGGLE BUTTON --- */}
-                <div style={{ textAlign: 'center', marginTop: '80px' }}>
-                    <motion.button
+                <div style={{ textAlign: 'center', marginTop: '80px', display: 'flex', justifyContent: 'center' }}>
+                    <button
                         onClick={() => setShowAll(!showAll)}
-                        whileHover={{ scale: 1.05, backgroundColor: '#FFFFFF', color: '#000000' }}
-                        whileTap={{ scale: 0.95 }}
                         style={{
-                            background: 'transparent',
-                            color: '#FFFFFF',
-                            border: '1px solid rgba(255,255,255,0.3)',
+                            background: '#FFFFFF',
+                            color: '#000000',
+                            border: '1px solid #FFFFFF',
                             padding: '15px 40px',
                             fontSize: '0.9rem',
                             textTransform: 'uppercase',
-                            letterSpacing: '0.2em',
+                            letterSpacing: '0.1em',
                             cursor: 'pointer',
                             fontFamily: '"Oswald", sans-serif',
-                            transition: 'all 0.3s ease'
+                            transition: 'all 0.3s ease',
+                            borderRadius: '2px',
+                            width: isMobile ? '100%' : 'auto', 
+                            maxWidth: isMobile ? 'none' : '300px'
+                        }}
+                        onMouseOver={(e) => {
+                            e.currentTarget.style.backgroundColor = 'transparent';
+                            e.currentTarget.style.color = '#FFFFFF';
+                        }}
+                        onMouseOut={(e) => {
+                            e.currentTarget.style.backgroundColor = '#FFFFFF';
+                            e.currentTarget.style.color = '#000000';
                         }}
                     >
                         {showAll ? 'View Less Sectors' : 'View More Sectors'}
-                    </motion.button>
+                    </button>
                 </div>
 
             </div>

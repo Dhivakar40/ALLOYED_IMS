@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Suspense } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
 const IMAGES = [
@@ -13,7 +13,7 @@ export default function Hero() {
   const [showSpark, setShowSpark] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
-  const [isLoaded, setIsLoaded] = useState(false); // New loading state
+  const [isLoaded, setIsLoaded] = useState(false); 
 
   // 1. Mobile Detection
   useEffect(() => {
@@ -25,11 +25,10 @@ export default function Hero() {
 
   // 2. Wait for page load, then start animation
   useEffect(() => {
-    // We add a small delay to ensure the 3D canvas has mounted
     const timer = setTimeout(() => { 
         setIsLoaded(true);
         setStartAnimation(true); 
-    }, 1000); 
+    }, 1200); 
     return () => clearTimeout(timer);
   }, []);
 
@@ -57,8 +56,6 @@ export default function Hero() {
     return "inactive";
   };
 
-  // FIX: This was breaking the layout. 
-  // On mobile we use a fixed size, on desktop we use clamp.
   const titleFontSize = isMobile ? '3rem' : 'clamp(3rem, 6vw, 7rem)';
 
   return (
@@ -102,7 +99,7 @@ export default function Hero() {
         pointerEvents: 'none',
       }}>
         
-        {/* MAIN MOVING CONTAINER */}
+        {/* MAIN MOVING CONTAINER - 100% GPU ACCELERATED */}
         <motion.div
           style={{
             textAlign: isMobile ? 'center' : 'left',
@@ -111,19 +108,31 @@ export default function Hero() {
             pointerEvents: 'auto',
             position: 'absolute', 
             top: '50%', 
-            left: '50%', 
-            // Fix for visual centering on mobile
+            left: 0, 
             maxWidth: '100%',
-            padding: '0 20px', 
+            padding: isMobile ? '0 20px' : '0', 
+            willChange: 'transform, opacity', 
           }}
-          initial={{ x: "-50%", y: "-50%", scale: 1.3 }} 
-          animate={{ 
-            left: isMobile ? "50%" : (startAnimation ? "10%" : "50%"), 
-            x: isMobile ? "-50%" : (startAnimation ? "0%" : "-50%"), 
+          initial={{ 
             y: "-50%",
-            scale: startAnimation ? 1 : 1.3 
+            x: "calc(50vw - 50%)", 
+            // FIX: Start at 1.5x size!
+            scale: 1.5,
+            opacity: 0 
           }} 
-          transition={{ duration: 2.5, ease: [0.65, 0, 0.35, 1] }} 
+          animate={{ 
+            y: "-50%",
+            x: isMobile ? "calc(50vw - 50%)" : (startAnimation ? "10vw" : "calc(50vw - 50%)"), 
+            // FIX: Shrink down to normal size exactly as it slides!
+            scale: startAnimation ? 1 : 1.5,
+            opacity: 1
+          }} 
+          transition={{ 
+            opacity: { duration: 1.5, ease: "easeOut" },
+            // Both X and Scale are synced to identical durations and ultra-smooth curves
+            x: { duration: 2.5, ease: [0.16, 1, 0.3, 1] }, 
+            scale: { duration: 2.5, ease: [0.16, 1, 0.3, 1] }
+          }} 
         >
           
             {/* 1. TITLE TEXT */}
@@ -132,7 +141,8 @@ export default function Hero() {
                 fontFamily: '"Oswald", sans-serif',
                 fontWeight: '800',
                 textTransform: 'uppercase',
-                lineHeight: '0.9',
+                lineHeight: '1.05', 
+                letterSpacing: isMobile ? '0.02em' : 'normal', 
                 fontSize: titleFontSize,
                 margin: 0,
                 whiteSpace: 'nowrap',
@@ -154,7 +164,8 @@ export default function Hero() {
             <motion.div
               initial={{ opacity: 0, x: -100 }}
               animate={{ opacity: startAnimation ? 1 : 0, x: startAnimation ? 0 : -100 }}
-              transition={{ delay: 1.5, duration: 1 }}
+              // Slight delay so the tagline slides in *after* the big text starts shrinking
+              transition={{ delay: 1.8, duration: 1 }}
               style={{
                 marginTop: '20px', 
                 borderTop: '1px solid rgba(255,255,255,0.3)', 
@@ -165,10 +176,12 @@ export default function Hero() {
               <p style={{ 
                 fontFamily: '"Manrope", sans-serif', 
                 letterSpacing: '0.2em', 
-                fontSize: isMobile ? '1rem' : '1.5rem', 
+                fontSize: isMobile ? '0.85rem' : '1.5rem', 
+                lineHeight: isMobile ? '1.5' : '1.2', 
                 fontWeight: '600',
                 margin: 0,
-                color: '#A0A0A0'
+                color: '#A0A0A0',
+                textShadow: '0 4px 20px rgba(0,0,0,0.9), 0 2px 10px rgba(0,0,0,0.8), 0 0 5px rgba(0,0,0,1)' 
               }}>
                  THE HARDWARE OF INDUSTRIAL EVOLUTION
               </p>

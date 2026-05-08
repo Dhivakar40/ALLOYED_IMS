@@ -5,7 +5,6 @@ import Hero from './components/Hero';
 import CustomCursor from './components/CustomCursor';
 import About from './components/About';
 import Services from './components/Services';
-import Metrics from './components/Metrics';
 import Certifications from './components/Certifications';
 import Clients from './components/Clients';
 import Portfolio from './components/Portfolio';
@@ -47,7 +46,6 @@ function App() {
         <About />
         <Services />
         <Portfolio />
-        <Metrics />
         <Clients />
         <Certifications />
         <Contact />
