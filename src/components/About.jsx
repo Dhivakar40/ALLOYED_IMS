@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React from 'react';
+import { motion } from 'framer-motion';
 
 // --- ANIMATION VARIANTS FOR STAGGERED SCROLL ---
 const staggerContainer = {
@@ -18,8 +18,6 @@ const cardVariant = {
 };
 
 export default function About() {
-  const [isVideoOpen, setIsVideoOpen] = useState(false);
-
   return (
     <section 
       id="about" 
@@ -42,7 +40,7 @@ export default function About() {
         {/* --- TOP SECTION: INTRO --- */}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '60px', alignItems: 'center', marginBottom: '80px' }}>
             
-            {/* LEFT SIDE: Narrative & CTA (Stacks first on mobile naturally) */}
+            {/* LEFT SIDE: Narrative */}
             <motion.div 
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -55,28 +53,11 @@ export default function About() {
               <h2 style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', fontFamily: '"Oswald", sans-serif', textTransform: 'uppercase', lineHeight: '1.1', marginBottom: '1.5rem' }}>
                 Precision You <br/> Can Trust.
               </h2>
-              {/* FIX: Increased line-height to 2.0 for paragraph density/breathing room */}
               <p style={{ color: '#B0B0B0', lineHeight: '2.0', fontSize: '1.1rem', marginBottom: '2rem' }}>
                 Integrity Machining Solutions is a premier precision CNC manufacturing firm based in Hosur. 
                 <span style={{ color: '#FFF' }}> We are part of a group of manufacturing companies</span> serving leading OEMs and Tier-1 customers across automobile, automation, aerospace, and medical sectors. 
                 Our promoters bring long-standing relationships and proven performance with reputed customers through these group companies.
               </p>
-
-              {/* FIX: Added marginTop: 40px for button breathing room */}
-              <button 
-                onClick={() => setIsVideoOpen(true)}
-                style={{
-                  marginTop: '40px', 
-                  background: '#FFFFFF', color: '#000000', border: 'none', padding: '15px 40px',
-                  fontSize: '0.9rem', fontFamily: '"Oswald", sans-serif', textTransform: 'uppercase',
-                  letterSpacing: '0.1em', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '10px',
-                  transition: 'transform 0.2s ease, background-color 0.2s ease'
-                }}
-                onMouseOver={(e) => { e.currentTarget.style.backgroundColor = '#E0E0E0'; }}
-                onMouseOut={(e) => { e.currentTarget.style.backgroundColor = '#FFFFFF'; }}
-              >
-                <span>▶</span> Watch Our Story
-              </button>
             </motion.div>
 
             {/* --- RIGHT SIDE: CARDS GRID (Stagger Fade Entry) --- */}
@@ -85,7 +66,7 @@ export default function About() {
               initial="hidden"
               whileInView="show"
               viewport={{ once: true }}
-              style={{ display: 'grid', gap: '20px' }} // FIX: Mathematically identical gap spacing
+              style={{ display: 'grid', gap: '20px' }} 
             >
                 {/* VISION */}
                 <motion.div 
@@ -142,7 +123,6 @@ export default function About() {
             }}
         >
             <h3 style={{ fontFamily: '"Oswald", sans-serif', fontSize: '1.5rem', color: '#FFF', marginBottom: '20px', letterSpacing: '0.1em' }}>QUALITY CONTROL POLICY</h3>
-            {/* FIX: Set max-width to 850px, brightened color to #EAEAEA for contrast, adjusted line height */}
             <p style={{ color: '#EAEAEA', fontSize: '1.15rem', fontStyle: 'italic', maxWidth: '850px', margin: '0 auto', lineHeight: '1.8' }}>
                 "We are committed to delivering defect-free products by implementing stringent quality control systems at every stage of production, 
                 from raw material inspection to in-process and final inspection, ensuring compliance with customer and industry standards."
@@ -188,42 +168,6 @@ export default function About() {
         </div>
 
       </div>
-
-      {/* VIDEO MODAL */}
-      <AnimatePresence>
-        {isVideoOpen && (
-          <motion.div
-            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-            style={{
-              position: 'fixed', top: 0, left: 0, width: '100%', height: '100%',
-              backgroundColor: 'rgba(0,0,0,0.9)', zIndex: 9999,
-              display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '20px'
-            }}
-            onClick={() => setIsVideoOpen(false)}
-          >
-            <motion.div
-              initial={{ scale: 0.8 }} animate={{ scale: 1 }} exit={{ scale: 0.8 }}
-              transition={{ type: "spring", damping: 25, stiffness: 300 }}
-              style={{ width: '100%', maxWidth: '900px', aspectRatio: '16/9', backgroundColor: '#000', position: 'relative', boxShadow: '0 10px 50px rgba(0,0,0,0.5)' }}
-              onClick={(e) => e.stopPropagation()}
-            >
-              <button 
-                onClick={() => setIsVideoOpen(false)} 
-                style={{ 
-                  position: 'absolute', top: '-40px', right: '0', 
-                  background: 'transparent', border: 'none', color: '#FFF', 
-                  fontSize: '2rem', cursor: 'pointer', transition: 'color 0.2s' 
-                }}
-                onMouseOver={(e) => e.currentTarget.style.color = '#00ffcc'}
-                onMouseOut={(e) => e.currentTarget.style.color = '#FFF'}
-              >✕</button>
-              <video width="100%" height="100%" controls autoPlay>
-                <source src="https://videos.pexels.com/video-files/5824640/5824640-hd_1920_1080_24fps.mp4" type="video/mp4" />
-              </video>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </section>
   );
 }
