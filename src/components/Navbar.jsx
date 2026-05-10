@@ -9,7 +9,7 @@ const NAV_ITEMS = [
   { label: "ABOUT US", targetId: "about" },
   { label: "SECTORS", targetId: "sectors" },
   { label: "SERVICES", targetId: "portfolio" },
-  { label: "METRICS", targetId: "metrics" },
+  { label: "INFRASTRUCTURE", targetId: "infrastructure" },
   { label: "CERTIFICATIONS", targetId: "certifications" }
 ];
 

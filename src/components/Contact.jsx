@@ -328,7 +328,7 @@ Note to IMS Admin: Please reply directly to the sender's email to acknowledge re
                 textTransform: 'uppercase',
                 letterSpacing: '0.1em'
             }}>
-                © 2025 Integrity Machinery Solutions.
+                © 2026 Integrity Machinery Solutions.
             </div>
         </section>
     );
