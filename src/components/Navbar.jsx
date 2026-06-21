@@ -68,17 +68,15 @@ export default function Navbar() {
           width: '100%',
           zIndex: 100,
           padding: isScrolled ? '20px 40px' : '25px 40px',
+          // Reverted to original dark glassmorphism
           background: isScrolled ? 'rgba(15, 17, 21, 0.85)' : 'transparent',
           backdropFilter: isScrolled ? 'blur(20px) saturate(180%)' : 'none',
           
-          // FIX 1: Permanent 1px border. We only animate the COLOR, not the size.
           borderBottom: '1px solid',
           borderBottomColor: isScrolled ? 'rgba(255,255,255,0.1)' : 'transparent',
           
           display: 'flex',
           alignItems: 'center',
-          
-          // FIX 2: Targeted transitions. Replaced 'all' with specific hardware-friendly properties.
           transition: 'padding 0.4s ease, background-color 0.4s ease, border-bottom-color 0.4s ease, backdrop-filter 0.4s ease'
         }}
       >
@@ -90,49 +88,21 @@ export default function Navbar() {
               cursor: 'pointer',
               display: 'flex',
               alignItems: 'center',
-              gap: '12px',
-              lineHeight: '1',
               zIndex: 201
             }}
           >
             <img
-              src="/imslogo.png"
-              alt="IMS Logo"
+              src="/bunnylogo.png"
+              alt="Bunny Industries Logo"
               style={{
-                height: isScrolled ? '52px' : '58px',
+                height: isScrolled ? '45px' : '55px',
                 width: 'auto',
                 display: 'block',
-                transition: 'height 0.3s ease'
+                transition: 'height 0.3s ease, filter 0.3s ease',
+                // Added a soft white glow so the blue logo pops on the dark background
+                filter: 'drop-shadow(0px 0px 12px rgba(255, 255, 255, 0.7))'
               }}
             />
-            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-              <h1 style={{
-                fontFamily: '"Orbitron", sans-serif',
-                fontWeight: '900',
-                fontSize: isScrolled ? '1.22rem' : '1.35rem',
-                letterSpacing: '0.05em',
-                color: '#FFFFFF',
-                margin: 0,
-                textTransform: 'uppercase',
-                textShadow: '0 2px 10px rgba(0,0,0,0.5)',
-                transition: 'font-size 0.3s ease'
-              }}>
-                INTEGRITY
-              </h1>
-              <span style={{
-                fontFamily: 'var(--font-sans)',
-                fontSize: '0.55rem',
-                color: '#FFFFFF',
-                letterSpacing: '0.3em',
-                textTransform: 'uppercase',
-                fontWeight: '400',
-                marginTop: '3px',
-                marginLeft: '1px',
-                opacity: 0.8
-              }}>
-                Machining Solutions
-              </span>
-            </div>
           </div>
         </div>
 
@@ -173,8 +143,8 @@ export default function Navbar() {
                       paddingBottom: '2px'
                     }}
                     className="nav-link"
-                    onMouseOver={(e) => { e.target.style.opacity = 1; e.target.style.color = '#fff'; }}
-                    onMouseOut={(e) => { e.target.style.opacity = 0.8; }}
+                    onMouseOver={(e) => { e.target.style.opacity = 1; e.target.style.color = '#6B9BD0'; }}
+                    onMouseOut={(e) => { e.target.style.opacity = 0.8; e.target.style.color = '#FFFFFF'; }}
                   >
                     {item.label}
                     <span style={{
@@ -184,7 +154,7 @@ export default function Navbar() {
                       transform: 'translateX(-50%)',
                       width: '0%',
                       height: '1.5px',
-                      backgroundColor: '#FFFFFF',
+                      backgroundColor: '#6B9BD0',
                       transition: 'width 0.3s ease-out'
                     }} className="hover-underline" />
                   </a>
@@ -201,7 +171,7 @@ export default function Navbar() {
               {/* SECONDARY CTA: GHOST BUTTON */}
               <a
                 href={portfolioPDF}
-                download="IMS_Company_Portfolio.pdf"
+                download="Bunny_Industries_Brochure.pdf"
                 style={{
                   background: 'transparent',
                   border: '1px solid rgba(255,255,255,0.4)',
@@ -212,7 +182,7 @@ export default function Navbar() {
                   letterSpacing: '0.15em',
                   fontSize: '0.8rem',
                   cursor: 'pointer',
-                  transition: 'background-color 0.3s, color 0.3s, padding 0.3s',
+                  transition: 'background-color 0.3s, color 0.3s, border-color 0.3s',
                   borderRadius: '2px',
                   display: 'inline-flex',
                   alignItems: 'center',
@@ -245,7 +215,7 @@ export default function Navbar() {
                   letterSpacing: '0.15em',
                   fontSize: '0.8rem',
                   cursor: 'pointer',
-                  transition: 'background-color 0.3s, color 0.3s, padding 0.3s',
+                  transition: 'background-color 0.3s, color 0.3s, border-color 0.3s',
                   borderRadius: '2px',
                   display: 'inline-flex',
                   alignItems: 'center',
@@ -352,7 +322,7 @@ export default function Navbar() {
               
               <a
                 href={portfolioPDF}
-                download="IMS_Company_Portfolio.pdf"
+                download="Bunny_Industries_Brochure.pdf"
                 style={{
                   background: 'transparent',
                   border: '1px solid rgba(255,255,255,0.4)',

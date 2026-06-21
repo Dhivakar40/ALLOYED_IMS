@@ -139,7 +139,7 @@ export default function Hero() {
             <motion.h1
               style={{
                 fontFamily: '"Oswald", sans-serif',
-                fontWeight: '800',
+                fontWeight: '900',
                 textTransform: 'uppercase',
                 lineHeight: '1.05', 
                 letterSpacing: isMobile ? '0.02em' : 'normal', 
@@ -155,9 +155,8 @@ export default function Hero() {
                 zIndex: 10
               }}
             >
-              <span style={{ display: 'block' }}>Integrity</span>
-              <span style={{ display: 'block' }}>Machining</span>
-              <span style={{ display: 'block' }}>Solutions</span>
+              <span style={{ display: 'block' }}>BUNNY</span>
+              <span style={{ display: 'block' }}>INDUSTRIES</span>
             </motion.h1>
 
             {/* 2. HR & TAGLINE */}
@@ -183,7 +182,7 @@ export default function Hero() {
                 color: '#A0A0A0',
                 textShadow: '0 4px 20px rgba(0,0,0,0.9), 0 2px 10px rgba(0,0,0,0.8), 0 0 5px rgba(0,0,0,1)' 
               }}>
-                 THE HARDWARE OF INDUSTRIAL EVOLUTION
+                 WORLD CLASS MACHINING SOLUTIONS
               </p>
             </motion.div>
           </motion.div>
