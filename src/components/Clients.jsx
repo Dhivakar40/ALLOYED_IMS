@@ -4,25 +4,29 @@ import { motion } from 'framer-motion';
 // Specific Group Customers List
 const CLIENTS = [
     "ASHOK LEYLAND",
-    "TATA ELECTRONICS",
+    "CAT",
     "SCHAEFFLER INDIA",
     "HUBBELL INDIA",
-    "MAINI AEROSPACE",
+    "LAVERSAB AVIATION",
+    "MOLBIO",
+    "NARASIPUR",
+    "RANGSONS",
     "TITAN ENGINEERING",
-    "SFO GROUP",
-    "ICON MEDICARE"
+    "VITHRAM"
 ];
 
 // Client Logo Mapping
 const LOGO_MAP = {
     "ASHOK LEYLAND": "/ashok_leyland_logo.png",
-    "TATA ELECTRONICS": "/tata_logo.png",
+    "CAT": "/cat_logo.png",
     "SCHAEFFLER INDIA": "/schaeffler_logo.png",
     "HUBBELL INDIA": "/hubbell_logo.png",
-    "MAINI AEROSPACE": "/maini_logo.png",
-    "SFO GROUP": "/sfo_logo.png",
-    "TITAN ENGINEERING": "/titan_engineering_logo.png",
-    "ICON MEDICARE": "/icon_medicare_logo.png"
+    "LAVERSAB AVIATION": "/laversab_logo.png",
+    "MOLBIO": "/molbio_logo.png",
+    "NARASIPUR": "/narasipur_logo.png",
+    "RANGSONS": "/rangsons_logo.png",
+    "TITAN ENGINEERING": "/titan_logo.png",
+    "VITHRAM": "/vithram_logo.png"
 };
 
 const ClientCard = ({ name, index }) => {
