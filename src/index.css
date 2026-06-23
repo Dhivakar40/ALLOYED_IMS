@@ -617,7 +617,7 @@ img {
   border-radius: 5px;  /* Rounded corners */
   border: 2px solid #0F1115; /* Creates a "padding" effect around the thumb */
 }
-gitg 
+
 /* 4. The Thumb on Hover */
 ::-webkit-scrollbar-thumb:hover {
   background: #555555; /* Lighter Gray when grabbing */
@@ -628,3 +628,29 @@ html {
   scrollbar-width: thin;      /* Makes it slimmer */
   scrollbar-color: #333 #0F1115; /* Thumb Color | Track Color */
 }
+
+/* --- CLIENTS GRID LAYOUT (5x2 on desktop, responsive) --- */
+.clients-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
+  margin-top: 60px;
+}
+
+@media (max-width: 1024px) {
+  .clients-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .clients-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .clients-grid {
+    grid-template-columns: 1fr;
+  }
+}
