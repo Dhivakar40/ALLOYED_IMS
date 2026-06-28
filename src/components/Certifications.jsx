@@ -1,5 +1,5 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const certifications = [
     { 
@@ -17,6 +17,137 @@ const certifications = [
         color: "#3399FF" 
     }
 ];
+
+const newCertificates = [
+    { 
+        text: "ZED Silver", 
+        desc: "MSME Sustainable Certification",
+        img: "zed_silver_icon.svg",
+        color: "#C0C0C0",
+        pdf: "/bunny_zed_silver_cert.pdf"
+    },
+    { 
+        text: "Udyam Registration", 
+        desc: "Ministry of MSME",
+        img: "udyam_icon.svg",
+        color: "#FF9933",
+        pdf: "/bunny_msme_cert.pdf"
+    },
+    { 
+        text: "BSA ISO 9001", 
+        desc: "Certificate of Compliance",
+        img: "bsa_icon.svg",
+        color: "#E74C3C",
+        pdf: "/bunny_iso_cert.pdf"
+    }
+];
+
+const ShrunkenCertLogo = ({ cert, index, onClick }) => (
+    <motion.div
+        initial="initial"
+        whileInView="inView"
+        whileHover="hover"
+        viewport={{ once: true }}
+        variants={{
+            initial: { opacity: 0, y: 30 },
+            inView: { 
+                opacity: 1, 
+                y: 0,
+                transition: { duration: 0.6, delay: index * 0.1, ease: [0.25, 1, 0.5, 1] }
+            }
+        }}
+        onClick={onClick}
+        style={{
+            position: 'relative',
+            padding: '2rem 1.5rem',
+            color: '#FFFFFF',
+            fontFamily: 'inherit',
+            cursor: 'pointer',
+            background: 'rgba(255,255,255,0.02)',
+            textAlign: 'center',
+            minWidth: '240px',
+            maxWidth: '280px',
+            borderRadius: '16px',
+            overflow: 'visible'
+        }}
+    >
+        {/* Static Border */}
+        <div style={{ position: 'absolute', inset: 0, border: '1px solid rgba(255,255,255,0.1)', borderRadius: '16px', zIndex: 0 }} />
+
+        {/* Animated Running Border */}
+        <motion.div
+            animate={{ backgroundPosition: ['0% 0%', '200% 0%'] }}
+            transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}
+            style={{
+                position: 'absolute', inset: -1,
+                background: `linear-gradient(90deg, transparent, transparent 30%, ${cert.color}, transparent 70%, transparent)`,
+                backgroundSize: '200% 100%',
+                WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+                WebkitMaskComposite: 'xor',
+                maskComposite: 'exclude',
+                padding: '1px', borderRadius: '16px', opacity: 0.5, zIndex: 1, pointerEvents: 'none'
+            }}
+        />
+
+        {/* Content */}
+        <div style={{ position: 'relative', zIndex: 10, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <motion.div
+                variants={{
+                    initial: { scale: 1, filter: "brightness(1) drop-shadow(0 0 0px transparent)" },
+                    hover: { scale: 1.1, filter: `brightness(1.1) drop-shadow(0 0 15px ${cert.color}60)` }
+                }}
+                transition={{ duration: 0.4 }}
+                style={{
+                    width: '90px', height: '90px', marginBottom: '1.25rem',
+                    position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    background: `radial-gradient(circle at center, ${cert.color}20 0%, transparent 70%)`,
+                    borderRadius: '50%'
+                }}
+            >
+                <img src={cert.img} alt={cert.text} style={{ width: '100%', height: '100%', objectFit: 'contain', filter: 'drop-shadow(0 5px 5px rgba(0,0,0,0.5))' }} />
+            </motion.div>
+
+            <motion.h3
+                variants={{
+                    initial: { color: '#FFFFFF' },
+                    hover: { color: cert.color, textShadow: `0 0 20px ${cert.color}40` }
+                }}
+                transition={{ duration: 0.3 }}
+                style={{ fontSize: '1.25rem', fontWeight: '800', letterSpacing: '0.05em', margin: '0 0 0.5rem 0' }}
+            >
+                {cert.text}
+            </motion.h3>
+
+            <p style={{ fontSize: '0.8rem', fontWeight: '500', textTransform: 'uppercase', letterSpacing: '0.1em', color: '#888', margin: 0 }}>
+                {cert.desc}
+            </p>
+
+            {/* "Click to view" hover text */}
+            <motion.div
+                variants={{
+                    initial: { opacity: 0, y: 10 },
+                    hover: { opacity: 1, y: 0 }
+                }}
+                transition={{ duration: 0.2 }}
+                style={{
+                    marginTop: '1rem',
+                    fontSize: '0.8rem',
+                    fontWeight: '700',
+                    color: cert.color,
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.1em',
+                    background: 'rgba(255, 255, 255, 0.05)',
+                    padding: '6px 12px',
+                    borderRadius: '20px',
+                    border: `1px solid ${cert.color}40`,
+                    boxShadow: `0 0 10px ${cert.color}20`
+                }}
+            >
+                click to view
+            </motion.div>
+        </div>
+    </motion.div>
+);
 
 const qualityFocusPoints = [
     { title: "Customer Satisfaction", desc: "Achieved through consistent product quality and service excellence." },
@@ -108,6 +239,8 @@ const CertLogo = ({ cert, index }) => (
 );
 
 export default function Certifications() {
+    const [selectedPdf, setSelectedPdf] = useState(null);
+
     return (
         <section 
             id="certifications"
@@ -150,12 +283,167 @@ export default function Certifications() {
                     </div>
                 </div>
 
-                {/* --- LOGOS GRID --- */}
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '40px', maxWidth: '800px', margin: '0 auto', justifyItems: 'center' }}>
-                    {certifications.map((cert, index) => (
-                        <CertLogo key={index} cert={cert} index={index} />
-                    ))}
+                {/* --- LOGOS GRID (Row 1: 2 Existing Certs, Row 2: 3 New Click-to-Open Certs) --- */}
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '40px', alignItems: 'center' }}>
+                    {/* First Line - 2 Certificates */}
+                    <div style={{ 
+                        display: 'flex', 
+                        flexWrap: 'wrap', 
+                        justifyContent: 'center', 
+                        gap: '40px', 
+                        width: '100%',
+                        maxWidth: '800px'
+                    }}>
+                        {certifications.map((cert, index) => (
+                            <CertLogo key={index} cert={cert} index={index} />
+                        ))}
+                    </div>
+
+                    {/* Second Line - 3 Shrunken Certificates */}
+                    <div style={{ 
+                        display: 'flex', 
+                        flexWrap: 'wrap', 
+                        justifyContent: 'center', 
+                        gap: '40px', 
+                        width: '100%',
+                        maxWidth: '1000px'
+                    }}>
+                        {newCertificates.map((cert, index) => (
+                            <ShrunkenCertLogo 
+                                key={index} 
+                                cert={cert} 
+                                index={index} 
+                                onClick={() => setSelectedPdf(cert)}
+                            />
+                        ))}
+                    </div>
                 </div>
+
+                {/* --- PDF VIEWING MODAL OVERLAY --- */}
+                <AnimatePresence>
+                    {selectedPdf && (
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            style={{
+                                position: 'fixed',
+                                top: 0,
+                                left: 0,
+                                width: '100vw',
+                                height: '100vh',
+                                backgroundColor: 'rgba(0, 0, 0, 0.9)',
+                                backdropFilter: 'blur(10px)',
+                                zIndex: 99999,
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                padding: '20px'
+                            }}
+                            onClick={() => setSelectedPdf(null)}
+                        >
+                            <motion.div
+                                initial={{ y: 50, opacity: 0, scale: 0.95 }}
+                                animate={{ y: 0, opacity: 1, scale: 1 }}
+                                exit={{ y: 20, opacity: 0, scale: 0.95 }}
+                                transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+                                style={{
+                                    backgroundColor: '#15161A',
+                                    border: '1px solid rgba(255,255,255,0.1)',
+                                    borderRadius: '16px',
+                                    width: '90%',
+                                    maxWidth: '1000px',
+                                    height: '85vh',
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    overflow: 'hidden',
+                                    position: 'relative',
+                                    boxShadow: '0 20px 60px rgba(0,0,0,0.8)'
+                                }}
+                                onClick={(e) => e.stopPropagation()}
+                            >
+                                {/* Modal Header */}
+                                <div style={{
+                                    display: 'flex',
+                                    justifyContent: 'space-between',
+                                    alignItems: 'center',
+                                    padding: '20px 30px',
+                                    borderBottom: '1px solid rgba(255,255,255,0.08)'
+                                }}>
+                                    <h3 style={{
+                                        fontFamily: '"Oswald", sans-serif',
+                                        color: '#FFF',
+                                        fontSize: '1.5rem',
+                                        margin: 0,
+                                        textTransform: 'uppercase',
+                                        letterSpacing: '0.05em'
+                                    }}>
+                                        {selectedPdf.text}
+                                    </h3>
+                                    <div style={{ display: 'flex', gap: '15px', alignItems: 'center' }}>
+                                        {/* Open in new tab button */}
+                                        <a 
+                                            href={selectedPdf.pdf} 
+                                            target="_blank" 
+                                            rel="noopener noreferrer"
+                                            style={{
+                                                color: '#aaa',
+                                                textDecoration: 'none',
+                                                fontSize: '0.9rem',
+                                                fontWeight: '600',
+                                                padding: '8px 16px',
+                                                borderRadius: '8px',
+                                                border: '1px solid rgba(255,255,255,0.15)',
+                                                background: 'rgba(255,255,255,0.02)',
+                                                transition: 'all 0.2s'
+                                            }}
+                                            onMouseOver={(e) => {
+                                                e.target.style.color = '#FFF';
+                                                e.target.style.borderColor = '#FFF';
+                                                e.target.style.background = 'rgba(255,255,255,0.08)';
+                                            }}
+                                            onMouseOut={(e) => {
+                                                e.target.style.color = '#aaa';
+                                                e.target.style.borderColor = 'rgba(255,255,255,0.15)';
+                                                e.target.style.background = 'rgba(255,255,255,0.02)';
+                                            }}
+                                        >
+                                            Open in New Tab
+                                        </a>
+                                        {/* Close button */}
+                                        <button
+                                            onClick={() => setSelectedPdf(null)}
+                                            style={{
+                                                background: 'transparent',
+                                                border: 'none',
+                                                color: '#888',
+                                                fontSize: '1.5rem',
+                                                cursor: 'pointer',
+                                                transition: 'color 0.2s',
+                                                padding: '5px'
+                                            }}
+                                            onMouseOver={(e) => e.target.style.color = '#FFF'}
+                                            onMouseOut={(e) => e.target.style.color = '#888'}
+                                        >
+                                            ✕
+                                        </button>
+                                    </div>
+                                </div>
+
+                                {/* Modal Content - Embed PDF */}
+                                <div style={{ flex: 1, width: '100%', height: '100%', background: '#2E3138' }}>
+                                    <iframe 
+                                        src={`${selectedPdf.pdf}#toolbar=0`} 
+                                        width="100%" 
+                                        height="100%" 
+                                        style={{ border: 'none' }}
+                                        title={selectedPdf.text}
+                                    />
+                                </div>
+                            </motion.div>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
 
                 {/* --- QUALITY COMMITMENT SECTION --- */}
                 <div style={{ marginTop: '120px' }}>

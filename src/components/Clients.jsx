@@ -174,12 +174,7 @@ export default function Clients() {
                 </div>
 
                 {/* --- CLIENTS GRID --- */}
-                <div style={{
-                    display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', // Responsive Grid
-                    gap: '20px',
-                    marginTop: '60px'
-                }}>
+                <div className="clients-grid">
                     {CLIENTS.map((client, index) => (
                         <ClientCard key={index} name={client} index={index} />
                     ))}

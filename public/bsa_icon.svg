@@ -1,0 +1,26 @@
+<svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bsaRed" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E74C3C" />
+      <stop offset="100%" stop-color="#C0392B" />
+    </linearGradient>
+    <linearGradient id="bsaBlue" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2980B9" />
+      <stop offset="100%" stop-color="#1B4F72" />
+    </linearGradient>
+  </defs>
+  <!-- Outer border -->
+  <rect x="15" y="15" width="170" height="170" rx="16" fill="#15161A" stroke="url(#bsaBlue)" stroke-width="3" />
+  
+  <!-- Red checkbox shape from BSA logo -->
+  <g transform="translate(60, 45)">
+    <!-- Red border box -->
+    <rect x="0" y="0" width="80" height="80" rx="10" fill="none" stroke="url(#bsaRed)" stroke-width="8" />
+    <!-- White checkmark -->
+    <path d="M 20,40 L 35,55 L 65,20" stroke="#E74C3C" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+  </g>
+
+  <!-- Text elements -->
+  <text x="100" y="150" font-family="'Inter', sans-serif" font-size="20" font-weight="900" fill="#FFFFFF" text-anchor="middle" letter-spacing="2">BSA</text>
+  <text x="100" y="170" font-family="'Inter', sans-serif" font-size="10" font-weight="700" fill="url(#bsaRed)" text-anchor="middle" letter-spacing="1">ISO 9001 REGISTERED</text>
+</svg>
