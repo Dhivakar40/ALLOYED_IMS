@@ -170,7 +170,7 @@ export default function Certifications() {
                             OUR QUALITY COMMITMENT
                         </h3>
                         <p style={{ color: '#AAA', fontSize: '1.1rem', lineHeight: '1.6' }}>
-                            Integrity Machining Solutions is committed to implementing and maintaining robust quality
+                            Bunny Industries is committed to implementing and maintaining robust quality
                             management systems in line with international standards. Our quality system is aligned with ISO 9001
                             requirements.
                         </p>

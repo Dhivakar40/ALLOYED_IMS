@@ -187,7 +187,7 @@ export default function Footer() {
             maxWidth: '1400px', margin: '60px auto 0 auto', padding: '20px 40px 0 40px', 
             borderTop: '1px solid rgba(255,255,255,0.1)', textAlign: 'center', color: '#555', fontSize: '0.8rem' 
         }}>
-            © {new Date().getFullYear()} Integrity Machining Solutions. All Rights Reserved.
+            © {new Date().getFullYear()} Bunny Industries. All Rights Reserved.
         </div>
       </footer>
 

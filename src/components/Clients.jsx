@@ -167,7 +167,7 @@ export default function Clients() {
                             lineHeight: '1.8'
                         }}
                     >
-                        Integrity Machining Solutions is part of a manufacturing group serving leading OEMs
+                        Bunny Industries is part of a manufacturing group serving leading OEMs
                         and Tier-1 customers across the Automobile, Automation, Aerospace, and Medical sectors.
                         Our promoters bring decades of proven performance through these long-standing relationships.
                     </motion.p>

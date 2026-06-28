@@ -1,7 +1,7 @@
 export const legalContent = {
   privacy: {
     title: "Privacy Policy",
-    content: `Integrity Machining Solutions ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains how your personal information is collected, used, and disclosed by Integrity Machining Solutions and its group companies.
+    content: `Bunny Industries ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains how your personal information is collected, used, and disclosed by Bunny Industries and its group companies.
 
 Information Collection: We may collect personal information that you provide to us directly, including but not limited to your name, email address, phone number, company details, and any technical drawings or Request for Quote (RFQ) details submitted through our contact channels. We also automatically collect certain information when you visit, use, or navigate the site, such as your IP address, browser type, and operating system.
 
@@ -13,7 +13,7 @@ Third-Party Sharing: We do not sell, trade, or rent your personal identification
   },
   disclaimer: {
     title: "Disclaimer",
-    content: `The information provided by Integrity Machining Solutions on this website is for general informational purposes only. All information on the site is provided in good faith, however, we make no representation or warranty of any kind, express or implied, regarding the accuracy, adequacy, validity, reliability, availability, or completeness of any information on the site.
+    content: `The information provided by Bunny Industries on this website is for general informational purposes only. All information on the site is provided in good faith, however, we make no representation or warranty of any kind, express or implied, regarding the accuracy, adequacy, validity, reliability, availability, or completeness of any information on the site.
 
 Technical and Engineering Specifications: The machining capabilities, tolerances, certifications, and metrics displayed on this website are indicative of our general capabilities. They do not constitute a binding technical guarantee or engineering specification for any specific project. All manufacturing tolerances, material properties, and deliverables must be explicitly agreed upon in a formal, written contract or Purchase Order prior to the commencement of production.
 
@@ -23,7 +23,7 @@ External Links: The site may contain links to other websites or content belongin
   },
   terms: {
     title: "Terms and Conditions",
-    content: `These Terms and Conditions constitute a legally binding agreement made between you, whether personally or on behalf of an entity ("you") and Integrity Machining Solutions ("we," "us," or "our"), concerning your access to and use of the website as well as any other media form, media channel, mobile website, or mobile application related, linked, or otherwise connected thereto.
+    content: `These Terms and Conditions constitute a legally binding agreement made between you, whether personally or on behalf of an entity ("you") and Bunny Industries ("we," "us," or "our"), concerning your access to and use of the website as well as any other media form, media channel, mobile website, or mobile application related, linked, or otherwise connected thereto.
 
 Intellectual Property Rights: Unless otherwise indicated, the site is our proprietary property and all source code, databases, functionality, software, website designs, audio, video, text, photographs, and graphics on the site (collectively, the "Content") and the trademarks, service marks, and logos contained therein (the "Marks") are owned or controlled by us or licensed to us, and are protected by copyright and trademark laws and various other intellectual property rights and unfair competition laws.
 

@@ -152,7 +152,7 @@ export default function Contact() {
         const subject = encodeURIComponent(`Official Service Request: ${formData.name}`);
         const body = encodeURIComponent(`
 ==================================================
-FORMAL SERVICE REQUEST - INTEGRITY MACHINING SOLUTIONS
+FORMAL SERVICE REQUEST - BUNNY INDUSTRIES
 ==================================================
 
 TIMESTAMP OF REQUEST: 
@@ -172,7 +172,7 @@ Note to IMS Admin: Please reply directly to the sender's email to acknowledge re
 `);
 
         // 3. Open Email Client with pre-filled data
-        window.location.href = `mailto:integritymachiningsolutions@gmail.com?subject=${subject}&body=${body}`;
+        window.location.href = `mailto:bunnyindustries_hsr@yahoo.in?subject=${subject}&body=${body}`;
         
         // Optional: Clear form after opening mail client
         setFormData({ name: '', email: '', message: '' });
@@ -328,7 +328,7 @@ Note to IMS Admin: Please reply directly to the sender's email to acknowledge re
                 textTransform: 'uppercase',
                 letterSpacing: '0.1em'
             }}>
-                © 2026 Integrity Machinery Solutions.
+                © 2026 Bunny Industries.
             </div>
         </section>
     );
