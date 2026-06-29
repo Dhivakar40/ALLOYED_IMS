@@ -63,7 +63,7 @@ export default function Footer() {
                       margin: 0, 
                       textTransform: 'uppercase'
                   }}>
-                      INTEGRITY
+                      BUNNY
                   </h1>
                   <span style={{
                       fontFamily: '"Montserrat", sans-serif',
@@ -72,7 +72,7 @@ export default function Footer() {
                       letterSpacing: '0.3em', 
                       textTransform: 'uppercase'
                   }}>
-                      Machining Solutions
+                      INDUSTRIES
                   </span>
               </div>
 
