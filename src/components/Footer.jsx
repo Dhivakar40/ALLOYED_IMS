@@ -77,7 +77,7 @@ export default function Footer() {
               </div>
 
               <p style={{ color: '#A0A0A0', lineHeight: '1.6', fontSize: '0.9rem', maxWidth: '300px' }}>
-                  From concept to completion, manufacturing perfection. Setting new standards in manufacturing excellence through precision engineering and advanced robotics.
+                  #B11, SIDCO Industrial Estate Phase-1, Hosur-635126, Tamil Nadu, India.
               </p>
           </div>
 

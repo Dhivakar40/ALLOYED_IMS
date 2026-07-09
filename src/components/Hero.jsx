@@ -2,10 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
 const IMAGES = [
-  "https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?q=80&w=2070&auto=format&fit=crop", 
-  "https://images.unsplash.com/photo-1565514020176-db99c857e231?q=80&w=2070&auto=format&fit=crop", 
-  "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=2069&auto=format&fit=crop", 
-  "https://images.unsplash.com/photo-1517976487492-5750f3195933?q=80&w=2070&auto=format&fit=crop"
+  "/bunnybg1.jpeg", 
+  "/bunnybg2.jpeg", 
+  "/bunnybg3.jpeg"
 ];
 
 export default function Hero() {
@@ -56,17 +55,19 @@ export default function Hero() {
     return "inactive";
   };
 
-  const titleFontSize = isMobile ? '3rem' : 'clamp(3rem, 6vw, 7rem)';
+  const titleFontSize = isMobile ? '3.5rem' : 'clamp(4.5rem, 8vw, 8.5rem)';
 
   return (
     <section 
       style={{ 
-        height: '100dvh', 
-        width: '100%', 
+        height: '100vh', 
+        width: '100vw', 
         position: 'relative', 
         overflow: 'hidden',
         backgroundColor: '#0F1115',
-        color: '#FFFFFF'
+        color: '#FFFFFF',
+        margin: 0,
+        padding: 0
       }}
     >
       {/* BACKGROUND */}
@@ -80,13 +81,26 @@ export default function Hero() {
             <motion.img
               key={i}
               src={imgSrc}
-              initial={{ opacity: 0, scale: 1.1 }}
-              animate={getImageState(i) === "active" ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 1.1 }}
-              transition={{ duration: 2 }}
-              style={{ width: '100%', height: '100%', objectFit: 'cover', position: 'absolute' }}
+              initial={{ opacity: 0, scale: 1.05 }}
+              animate={getImageState(i) === "active" ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 1.05 }}
+              transition={{ duration: 1.5 }}
+              style={{ 
+                width: '100%', 
+                height: '100%', 
+                objectFit: 'cover', 
+                objectPosition: 'center', 
+                position: 'absolute' 
+              }}
             />
         ))}
-        <div style={{ position: 'absolute', inset: 0, zIndex: 3, background: 'linear-gradient(to right, rgba(15, 17, 21, 0.9) 0%, rgba(15, 17, 21, 0.4) 100%)' }} />
+        {/* --- UPDATED: Blur reduced for a subtle, less glossy matte finish --- */}
+        <div style={{ 
+          position: 'absolute', 
+          inset: 0, 
+          zIndex: 3, 
+          background: 'linear-gradient(to right, rgba(15, 17, 21, 0.8) 0%, rgba(15, 17, 21, 0.4) 100%)',
+          backdropFilter: 'blur(2px)' // Reduced from 6px to 2px
+        }} />
       </motion.div>
 
       {/* CONTENT WRAPPER */}
@@ -116,20 +130,17 @@ export default function Hero() {
           initial={{ 
             y: "-50%",
             x: "calc(50vw - 50%)", 
-            // FIX: Start at 1.5x size!
             scale: 1.5,
             opacity: 0 
           }} 
           animate={{ 
             y: "-50%",
             x: isMobile ? "calc(50vw - 50%)" : (startAnimation ? "10vw" : "calc(50vw - 50%)"), 
-            // FIX: Shrink down to normal size exactly as it slides!
             scale: startAnimation ? 1 : 1.5,
             opacity: 1
           }} 
           transition={{ 
             opacity: { duration: 1.5, ease: "easeOut" },
-            // Both X and Scale are synced to identical durations and ultra-smooth curves
             x: { duration: 2.5, ease: [0.16, 1, 0.3, 1] }, 
             scale: { duration: 2.5, ease: [0.16, 1, 0.3, 1] }
           }} 
@@ -146,7 +157,7 @@ export default function Hero() {
                 fontSize: titleFontSize,
                 margin: 0,
                 whiteSpace: 'nowrap',
-                backgroundImage: 'linear-gradient(135deg, #666 0%, #ddd 25%, #888 50%, #fff 75%, #444 100%)',
+                backgroundImage: 'linear-gradient(135deg, #FFFFFF 0%, #F5F5F5 40%, #E0E0E0 60%, #FFFFFF 100%)',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
                 backgroundClip: 'text',
@@ -163,11 +174,10 @@ export default function Hero() {
             <motion.div
               initial={{ opacity: 0, x: -100 }}
               animate={{ opacity: startAnimation ? 1 : 0, x: startAnimation ? 0 : -100 }}
-              // Slight delay so the tagline slides in *after* the big text starts shrinking
               transition={{ delay: 1.8, duration: 1 }}
               style={{
                 marginTop: '20px', 
-                borderTop: '1px solid rgba(255,255,255,0.3)', 
+                borderTop: '1px solid rgba(255,255,255,0.4)', 
                 paddingTop: '20px',
                 width: '100%', 
               }}
@@ -175,11 +185,11 @@ export default function Hero() {
               <p style={{ 
                 fontFamily: '"Manrope", sans-serif', 
                 letterSpacing: '0.2em', 
-                fontSize: isMobile ? '0.85rem' : '1.5rem', 
+                fontSize: isMobile ? '0.95rem' : '1.7rem', 
                 lineHeight: isMobile ? '1.5' : '1.2', 
                 fontWeight: '600',
                 margin: 0,
-                color: '#A0A0A0',
+                color: '#EAEAEA',
                 textShadow: '0 4px 20px rgba(0,0,0,0.9), 0 2px 10px rgba(0,0,0,0.8), 0 0 5px rgba(0,0,0,1)' 
               }}>
                  WORLD CLASS MACHINING SOLUTIONS
