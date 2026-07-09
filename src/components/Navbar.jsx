@@ -10,6 +10,7 @@ const NAV_ITEMS = [
   { label: "SECTORS", targetId: "sectors" },
   { label: "SERVICES", targetId: "portfolio" },
   { label: "INFRASTRUCTURE", targetId: "infrastructure" },
+  { label: "CLIENTS", targetId: "clients" },
   { label: "CERTIFICATIONS", targetId: "certifications" }
 ];
 
@@ -68,13 +69,10 @@ export default function Navbar() {
           width: '100%',
           zIndex: 100,
           padding: isScrolled ? '20px 40px' : '25px 40px',
-          // Reverted to original dark glassmorphism
           background: isScrolled ? 'rgba(15, 17, 21, 0.85)' : 'transparent',
           backdropFilter: isScrolled ? 'blur(20px) saturate(180%)' : 'none',
-          
           borderBottom: '1px solid',
           borderBottomColor: isScrolled ? 'rgba(255,255,255,0.1)' : 'transparent',
-          
           display: 'flex',
           alignItems: 'center',
           transition: 'padding 0.4s ease, background-color 0.4s ease, border-bottom-color 0.4s ease, backdrop-filter 0.4s ease'
@@ -99,7 +97,6 @@ export default function Navbar() {
                 width: 'auto',
                 display: 'block',
                 transition: 'height 0.3s ease, filter 0.3s ease',
-                // Added a soft white glow so the blue logo pops on the dark background
                 filter: 'drop-shadow(0px 0px 12px rgba(255, 255, 255, 0.7))'
               }}
             />
@@ -117,11 +114,12 @@ export default function Navbar() {
               padding: '0 35px',
               height: '46px', 
               alignItems: 'center', 
-              border: '1px solid rgba(255,255,255,0.15)',
+              // --- UPDATED: Significantly brightened the border and background fill ---
+              border: '1px solid rgba(255,255,255,0.4)', 
               borderRadius: '50px',
-              backgroundColor: 'rgba(255,255,255,0.03)',
+              backgroundColor: 'rgba(255,255,255,0.06)',
               backdropFilter: 'blur(5px)',
-              boxShadow: '0 4px 20px rgba(0,0,0,0.1)'
+              boxShadow: '0 4px 20px rgba(0,0,0,0.2)'
             }}>
               {NAV_ITEMS.map((item) => (
                 <li key={item.label} style={{ display: 'flex', alignItems: 'center', position: 'relative' }}>
@@ -135,16 +133,17 @@ export default function Navbar() {
                       fontSize: '0.8rem',
                       textTransform: 'uppercase',
                       letterSpacing: '0.1em',
-                      opacity: 0.8,
+                      // --- UPDATED: Increased base opacity and font weight for visibility ---
+                      opacity: 0.95,
                       transition: 'opacity 0.3s, color 0.3s',
-                      fontWeight: '500',
+                      fontWeight: '600',
                       position: 'relative',
                       display: 'block',
                       paddingBottom: '2px'
                     }}
                     className="nav-link"
                     onMouseOver={(e) => { e.target.style.opacity = 1; e.target.style.color = '#6B9BD0'; }}
-                    onMouseOut={(e) => { e.target.style.opacity = 0.8; e.target.style.color = '#FFFFFF'; }}
+                    onMouseOut={(e) => { e.target.style.opacity = 0.95; e.target.style.color = '#FFFFFF'; }}
                   >
                     {item.label}
                     <span style={{
@@ -174,7 +173,8 @@ export default function Navbar() {
                 download="Bunny_Industries_Brochure.pdf"
                 style={{
                   background: 'transparent',
-                  border: '1px solid rgba(255,255,255,0.4)',
+                  // --- UPDATED: Brightened border heavily for the Ghost Button ---
+                  border: '1px solid rgba(255,255,255,0.8)',
                   color: '#FFF',
                   padding: isScrolled ? '10px 22px' : '12px 26px',
                   fontFamily: 'var(--font-serif)',
@@ -188,7 +188,9 @@ export default function Navbar() {
                   alignItems: 'center',
                   justifyContent: 'center',
                   textDecoration: 'none',
-                  fontWeight: '500'
+                  // --- UPDATED: Increased font weight ---
+                  fontWeight: '600',
+                  whiteSpace: 'nowrap' 
                 }}
                 onMouseOver={(e) => {
                   e.target.style.background = 'rgba(255,255,255,0.1)';
@@ -196,7 +198,8 @@ export default function Navbar() {
                 }}
                 onMouseOut={(e) => {
                   e.target.style.background = 'transparent';
-                  e.target.style.borderColor = 'rgba(255,255,255,0.4)';
+                  // Restore to the new brighter default border
+                  e.target.style.borderColor = 'rgba(255,255,255,0.8)';
                 }}
               >
                 DOWNLOAD BROCHURE
@@ -220,7 +223,8 @@ export default function Navbar() {
                   display: 'inline-flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  fontWeight: '600'
+                  fontWeight: '600',
+                  whiteSpace: 'nowrap' 
                 }}
                 onMouseOver={(e) => {
                   e.target.style.background = 'transparent';

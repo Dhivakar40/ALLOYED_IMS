@@ -106,7 +106,9 @@ const ClientCard = ({ name, index }) => {
 
 export default function Clients() {
     return (
-        <section style={{
+        <section 
+        id="clients"
+        style={{
             backgroundColor: '#0F1115',
             padding: '120px 0',
             borderTop: '1px solid rgba(255,255,255,0.05)',
