@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-// ---------------- DATA: UPDATED PROCESS CAPABILITIES ----------------
+// ---------------- DATA: PROCESS CAPABILITIES ----------------
 const projects = [
   { 
     id: 1,
@@ -59,33 +59,149 @@ const projects = [
   }
 ];
 
-// ---------------- INFRASTRUCTURE DATA (FROM PDF) ----------------
+// ---------------- DATA: AGGREGATED MACHINE INFRASTRUCTURE ----------------
 const machines = [
   {
-    category: "CNC TURNING CENTERS",
-    make: "LMW (Lakshmi Machine Works)",
+    category: "VMC",
+    img: "/vmc_machine.png",
+    count: 4,
     items: [
-      { name: "S Turn 1 (165mm Dia)", count: 2 },
-      { name: "S Turn 1 (210mm Dia)", count: 2 },
-      { name: "Smart Turn 1 (165mm Dia)", count: 2 }
+      { make: "HASS", capacity: "762x508x508MM", count: 1 },
+      { make: "BFW", capacity: "700x400x400MM", count: 1 },
+      { make: "DHOOSAN", capacity: "1500x670x625MM", count: 1 },
+      { make: "BATLIBAI", capacity: "950x520x480MM", count: 1 }
     ]
   },
   {
-    category: "CNC TURN-MILL",
-    make: "LMW (Lakshmi Machine Works)",
+    category: "CNC",
+    img: "/cnc_machine.png",
+    count: 2,
     items: [
-      { name: "TurnMill (210mm Dia)", count: 1 },
-      { name: "Complex Geometry Capable", count: "✓" }
+      { make: "LMW", capacity: "Ø160x250MM", count: 2 }
     ]
   },
   {
-    category: "QUALITY ASSURANCE",
-    make: "Precision Metrology Lab",
+    category: "WIRECUTTING",
+    img: "/wire_cutting_machine.png",
+    count: 2,
     items: [
-      { name: "Vernier Calipers & Micrometers", count: "✓" },
-      { name: "Bore Gauges & Height Gauges", count: "✓" },
-      { name: "Dial Indicators & Surface Plate", count: "✓" },
-      { name: "Thread & Plug Gauges", count: "✓" }
+      { make: "EXCON", capacity: "350x450x450MM", count: 2 }
+    ]
+  },
+  {
+    category: "SPARKING",
+    img: "/sparking_machine.png",
+    count: 1,
+    items: [
+      { make: "ELECTRONICA", capacity: "400x300x400MM", count: 1 }
+    ]
+  },
+  {
+    category: "VERTICAL MILLING",
+    img: "/vertical_milling_machine.png",
+    count: 2,
+    items: [
+      { make: "HMT", capacity: "500x300x200MM", count: 1 },
+      { make: "OKK", capacity: "600X300X250MM", count: 1 }
+    ]
+  },
+  {
+    category: "HORIZONDAL MILLING",
+    img: "/horizontal_milling_machine.png", 
+    count: 1,
+    items: [
+      { make: "HMT", capacity: "700x300x220MM", count: 1 }
+    ]
+  },
+  {
+    category: "SURFACE GRINDING",
+    img: "/surface_grinding_machine.png",
+    count: 3,
+    items: [
+      { make: "PERFECT", capacity: "600x300x200MM", count: 1 },
+      { make: "KENT", capacity: "500x200x200MM", count: 1 },
+      { make: "OKAMOTA", capacity: "500x200x200MM", count: 1 }
+    ]
+  },
+  {
+    category: "JIGBORING",
+    img: "/jigboring_machine.png",
+    count: 3,
+    items: [
+      { make: "SNT", capacity: "1100x300x280MM", count: 2 },
+      { make: "AATHREYA", capacity: "1100x300x280MM", count: 1 }
+    ]
+  },
+  {
+    category: "BENCH GRINDING MACHINE",
+    img: "/bench_grinding_machine.png",
+    count: 1,
+    items: [
+      { make: "MGEEYEM", capacity: "2800RPM", count: 1 }
+    ]
+  },
+  {
+    category: "TAPPING MACHINE",
+    img: "/tapping_machine.png",
+    count: 1,
+    items: [
+      { make: "MRCM", capacity: "M2 TO M12 MM", count: 1 }
+    ]
+  },
+  {
+    category: "POWER HACKSAW MACHINE",
+    img: "/power_hack_saw_machine.png",
+    count: 1,
+    items: [
+      { make: "NU-TECH", capacity: "DIA 8MM DIA 150MM", count: 1 }
+    ]
+  },
+  {
+    category: "LATHE MACHINE",
+    img: "/lathe_machine.png",
+    count: 1,
+    items: [
+      { make: "SHREE", capacity: "Ø200x600MM", count: 1 }
+    ]
+  },
+  {
+    category: "DRILLING MACHINE",
+    img: "/drilling_machine.png", 
+    count: 1,
+    items: [
+      { make: "VERTEX", capacity: "300x150x200MM", count: 1 }
+    ]
+  },
+  {
+    category: "BUFFING MACHINE",
+    img: "/buffing_machine.png",
+    count: 1,
+    items: [
+      { make: "BARAS", capacity: "2880RPM", count: 1 }
+    ]
+  },
+  {
+    category: "ENGRAVING MACHINE",
+    img: "/engraving_machine.png",
+    count: 1,
+    items: [
+      { make: "ACME LASER", capacity: "300MM LENGTH", count: 1 }
+    ]
+  },
+  {
+    category: "COMPRESSOR",
+    img: "/compressor.png",
+    count: 1,
+    items: [
+      { make: "HANBELL", capacity: "15 HP", count: 1 }
+    ]
+  },
+  {
+    category: "GENERATOR",
+    img: "/generator.png", 
+    count: 1,
+    items: [
+      { make: "ASHOK LEYLAND", capacity: "40 KVA", count: 1 }
     ]
   }
 ];
@@ -302,7 +418,7 @@ export default function Portfolio() {
         </div>
       </section>
 
-      {/* --- IMPROVED INFRASTRUCTURE SECTION (NOW ITS OWN SECTION) --- */}
+      {/* --- IMPROVED INFRASTRUCTURE SECTION --- */}
       <section 
         id="infrastructure" 
         style={{ 
@@ -337,7 +453,7 @@ export default function Portfolio() {
             
             <div style={{ 
                 display: 'grid', 
-                gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', 
+                gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', 
                 gap: '30px' 
             }}>
                 {machines.map((cat, i) => (
@@ -348,59 +464,75 @@ export default function Portfolio() {
                             background: 'linear-gradient(145deg, #1A1A1A 0%, #0F1115 100%)',
                             border: '1px solid rgba(255,255,255,0.05)',
                             borderRadius: '8px',
-                            padding: '30px',
                             position: 'relative',
-                            overflow: 'hidden'
+                            overflow: 'hidden',
+                            display: 'flex',
+                            flexDirection: 'column'
                         }}
                     >
                         {/* Top Accent Line */}
-                        <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '2px', background: 'linear-gradient(90deg, #00ffcc, transparent)' }} />
+                        <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '2px', background: 'linear-gradient(90deg, #00ffcc, transparent)', zIndex: 10 }} />
                         
-                        <h4 style={{ 
-                            color: '#FFFFFF', 
-                            margin: '0 0 5px 0', 
-                            fontFamily: '"Oswald", sans-serif', 
-                            fontSize: '1.2rem',
-                            letterSpacing: '0.05em'
-                        }}>
-                            {cat.category}
-                        </h4>
-                        <p style={{ 
-                            color: '#666', 
-                            fontSize: '0.8rem', 
-                            margin: '0 0 25px 0', 
-                            fontFamily: '"Manrope", sans-serif',
-                            textTransform: 'uppercase',
-                            letterSpacing: '0.1em'
-                        }}>
-                            {cat.make}
-                        </p>
+                        {/* IMAGE BANNER: Updated for Edge-to-Edge full visibility */}
+                        <img 
+                          src={cat.img} 
+                          alt={cat.category}
+                          onError={(e) => { e.target.style.display = 'none'; }}
+                          style={{
+                              width: '100%',
+                              height: '320px', // Dramatically increased height so the machine takes up most of the card
+                              objectFit: 'cover', // Fills the frame edge-to-edge beautifully
+                              objectPosition: 'center', // Keeps the machine perfectly centered
+                              borderBottom: '1px solid rgba(255,255,255,0.05)',
+                              filter: 'brightness(0.95)' // Keeps the image crisp and clear
+                          }}
+                        />
 
-                        <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-                            {cat.items.map((item, j) => (
-                                <li key={j} style={{ 
-                                    display: 'flex', 
-                                    justifyContent: 'space-between', 
-                                    alignItems: 'center', 
-                                    borderBottom: '1px solid rgba(255,255,255,0.05)',
-                                    padding: '12px 0',
-                                    fontSize: '0.95rem',
-                                    color: '#AAA'
+                        {/* CONTENT WRAPPER: Align items to flex-start prevents spacing issues on short lists */}
+                        <div style={{ padding: '30px', display: 'flex', flexDirection: 'column', flex: 1, justifyContent: 'flex-start' }}>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '25px' }}>
+                                <h4 style={{ 
+                                    color: '#FFFFFF', 
+                                    margin: 0, 
+                                    fontFamily: '"Oswald", sans-serif', 
+                                    fontSize: '1.3rem',
+                                    letterSpacing: '0.05em'
                                 }}>
-                                    <span>{item.name}</span>
-                                    <span style={{ 
-                                        background: 'rgba(0, 255, 204, 0.1)', 
-                                        color: '#00ffcc', 
-                                        padding: '2px 8px', 
-                                        borderRadius: '4px',
-                                        fontSize: '0.8rem',
-                                        fontFamily: '"Oswald", sans-serif'
+                                    {cat.category}
+                                </h4>
+                                <span style={{ 
+                                    background: 'rgba(0, 255, 204, 0.1)', 
+                                    color: '#00ffcc', 
+                                    padding: '4px 10px', 
+                                    borderRadius: '4px',
+                                    fontSize: '0.8rem',
+                                    fontFamily: '"Oswald", sans-serif'
+                                }}>
+                                    {cat.count} {cat.count > 1 ? 'UNITS' : 'UNIT'}
+                                </span>
+                            </div>
+
+                            <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+                                {cat.items.map((item, j) => (
+                                    <li key={j} style={{ 
+                                        display: 'flex', 
+                                        justifyContent: 'space-between', 
+                                        alignItems: 'flex-start', 
+                                        borderBottom: j !== cat.items.length - 1 ? '1px solid rgba(255,255,255,0.05)' : 'none',
+                                        padding: '12px 0',
+                                        fontSize: '0.95rem'
                                     }}>
-                                        {typeof item.count === 'number' ? `${item.count} UNITS` : item.count}
-                                    </span>
-                                </li>
-                            ))}
-                        </ul>
+                                        <div>
+                                          <span style={{ display: 'block', color: '#FFF', fontWeight: '500', marginBottom: '2px' }}>{item.make}</span>
+                                          <span style={{ color: '#777', fontSize: '0.8rem', fontFamily: '"Manrope", sans-serif' }}>{item.capacity}</span>
+                                        </div>
+                                        {item.count > 1 && (
+                                            <span style={{ color: '#AAA', fontSize: '0.85rem' }}>x{item.count}</span>
+                                        )}
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
                     </motion.div>
                 ))}
             </div>
