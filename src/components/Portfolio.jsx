@@ -1,61 +1,37 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-// ---------------- DATA: PROCESS CAPABILITIES ----------------
+// ---------------- DATA: NEW PROCESS CAPABILITIES ----------------
 const projects = [
   { 
     id: 1,
-    title: "CNC Turning", 
-    industry: "CORE CAPABILITY",
-    process: "High-Precision Lathe Operations", 
-    material: "Steel, Aluminum, Brass",
-    specs: "Dia: 165mm - 210mm | LMW Machines",
-    img: "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=2069&auto=format&fit=crop" 
+    title: "VMC", 
+    desc: "Five premium VMC machines (Doosan & Haas) featuring advanced 4+1 axis machining and capacities up to 1.2m for large-scale, high-precision projects.",
+    img: "/vmc_machine.png" 
   },
   { 
     id: 2,
-    title: "CNC Turn-Milling", 
-    industry: "ADVANCED MACHINING",
-    process: "Integrated Mill-Turn Operations",
-    material: "Stainless Steel & Alloys",
-    specs: "Complex Geometries | Single Setup",
-    img: "https://images.unsplash.com/photo-1580674285054-bed31e145f59?q=80&w=2070&auto=format&fit=crop" 
+    title: "CNC Turning & Turnmill", 
+    desc: "Complementing our milling operations, we utilize five advanced LMW CNC turning centers and one turn-mill engineered for absolute high-volume efficiency.",
+    img: "/cnc_machine.png" 
   },
   { 
     id: 3,
-    title: "Precision Manufacturing", 
-    industry: "COMPONENT FABRICATION",
-    process: "End-to-End Production",
-    material: "All Engineering Metals",
-    specs: "ISO 9001 Standards | Zero Defect",
-    img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop" 
+    title: "EDM Wire Cutting", 
+    desc: "Two high-precision Excon Wire EDM machines (350x450x450mm capacity) utilized to effortlessly execute complex geometries and intricate profiles.",
+    img: "/wire_cutting_machine.png" 
   },
   { 
     id: 4,
-    title: "Prototype & Batch", 
-    industry: "SCALABLE SOLUTIONS",
-    process: "Development to Mass Production",
-    material: "Rapid Prototyping",
-    specs: "Flexible Volumes | Fast Turnaround",
-    img: "https://rlmcastings.com/blog/wp-content/uploads/2021/06/prototype-services-for-small-batch-manufacturing.jpg" 
+    title: "EDM Sparking", 
+    desc: "Advanced Electronica spark erosion technology delivering micro-level accuracy and pristine surface finishes on complex, hard-to-machine components.",
+    img: "/sparking_machine.png" 
   },
   { 
     id: 5,
-    title: "Tight Tolerance", 
-    industry: "HIGH ACCURACY",
-    process: "Micron-Level Machining",
-    material: "Titanium, Inconel, Copper",
-    specs: "+/- 0.005mm | Super Finishing",
-    img: "https://images.unsplash.com/photo-1517976487492-5750f3195933?q=80&w=2070&auto=format&fit=crop" 
-  },
-  { 
-    id: 6,
-    title: "Multi-Material Machining", 
-    industry: "MATERIAL EXPERTISE",
-    process: "Steel, SS, Al, Copper, Brass",
-    material: "Special Alloys & Hardened Steel",
-    specs: "Hardness up to 62 HRC",
-    img: "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?q=80&w=2070&auto=format&fit=crop" 
+    title: "Conventional Machineries", 
+    desc: "A versatile lineup of secondary machinery—including 3 milling machines, 3 surface grinders, 3 jig borers, and lathe operations—for comprehensive toolroom support.",
+    img: "/vertical_milling_machine.png" 
   }
 ];
 
@@ -64,7 +40,7 @@ const machines = [
   {
     category: "VMC",
     img: "/vmc_machine.png",
-    count: 4,
+    count: 6,
     items: [
       { make: "HASS", capacity: "762x508x508MM", count: 1 },
       { make: "BFW", capacity: "700x400x400MM", count: 1 },
@@ -209,7 +185,6 @@ const machines = [
 // ---------------- COMPONENT ----------------
 export default function Portfolio() {
   const [showAll, setShowAll] = useState(false);
-  const [hoveredId, setHoveredId] = useState(null);
 
   const visibleProjects = showAll ? projects : projects.slice(0, 3);
 
@@ -245,7 +220,7 @@ export default function Portfolio() {
               margin: 0
             }}
           >
-            Process <br /> Capabilities
+            Machineries & <br /> Equipments
           </h2>
 
           <p
@@ -266,7 +241,8 @@ export default function Portfolio() {
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+            // Specifically tuned to exactly fit 3 cards in a row beautifully on desktop
+            gridTemplateColumns: 'repeat(auto-fit, minmax(380px, 1fr))',
             gap: '30px',
             padding: '0 20px',
             maxWidth: '1400px',
@@ -274,120 +250,73 @@ export default function Portfolio() {
           }}
         >
           <AnimatePresence initial={false}>
-            {visibleProjects.map((project) => (
+            {visibleProjects.map((project, i) => (
               <motion.div
                 layout
                 key={project.id}
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.95, transition: { duration: 0.5 } }} 
-                transition={{ duration: 0.8, ease: [0.04, 0.62, 0.23, 0.98] }} 
-                
-                onMouseEnter={() => setHoveredId(project.id)}
-                onMouseLeave={() => setHoveredId(null)}
-                
+                transition={{ duration: 0.6, ease: [0.04, 0.62, 0.23, 0.98] }} 
+                whileHover={{ y: -5, boxShadow: "0 20px 40px rgba(0,0,0,0.5)" }}
                 style={{
                   position: 'relative',
-                  height: '500px',
-                  borderRadius: '6px',
+                  height: '450px', // slightly adjusted height for a cleaner look
+                  borderRadius: '8px',
                   overflow: 'hidden',
                   cursor: 'pointer',
                   backgroundColor: '#151515',
-                  border: '1px solid #333'
+                  border: '1px solid rgba(255,255,255,0.05)'
                 }}
               >
                 {/* 1. BACKGROUND IMAGE */}
-                <motion.div
-                  style={{ width: '100%', height: '100%' }}
-                  animate={{
-                    scale: hoveredId === project.id ? 1.1 : 1,
-                    filter: hoveredId === project.id ? "grayscale(100%) brightness(0.4)" : "grayscale(20%) brightness(0.7)"
-                  }}
-                  transition={{ duration: 0.6 }}
-                >
+                <div style={{ width: '100%', height: '100%' }}>
                   <img 
                     src={project.img} 
                     alt={project.title} 
-                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                    onError={(e) => { e.target.style.display = 'none'; }}
+                    style={{ 
+                        width: '100%', 
+                        height: '100%', 
+                        objectFit: 'cover',
+                        filter: 'grayscale(20%) brightness(0.8)' 
+                    }}
                   />
-                </motion.div>
-
-                {/* 2. INDUSTRY TAG */}
-                <div style={{ position: 'absolute', top: 25, left: 25, zIndex: 10 }}>
-                  <span style={{
-                      fontFamily: '"Oswald", sans-serif',
-                      fontSize: '0.75rem',
-                      letterSpacing: '0.15em',
-                      backgroundColor: '#FFFFFF',
-                      color: '#000',
-                      padding: '6px 12px',
-                      fontWeight: 'bold',
-                      textTransform: 'uppercase'
-                  }}>
-                      {project.industry}
-                  </span>
                 </div>
 
-                {/* 3. CONTENT OVERLAY */}
+                {/* 2. CONTENT OVERLAY */}
                 <div style={{
                     position: 'absolute',
                     bottom: 0,
                     left: 0,
                     width: '100%',
-                    padding: '30px',
+                    padding: '40px 30px 30px',
                     zIndex: 10,
-                    background: 'linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.6) 60%, transparent 100%)'
+                    background: 'linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.8) 60%, transparent 100%)',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'flex-end'
                 }}>
                     <h3 style={{
                         fontFamily: '"Oswald", sans-serif',
-                        fontSize: '2rem',
+                        fontSize: '1.8rem',
                         textTransform: 'uppercase',
-                        margin: '0 0 10px 0',
+                        margin: '0 0 12px 0',
                         color: '#FFF',
-                        lineHeight: 1
+                        lineHeight: 1.1,
+                        letterSpacing: '0.05em'
                     }}>
                         {project.title}
                     </h3>
-
-                    {/* 4. SLIDE UP DETAILS */}
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ 
-                          height: hoveredId === project.id ? 'auto' : 0,
-                          opacity: hoveredId === project.id ? 1 : 0
-                      }}
-                      transition={{ duration: 0.4, ease: "easeInOut" }}
-                      style={{ overflow: 'hidden' }}
-                    >
-                        <div style={{ 
-                            paddingTop: '15px', 
-                            borderTop: '1px solid rgba(255,255,255,0.2)',
-                            marginTop: '15px',
-                            display: 'flex',
-                            flexDirection: 'column',
-                            gap: '8px'
-                        }}>
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '5px'}}>
-                               <div style={{ 
-                                   width: '8px', height: '8px', background: '#00ffcc', 
-                                   borderRadius: '50%', boxShadow: '0 0 8px #00ffcc'
-                               }}></div>
-                               <span style={{ 
-                                   color: '#00ffcc', fontFamily: '"Oswald", sans-serif', 
-                                   letterSpacing: '0.05em', fontSize: '1rem'
-                               }}>
-                                   {project.process}
-                               </span>
-                            </div>
-
-                            <p style={{ margin: 0, fontSize: '0.9rem', color: '#AAA', fontFamily: '"Manrope", sans-serif' }}>
-                                <strong style={{ color: '#FFF' }}>Material:</strong> {project.material}
-                            </p>
-                            <p style={{ margin: 0, fontSize: '0.9rem', color: '#AAA', fontFamily: '"Manrope", sans-serif' }}>
-                                <strong style={{ color: '#FFF' }}>Specs:</strong> {project.specs}
-                            </p>
-                        </div>
-                    </motion.div>
+                    <p style={{ 
+                        margin: 0, 
+                        fontSize: '1rem', 
+                        color: '#B0B0B0', 
+                        fontFamily: '"Manrope", sans-serif', 
+                        lineHeight: '1.6' 
+                    }}>
+                        {project.desc}
+                    </p>
                 </div>
               </motion.div>
             ))}
@@ -418,7 +347,7 @@ export default function Portfolio() {
         </div>
       </section>
 
-      {/* --- IMPROVED INFRASTRUCTURE SECTION --- */}
+      {/* --- IMPROVED INFRASTRUCTURE SECTION (NOW ITS OWN SECTION) --- */}
       <section 
         id="infrastructure" 
         style={{ 

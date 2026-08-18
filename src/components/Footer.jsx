@@ -32,7 +32,7 @@ export default function Footer() {
           overflow: 'hidden'
       }}>
         
-        {/* Optional: Background Faint Industrial Overlay (Gradient for now) */}
+        {/* Optional: Background Faint Industrial Overlay */}
         <div style={{
             position: 'absolute', inset: 0, 
             background: 'radial-gradient(circle at 50% -20%, rgba(255,255,255,0.03), transparent 70%)',
@@ -44,147 +44,224 @@ export default function Footer() {
             margin: '0 auto', 
             padding: '0 40px', 
             position: 'relative', 
-            zIndex: 1,
-            display: 'grid',
-            // Auto-fit grid: Creates 4 columns on desktop, stacks on mobile
-            gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', 
-            gap: '60px'
+            zIndex: 1
         }}>
+            {/* --- TOP GRID: LINKS & INFO --- */}
+            <div style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', 
+                gap: '60px'
+            }}>
+                {/* --- COLUMN 1: BRAND & INFO --- */}
+                <div>
+                    {/* LOGO REUSE - perfectly matched to Hero Section font */}
+                    <div style={{ marginBottom: '20px' }}>
+                        <h1 style={{
+                            fontFamily: '"Oswald", sans-serif',
+                            fontWeight: '900',
+                            textTransform: 'uppercase',
+                            lineHeight: '1.05', 
+                            fontSize: '2rem', 
+                            margin: 0,
+                            backgroundImage: 'linear-gradient(135deg, #FFFFFF 0%, #F5F5F5 40%, #E0E0E0 60%, #FFFFFF 100%)',
+                            WebkitBackgroundClip: 'text',
+                            WebkitTextFillColor: 'transparent',
+                            backgroundClip: 'text',
+                            color: 'transparent', 
+                        }}>
+                            <span style={{ display: 'block' }}>BUNNY</span>
+                            <span style={{ display: 'block' }}>INDUSTRIES</span>
+                        </h1>
+                        
+                        <p style={{ color: '#A0A0A0', lineHeight: '1.6', fontSize: '0.9rem', maxWidth: '300px', marginTop: '15px' }}>
+                            <strong style={{ color: '#FFF' }}>Unit-1:</strong> SIDCO Industrial Estate Phase-1, Hosur-635126, Tamil Nadu, India.
+                        </p>
+                    </div>
 
-          {/* --- COLUMN 1: BRAND & INFO --- */}
-          <div>
-             {/* LOGO REUSE */}
-             <div style={{ marginBottom: '20px' }}>
-                  <h1 style={{
-                      fontFamily: '"Orbitron", sans-serif', 
-                      fontWeight: '900', 
-                      fontSize: '1.5rem', 
-                      color: '#FFFFFF', 
-                      margin: 0, 
-                      textTransform: 'uppercase'
-                  }}>
-                      BUNNY
-                  </h1>
-                  <span style={{
-                      fontFamily: '"Montserrat", sans-serif',
-                      fontSize: '0.7rem', 
-                      color: '#A0A0A0', 
-                      letterSpacing: '0.3em', 
-                      textTransform: 'uppercase'
-                  }}>
-                      INDUSTRIES
-                  </span>
-              </div>
+                    <p style={{ color: '#A0A0A0', lineHeight: '1.6', fontSize: '0.9rem', maxWidth: '300px' }}>
+                         <strong style={{ color: '#FFF' }}>Unit-2:</strong> 2/2, VTR Road, SF No. 185/2A, Door No. 185/2, Thiruvalluvar Nagar, Zuzuvadi, Hosur-635126.
+                    </p>
+                </div>
 
-              <p style={{ color: '#A0A0A0', lineHeight: '1.6', fontSize: '0.9rem', maxWidth: '300px' }}>
-                  #B11, SIDCO Industrial Estate Phase-1, Hosur-635126, Tamil Nadu, India.
-              </p>
-          </div>
+                {/* --- COLUMN 2: QUICK LINKS --- */}
+                <div>
+                    <h3 style={{ fontFamily: '"Oswald", sans-serif', textTransform: 'uppercase', marginBottom: '25px', fontSize: '1.1rem', letterSpacing: '0.05em' }}>
+                        Quick Links
+                    </h3>
+                    <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '15px' }}>
+                        {[
+                            { label: "Home", id: "hero" }, 
+                            { label: "About Us", id: "about" },
+                            { label: "Sectors", id: "sectors" },
+                            { label: "Infrastructure", id: "infrastructure" },
+                            { label: "Certifications", id: "certifications" }
+                        ].map((item, i) => (
+                            <li key={i}>
+                                <button 
+                                    onClick={() => scrollToSection(item.id)}
+                                    style={{ 
+                                        background: 'transparent', border: 'none', color: '#CCC', cursor: 'pointer', 
+                                        fontSize: '0.9rem', textAlign: 'left', padding: 0, transition: 'color 0.3s' 
+                                    }}
+                                    onMouseOver={(e) => e.target.style.color = '#FFF'}
+                                    onMouseOut={(e) => e.target.style.color = '#CCC'}
+                                >
+                                    {item.label}
+                                </button>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
 
-          {/* --- COLUMN 2: QUICK LINKS --- */}
-          <div>
-              <h3 style={{ fontFamily: '"Oswald", sans-serif', textTransform: 'uppercase', marginBottom: '25px', fontSize: '1.1rem', letterSpacing: '0.05em' }}>
-                  Quick Links
-              </h3>
-              <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '15px' }}>
-                  {[
-                      { label: "Home", id: "hero" }, 
-                      { label: "About Us", id: "about" },
-                      { label: "Sectors", id: "sectors" },
-                      { label: "Infrastructure", id: "infrastructure" }, // <--- UPDATED HERE
-                      { label: "Certifications", id: "certifications" }
-                  ].map((item, i) => (
-                      <li key={i}>
-                          <button 
-                              onClick={() => scrollToSection(item.id)}
-                              style={{ 
-                                  background: 'transparent', border: 'none', color: '#CCC', cursor: 'pointer', 
-                                  fontSize: '0.9rem', textAlign: 'left', padding: 0, transition: 'color 0.3s' 
-                              }}
-                              onMouseOver={(e) => e.target.style.color = '#FFF'}
-                              onMouseOut={(e) => e.target.style.color = '#CCC'}
-                          >
-                              {item.label}
-                          </button>
-                      </li>
-                  ))}
-              </ul>
-          </div>
+                {/* --- COLUMN 3: OUR SERVICES --- */}
+                <div>
+                    <h3 style={{ fontFamily: '"Oswald", sans-serif', textTransform: 'uppercase', marginBottom: '25px', fontSize: '1.1rem', letterSpacing: '0.05em' }}>
+                        Our Services
+                    </h3>
+                    <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '15px' }}>
+                        {["VMC", "CNC TURNING & TURNMILL", "EDM WIRECUTTING", "EDM SPARKING", "CONVENTIONAL MACHINERIES"].map((item, i) => (
+                            <li key={i} style={{ color: '#CCC', fontSize: '0.9rem' }}>
+                                {item}
+                            </li>
+                        ))}
+                    </ul>
+                </div>
 
-          {/* --- COLUMN 3: OUR SERVICES (Taken from Sectors) --- */}
-          <div>
-              <h3 style={{ fontFamily: '"Oswald", sans-serif', textTransform: 'uppercase', marginBottom: '25px', fontSize: '1.1rem', letterSpacing: '0.05em' }}>
-                  Our Services
-              </h3>
-              <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '15px' }}>
-                  {["Automotive Precision", "Aerospace Systems", "Locomotive & Rail", "Energy & Petrochemical", "Medical Robotics", "Defense & Marine"].map((item, i) => (
-                      <li key={i} style={{ color: '#CCC', fontSize: '0.9rem' }}>
-                          {item}
-                      </li>
-                  ))}
-              </ul>
-          </div>
+                {/* --- COLUMN 4: COMPANY / LEGAL --- */}
+                <div>
+                    <h3 style={{ fontFamily: '"Oswald", sans-serif', textTransform: 'uppercase', marginBottom: '25px', fontSize: '1.1rem', letterSpacing: '0.05em' }}>
+                        Our Company
+                    </h3>
+                    <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '15px' }}>
+                        <li>
+                            <button 
+                                onClick={() => setActiveModal('privacy')}
+                                style={{ background: 'none', border: 'none', padding: 0, color: '#CCC', cursor: 'pointer', fontSize: '0.9rem', transition: 'color 0.3s', textAlign: 'left' }}
+                                onMouseOver={(e) => e.target.style.color = '#FFF'}
+                                onMouseOut={(e) => e.target.style.color = '#CCC'}
+                            >
+                                Privacy Policy
+                            </button>
+                        </li>
+                        <li>
+                            <button 
+                                onClick={() => setActiveModal('disclaimer')}
+                                style={{ background: 'none', border: 'none', padding: 0, color: '#CCC', cursor: 'pointer', fontSize: '0.9rem', transition: 'color 0.3s', textAlign: 'left' }}
+                                onMouseOver={(e) => e.target.style.color = '#FFF'}
+                                onMouseOut={(e) => e.target.style.color = '#CCC'}
+                            >
+                                Disclaimer
+                            </button>
+                        </li>
+                        <li>
+                            <button 
+                                onClick={() => setActiveModal('terms')}
+                                style={{ background: 'none', border: 'none', padding: 0, color: '#CCC', cursor: 'pointer', fontSize: '0.9rem', transition: 'color 0.3s', textAlign: 'left' }}
+                                onMouseOver={(e) => e.target.style.color = '#FFF'}
+                                onMouseOut={(e) => e.target.style.color = '#CCC'}
+                            >
+                                Terms and Conditions
+                            </button>
+                        </li>
+                        
+                        <li style={{ marginTop: '20px' }}>
+                            <button 
+                                onClick={() => scrollToSection('contact')}
+                                style={{
+                                    background: '#FFF', color: '#000', border: 'none', 
+                                    padding: '10px 25px', fontFamily: '"Oswald", sans-serif', 
+                                    textTransform: 'uppercase', fontSize: '0.8rem', cursor: 'pointer', letterSpacing: '0.1em',
+                                    transition: 'transform 0.2s ease', borderRadius: '2px'
+                                }}
+                                onMouseOver={(e) => e.target.style.transform = 'scale(1.05)'}
+                                onMouseOut={(e) => e.target.style.transform = 'scale(1)'}
+                            >
+                                Contact Us
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
 
-          {/* --- COLUMN 4: COMPANY / LEGAL --- */}
-          <div>
-              <h3 style={{ fontFamily: '"Oswald", sans-serif', textTransform: 'uppercase', marginBottom: '25px', fontSize: '1.1rem', letterSpacing: '0.05em' }}>
-                  Our Company
-              </h3>
-              <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '15px' }}>
-                  <li>
-                    <button 
-                      onClick={() => setActiveModal('privacy')}
-                      style={{ background: 'none', border: 'none', padding: 0, color: '#CCC', cursor: 'pointer', fontSize: '0.9rem', transition: 'color 0.3s', textAlign: 'left' }}
-                      onMouseOver={(e) => e.target.style.color = '#FFF'}
-                      onMouseOut={(e) => e.target.style.color = '#CCC'}
-                    >
-                      Privacy Policy
-                    </button>
-                  </li>
-                  <li>
-                    <button 
-                      onClick={() => setActiveModal('disclaimer')}
-                      style={{ background: 'none', border: 'none', padding: 0, color: '#CCC', cursor: 'pointer', fontSize: '0.9rem', transition: 'color 0.3s', textAlign: 'left' }}
-                      onMouseOver={(e) => e.target.style.color = '#FFF'}
-                      onMouseOut={(e) => e.target.style.color = '#CCC'}
-                    >
-                      Disclaimer
-                    </button>
-                  </li>
-                  <li>
-                    <button 
-                      onClick={() => setActiveModal('terms')}
-                      style={{ background: 'none', border: 'none', padding: 0, color: '#CCC', cursor: 'pointer', fontSize: '0.9rem', transition: 'color 0.3s', textAlign: 'left' }}
-                      onMouseOver={(e) => e.target.style.color = '#FFF'}
-                      onMouseOut={(e) => e.target.style.color = '#CCC'}
-                    >
-                      Terms and Conditions
-                    </button>
-                  </li>
-                  
-                  <li style={{ marginTop: '20px' }}>
-                      <button 
-                          onClick={() => scrollToSection('contact')}
-                          style={{
-                              background: '#FFF', color: '#000', border: 'none', 
-                              padding: '10px 25px', fontFamily: '"Oswald", sans-serif', 
-                              textTransform: 'uppercase', fontSize: '0.8rem', cursor: 'pointer', letterSpacing: '0.1em',
-                              transition: 'transform 0.2s ease', borderRadius: '2px'
-                          }}
-                          onMouseOver={(e) => e.target.style.transform = 'scale(1.05)'}
-                          onMouseOut={(e) => e.target.style.transform = 'scale(1)'}
-                      >
-                          Contact Us
-                      </button>
-                  </li>
-              </ul>
-          </div>
+            {/* --- MAP EMBEDS SECTION --- */}
+            <div style={{ 
+                marginTop: '60px', 
+                display: 'grid', 
+                gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', 
+                gap: '40px' 
+            }}>
+                {/* UNIT 1 MAP */}
+                <div>
+                    <h4 style={{ 
+                        fontFamily: '"Oswald", sans-serif', 
+                        color: '#FFF', 
+                        fontSize: '1.2rem', 
+                        marginBottom: '15px', 
+                        letterSpacing: '0.05em' 
+                    }}>
+                        BUNNY UNIT-1
+                    </h4>
+                    <div style={{ 
+                        width: '100%', 
+                        height: '300px', 
+                        borderRadius: '8px', 
+                        overflow: 'hidden', 
+                        border: '1px solid rgba(255,255,255,0.1)',
+                        boxShadow: '0 10px 30px rgba(0,0,0,0.5)',
+                        position: 'relative'
+                    }}>
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3890.312151670921!2d77.8227656!3d12.7350567!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae713f068565b9%3A0x6e902b740ea50!2sSIDCO%20Industrial%20Estate%2C%20Hosur%2C%20Tamil%20Nadu!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
+                            width="100%"
+                            height="100%"
+                            style={{ border: 0 }}
+                            allowFullScreen=""
+                            loading="lazy"
+                            referrerPolicy="no-referrer-when-downgrade"
+                            title="Bunny Industries Unit 1"
+                        ></iframe>
+                    </div>
+                </div>
+
+                {/* UNIT 2 MAP */}
+                <div>
+                    <h4 style={{ 
+                        fontFamily: '"Oswald", sans-serif', 
+                        color: '#FFF', 
+                        fontSize: '1.2rem', 
+                        marginBottom: '15px', 
+                        letterSpacing: '0.05em' 
+                    }}>
+                        BUNNY UNIT-2
+                    </h4>
+                    <div style={{ 
+                        width: '100%', 
+                        height: '300px', 
+                        borderRadius: '8px', 
+                        overflow: 'hidden', 
+                        border: '1px solid rgba(255,255,255,0.1)',
+                        boxShadow: '0 10px 30px rgba(0,0,0,0.5)',
+                        position: 'relative'
+                    }}>
+                        <iframe
+                            src="https://maps.google.com/maps?q=Zuzuvadi,%20Hosur,%20Tamil%20Nadu&t=&z=14&ie=UTF8&iwloc=&output=embed"
+                            width="100%"
+                            height="100%"
+                            style={{ border: 0 }}
+                            allowFullScreen=""
+                            loading="lazy"
+                            referrerPolicy="no-referrer-when-downgrade"
+                            title="Bunny Industries Unit 2"
+                        ></iframe>
+                    </div>
+                </div>
+            </div>
 
         </div>
 
         {/* --- COPYRIGHT BAR --- */}
         <div style={{ 
-            maxWidth: '1400px', margin: '60px auto 0 auto', padding: '20px 40px 0 40px', 
+            maxWidth: '1400px', margin: '40px auto 0 auto', padding: '20px 40px 0 40px', 
             borderTop: '1px solid rgba(255,255,255,0.1)', textAlign: 'center', color: '#555', fontSize: '0.8rem' 
         }}>
             © {new Date().getFullYear()} Bunny Industries. All Rights Reserved.
@@ -212,7 +289,7 @@ export default function Footer() {
               alignItems: 'center',
               padding: '20px'
             }}
-            onClick={closeModal} // Clicking the dark background closes it
+            onClick={closeModal} 
           >
             <motion.div
               initial={{ y: 50, opacity: 0, scale: 0.95 }}
@@ -231,7 +308,7 @@ export default function Footer() {
                 position: 'relative',
                 boxShadow: '0 20px 60px rgba(0,0,0,0.8)'
               }}
-              onClick={(e) => e.stopPropagation()} // Prevent clicking inside the text from closing the modal
+              onClick={(e) => e.stopPropagation()} 
             >
               {/* Close Button */}
               <button

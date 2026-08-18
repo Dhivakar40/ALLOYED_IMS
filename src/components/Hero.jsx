@@ -192,7 +192,7 @@ export default function Hero() {
                 color: '#EAEAEA',
                 textShadow: '0 4px 20px rgba(0,0,0,0.9), 0 2px 10px rgba(0,0,0,0.8), 0 0 5px rgba(0,0,0,1)' 
               }}>
-                 WORLD CLASS MACHINING SOLUTIONS
+                 PRECISION MANUFACTURING EXCELLENCE
               </p>
             </motion.div>
           </motion.div>

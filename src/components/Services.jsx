@@ -1,62 +1,45 @@
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 
-// 1. DATA - 6 ITEMS
+// 1. DATA - EXACTLY 4 ITEMS
 const capabilities = [
     {
         id: "01",
-        title: "Automotive Precision",
-        tags: ["Engine Blocks", "Transmission", "Chassis", "EV Systems"],
-        desc: "Driving the future of mobility. We manufacture high-tolerance components for internal combustion and electric vehicles.",
-        image: "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?q=80&w=2072&auto=format&fit=crop" 
-    },
-    {
-        id: "02",
-        title: "Aerospace Systems",
+        title: "AEROSPACE",
         tags: ["Turbine Blades", "Avionics Housing", "Landing Gear", "Structural"],
         desc: "Flight-critical engineering. Our components meet the rigorous safety and precision standards required for commercial aviation and defense sectors.",
         image: "flight.jpeg" 
     },
     {
+        id: "02",
+        title: "MEDICAL",
+        tags: ["Surgical Arms", "Implants", "Micro-Gears", "Bio-Compatible"],
+        desc: "Precision that saves lives. We fabricate ultra-precise, sterile-ready components for next-generation surgical robots and medical devices.",
+        image: "medi.png"
+    },
+    {
         id: "03",
-        title: "Locomotive & Rail",
-        tags: ["Wheel Sets", "Braking Systems", "Heavy Suspension", "Couplers"],
-        desc: "We manufacture heavy-duty, durable parts designed to withstand the extreme loads and long-haul demands of the rail industry.",
-        image: "train.png" 
+        title: "SEMI-CONDUCTOR",
+        tags: ["Wafer Fabrication", "Vacuum Chambers", "Precision Stages", "Cleanroom"],
+        desc: "Ultra-high precision for electronics. We machine pristine, critical components designed for complex semiconductor manufacturing equipment.",
+        image: "semicond.png" 
     },
     {
         id: "04",
-        title: "Energy & Petrochem", // Shortened slightly to fit better, or minHeight will handle it
-        tags: ["High-Pressure Valves", "Drilling Rigs", "Pipeline", "Offshore"],
-        desc: "Powering global infrastructure. We deliver corrosion-resistant, pressure-tested components built to survive the harshest oil and gas environments.",
-        image: "oil.png" 
-    },
-    {
-        id: "05",
-        title: "Medical Robotics",
-        tags: ["Surgical Arms", "Implants", "Micro-Gears", "Bio-Compatible"],
-        desc: "Precision that saves lives. We fabricate ultra-precise, sterile-ready components for next-generation surgical robots and medical devices.",
-        image: "med.png"
-    },
-    {
-        id: "06",
-        title: "Defense & Marine",
-        tags: ["Naval Shafts", "Armor Plating", "Sonar Casings", "Ballistics"],
-        desc: "Mission-ready hardware. We provide heavy-gauge, element-resistant manufacturing for naval fleets and tactical defense systems.",
-        image: "marine.png"
+        title: "INDUSTRIAL MACHINERY",
+        tags: ["Heavy Duty Gears", "Hydraulic Manifolds", "Actuators", "Drive Shafts"],
+        desc: "Powering global manufacturing. We deliver heavy-duty, durable parts designed to withstand extreme loads and continuous industrial demands.",
+        image: "industrial.png" 
     }
 ];
 
 const materials = "ALUMINUM 6061 • STAINLESS STEEL 304 • TITANIUM • INCONEL • BRASS • TOOL STEEL • CARBON FIBER • ABS PLASTIC • ";
 
 export default function Services() {
-    const [showAll, setShowAll] = useState(false);
     const [isMobile, setIsMobile] = useState(false);
 
-    const visibleCapabilities = showAll ? capabilities : capabilities.slice(0, 3);
-
     useEffect(() => {
-        const checkMobile = () => setIsMobile(window.innerWidth < 1000); // Trigger mobile layout slightly earlier for safety
+        const checkMobile = () => setIsMobile(window.innerWidth < 1100); // Trigger mobile stacking a bit earlier since 4 cards need space
         window.addEventListener('resize', checkMobile);
         checkMobile(); 
         return () => window.removeEventListener('resize', checkMobile);
@@ -131,181 +114,147 @@ export default function Services() {
                 {/* --- GRID CONTAINER --- */}
                 <div style={{
                     display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', 
-                    gap: '60px', 
+                    // Forces exactly 4 equal columns on desktop, 1 column on mobile
+                    gridTemplateColumns: isMobile ? '1fr' : 'repeat(4, 1fr)', 
+                    gap: isMobile ? '60px' : '25px', 
                     width: '100%',
-                    alignItems: 'stretch' // Force identical row heights
+                    alignItems: 'stretch' 
                 }}>
-                    <AnimatePresence initial={false}>
-                        {visibleCapabilities.map((service, i) => (
-                            <motion.div 
-                                layout
-                                key={service.id} 
-                                initial={{ opacity: 0, y: 50 }} 
-                                animate={{ opacity: 1, y: 0 }}
-                                exit={{ opacity: 0, scale: 0.95, transition: { duration: 0.5 } }} 
-                                transition={{ duration: 0.8, ease: [0.04, 0.62, 0.23, 0.98] }}
-                                whileHover="hover" 
-                                style={{ 
-                                    position: 'relative',
-                                    width: '100%',
-                                    cursor: 'pointer',
-                                    marginBottom: isMobile ? '50px' : '0',
-                                    display: 'flex',
-                                    flexDirection: 'column',
-                                    height: '100%' 
-                                }}
-                            >
-                                {/* TEXT CONTENT WRAPPER */}
-                                <div style={{ 
-                                    marginBottom: '1.5rem', 
-                                    position: 'relative', 
-                                    zIndex: 1, 
-                                    paddingRight: '10px',
-                                    flexGrow: 1, // Absorbs empty space to push image to the bottom
-                                    display: 'flex',
-                                    flexDirection: 'column'
+                    {capabilities.map((service, i) => (
+                        <motion.div 
+                            layout
+                            key={service.id} 
+                            initial={{ opacity: 0, y: 50 }} 
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true, margin: "-50px" }}
+                            transition={{ duration: 0.6, delay: i * 0.15 }}
+                            whileHover="hover" 
+                            style={{ 
+                                position: 'relative',
+                                width: '100%',
+                                cursor: 'pointer',
+                                display: 'flex',
+                                flexDirection: 'column',
+                                height: '100%' 
+                            }}
+                        >
+                            {/* TEXT CONTENT WRAPPER */}
+                            <div style={{ 
+                                marginBottom: '1.5rem', 
+                                position: 'relative', 
+                                zIndex: 1, 
+                                paddingRight: '10px',
+                                flexGrow: 1, 
+                                display: 'flex',
+                                flexDirection: 'column'
+                            }}>
+                                
+                                {/* NUMBER */}
+                                <span style={{ 
+                                    fontSize: '4.5rem', 
+                                    fontFamily: '"Oswald", sans-serif', 
+                                    opacity: 0.2,
+                                    fontWeight: 'bold',
+                                    lineHeight: 1,
+                                    marginBottom: '10px'
                                 }}>
-                                    
-                                    {/* NUMBER */}
-                                    <span style={{ 
-                                        fontSize: '4.5rem', 
-                                        fontFamily: '"Oswald", sans-serif', 
-                                        opacity: 0.2,
-                                        fontWeight: 'bold',
-                                        lineHeight: 1,
-                                        marginBottom: '10px'
-                                    }}>
-                                        {service.id}
-                                    </span>
+                                    {service.id}
+                                </span>
 
-                                    {/* TAGS (FIX: MinHeight to perfectly align Titles below them) */}
-                                    <div style={{ 
-                                        display: 'flex', 
-                                        gap: '8px', 
-                                        flexWrap: 'wrap', 
-                                        justifyContent: 'flex-start',
-                                        alignContent: 'flex-start',
-                                        minHeight: isMobile ? 'auto' : '70px', // Standardizes tag container height
-                                        marginBottom: '1rem'
-                                    }}>
-                                        {service.tags.map((tag, t) => (
-                                            <span key={t} style={{ 
-                                                fontSize: '0.8rem', 
-                                                border: '1px solid #444', 
-                                                padding: '6px 12px', 
-                                                borderRadius: '4px',
-                                                color: '#CCC',
-                                                backgroundColor: 'rgba(0,0,0,0.3)',
-                                                whiteSpace: 'nowrap'
-                                            }}>
-                                                {tag}
-                                            </span>
-                                        ))}
-                                    </div>
-
-                                    {/* TITLE (FIX: MinHeight to perfectly align Descriptions below them) */}
-                                    <h3 style={{ 
-                                        fontSize: '2.2rem', 
-                                        fontFamily: '"Oswald", sans-serif', 
-                                        marginBottom: '1rem',
-                                        color: '#FFF',
-                                        lineHeight: 1.2,
-                                        minHeight: isMobile ? 'auto' : '85px' // Standardizes title container height
-                                    }}>
-                                        {service.title}
-                                    </h3>
-                                    
-                                    {/* DESCRIPTION */}
-                                    <p style={{ 
-                                        fontSize: '1.05rem', 
-                                        color: '#B0B0B0',
-                                        lineHeight: '1.6',
-                                        maxWidth: '95%',
-                                        margin: 0
-                                    }}>
-                                        {service.desc}
-                                    </p>
+                                {/* TAGS */}
+                                <div style={{ 
+                                    display: 'flex', 
+                                    gap: '8px', 
+                                    flexWrap: 'wrap', 
+                                    justifyContent: 'flex-start',
+                                    alignContent: 'flex-start',
+                                    minHeight: isMobile ? 'auto' : '85px', 
+                                    marginBottom: '1rem'
+                                }}>
+                                    {service.tags.map((tag, t) => (
+                                        <span key={t} style={{ 
+                                            fontSize: '0.75rem', 
+                                            border: '1px solid #444', 
+                                            padding: '6px 10px', 
+                                            borderRadius: '4px',
+                                            color: '#CCC',
+                                            backgroundColor: 'rgba(0,0,0,0.3)',
+                                            whiteSpace: 'nowrap'
+                                        }}>
+                                            {tag}
+                                        </span>
+                                    ))}
                                 </div>
 
-                                {/* FRAME IMAGE (Pushed perfectly to the bottom by flexGrow:1 on the text wrapper) */}
-                                <motion.div 
+                                {/* TITLE */}
+                                <h3 style={{ 
+                                    fontSize: '1.8rem', 
+                                    fontFamily: '"Oswald", sans-serif', 
+                                    marginBottom: '1rem',
+                                    color: '#FFF',
+                                    lineHeight: 1.2,
+                                    minHeight: isMobile ? 'auto' : '70px' 
+                                }}>
+                                    {service.title}
+                                </h3>
+                                
+                                {/* DESCRIPTION */}
+                                <p style={{ 
+                                    fontSize: '0.95rem', 
+                                    color: '#B0B0B0',
+                                    lineHeight: '1.6',
+                                    maxWidth: '95%',
+                                    margin: 0
+                                }}>
+                                    {service.desc}
+                                </p>
+                            </div>
+
+                            {/* FRAME IMAGE */}
+                            <motion.div 
+                                variants={{
+                                    initial: { 
+                                        scale: 1, 
+                                        y: 0,
+                                        boxShadow: "0 0 0 rgba(0,0,0,0)",
+                                        zIndex: 1,
+                                        border: '1px solid rgba(255,255,255,0.1)'
+                                    },
+                                    hover: { 
+                                        scale: 1.03, 
+                                        y: -10,      
+                                        boxShadow: "0 30px 60px rgba(0,0,0,0.5)", 
+                                        zIndex: 10,
+                                        border: '1px solid rgba(255,255,255,0.4)'
+                                    }
+                                }}
+                                transition={{ duration: 0.4, ease: "easeOut" }}
+                                style={{ 
+                                    width: '100%', 
+                                    aspectRatio: '4/5', 
+                                    overflow: 'hidden', 
+                                    borderRadius: '8px',
+                                    background: '#000',
+                                    flexShrink: 0 
+                                }}
+                            >
+                                <motion.img 
+                                    src={service.image} 
+                                    alt={service.title}
                                     variants={{
-                                        initial: { 
-                                            scale: 1, 
-                                            y: 0,
-                                            boxShadow: "0 0 0 rgba(0,0,0,0)",
-                                            zIndex: 1,
-                                            border: '1px solid rgba(255,255,255,0.1)'
-                                        },
-                                        hover: { 
-                                            scale: 1.03, 
-                                            y: -10,      
-                                            boxShadow: "0 30px 60px rgba(0,0,0,0.5)", 
-                                            zIndex: 10,
-                                            border: '1px solid rgba(255,255,255,0.4)'
-                                        }
+                                        initial: { scale: 1 }, 
+                                        hover: { scale: 1.05 }
                                     }}
-                                    transition={{ duration: 0.4, ease: "easeOut" }}
+                                    transition={{ duration: 0.4 }}
                                     style={{ 
                                         width: '100%', 
-                                        aspectRatio: '4/5', // Enforces perfect identical height on all images
-                                        overflow: 'hidden', 
-                                        borderRadius: '8px',
-                                        background: '#000',
-                                        flexShrink: 0 
+                                        height: '100%', 
+                                        objectFit: 'cover' 
                                     }}
-                                >
-                                    <motion.img 
-                                        src={service.image} 
-                                        alt={service.title}
-                                        variants={{
-                                            initial: { scale: 1 }, 
-                                            hover: { scale: 1.05 }
-                                        }}
-                                        transition={{ duration: 0.4 }}
-                                        style={{ 
-                                            width: '100%', 
-                                            height: '100%', 
-                                            objectFit: 'cover' 
-                                        }}
-                                    />
-                                </motion.div>
+                                />
                             </motion.div>
-                        ))}
-                    </AnimatePresence>
-                </div>
-
-                {/* --- TOGGLE BUTTON --- */}
-                <div style={{ textAlign: 'center', marginTop: '80px', display: 'flex', justifyContent: 'center' }}>
-                    <button
-                        onClick={() => setShowAll(!showAll)}
-                        style={{
-                            background: '#FFFFFF',
-                            color: '#000000',
-                            border: '1px solid #FFFFFF',
-                            padding: '15px 40px',
-                            fontSize: '0.9rem',
-                            textTransform: 'uppercase',
-                            letterSpacing: '0.1em',
-                            cursor: 'pointer',
-                            fontFamily: '"Oswald", sans-serif',
-                            transition: 'all 0.3s ease',
-                            borderRadius: '2px',
-                            width: isMobile ? '100%' : 'auto', 
-                            maxWidth: isMobile ? 'none' : '300px'
-                        }}
-                        onMouseOver={(e) => {
-                            e.currentTarget.style.backgroundColor = 'transparent';
-                            e.currentTarget.style.color = '#FFFFFF';
-                        }}
-                        onMouseOut={(e) => {
-                            e.currentTarget.style.backgroundColor = '#FFFFFF';
-                            e.currentTarget.style.color = '#000000';
-                        }}
-                    >
-                        {showAll ? 'View Less Sectors' : 'View More Sectors'}
-                    </button>
+                        </motion.div>
+                    ))}
                 </div>
 
             </div>

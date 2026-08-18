@@ -51,13 +51,13 @@ export default function About() {
                 About Bunny Industries
               </span>
               <h2 style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', fontFamily: '"Oswald", sans-serif', textTransform: 'uppercase', lineHeight: '1.1', marginBottom: '1.5rem' }}>
-                Delivering World-Class <br/> Machining Solutions.
+                ENGINEERING EXCELLENCE <br/> BUILT ON TRUST
               </h2>
               <p style={{ color: '#B0B0B0', lineHeight: '2.0', fontSize: '1.1rem', marginBottom: '1rem' }}>
-                Bunny Industries is a recognized leader in the manufacturing and export of high-quality machined components, press tools, and precision parts in Hosur. With over <span style={{ color: '#FFF', fontWeight: 'bold' }}>16 years of industry experience</span>, we have developed strong expertise in the manufacturing of automotive and precision components.
+                Established in 2015 under the leadership of Founder & Proprietor Mr. Varatharajaperumal S, Bunny Industries has grown into a trusted name in precision engineering and high-quality manufacturing.<span style={{ color: '#FFF', fontWeight: 'bold' }}> Over a decade of steady growth, </span>we have partnered with industry leaders across diverse sectors, earning a reputation for mechanical excellence, technical innovation, and operational reliability. 
               </p>
               <p style={{ color: '#B0B0B0', lineHeight: '2.0', fontSize: '1.1rem', marginBottom: '2rem' }}>
-                Backed by a dedicated team of engineers and quality inspectors, we operate from an advanced infrastructure equipped with <span style={{ color: '#FFF', fontWeight: 'bold' }}>VMC, CNC, and fabrication facilities</span> to consistently meet the diverse requirements of our valued customers.
+                Driven by a dedicated team of over 25 skilled employees, Bunny Industries achieved a financial turnover of ₹ 4.5 Crores for the financial year 2025–2026, reflecting our strong market presence and continuous scaling capabilities.
               </p>
             </motion.div>
 
@@ -76,9 +76,9 @@ export default function About() {
                     transition={{ duration: 0.3 }}
                     style={{ padding: '25px', background: 'rgba(255,255,255,0.02)', borderLeftColor: '#6B9BD0', borderLeftStyle: 'solid', borderLeftWidth: '3px', backdropFilter: 'blur(10px)' }}
                 >
-                    <h3 style={{ fontFamily: '"Oswald", sans-serif', color: '#FFF', margin: '0 0 5px 0', letterSpacing: '0.05em' }}>EXPERT EXCELLENCE</h3>
+                    <h3 style={{ fontFamily: '"Oswald", sans-serif', color: '#FFF', margin: '0 0 5px 0', letterSpacing: '0.05em' }}>OUR MISSION</h3>
                     <p style={{ color: '#AAA', margin: 0, fontSize: '0.95rem', lineHeight: '1.5' }}>
-                        Utilizing advanced VMC machining as well as conventional machining processes, our goal is to transform your complex engineering challenges into seamless industrial solutions.
+                        Premium-grade precision components that empower client supply chains with reliability, structural safety and efficiency.
                     </p>
                 </motion.div>
 
@@ -89,9 +89,9 @@ export default function About() {
                     transition={{ duration: 0.3 }}
                     style={{ padding: '25px', background: 'rgba(255,255,255,0.02)', borderLeftColor: '#6B9BD0', borderLeftStyle: 'solid', borderLeftWidth: '3px', backdropFilter: 'blur(10px)' }}
                 >
-                    <h3 style={{ fontFamily: '"Oswald", sans-serif', color: '#FFF', margin: '0 0 5px 0', letterSpacing: '0.05em' }}>BUILDING THE FUTURE</h3>
+                    <h3 style={{ fontFamily: '"Oswald", sans-serif', color: '#FFF', margin: '0 0 5px 0', letterSpacing: '0.05em' }}>OUR VISION</h3>
                     <p style={{ color: '#AAA', margin: 0, fontSize: '0.95rem', lineHeight: '1.5' }}>
-                        Beyond manufacturing, we prioritize long-term partnerships built on trust and transparency. We don’t just supply components, we power your journey toward success.
+                        To be a global benchmark in smart precision engineering, powering the next generation of industrial growth.
                     </p>
                 </motion.div>
 
@@ -102,9 +102,9 @@ export default function About() {
                     transition={{ duration: 0.3 }}
                     style={{ padding: '25px', background: 'rgba(255,255,255,0.02)', borderLeftColor: '#6B9BD0', borderLeftStyle: 'solid', borderLeftWidth: '3px', backdropFilter: 'blur(10px)' }}
                 >
-                    <h3 style={{ fontFamily: '"Oswald", sans-serif', color: '#FFF', margin: '0 0 5px 0', letterSpacing: '0.05em' }}>CONTINUOUS INNOVATION</h3>
+                    <h3 style={{ fontFamily: '"Oswald", sans-serif', color: '#FFF', margin: '0 0 5px 0', letterSpacing: '0.05em' }}>OUR VALUES</h3>
                     <p style={{ color: '#AAA', margin: 0, fontSize: '0.95rem', lineHeight: '1.5' }}>
-                        By continuously upgrading our technology, we ensure your projects stay ahead of the curve. Our focus remains on innovation and reliability.
+                        Safety, Precision, Integrity and Continuous Improvement across every process, every shift.
                     </p>
                 </motion.div>
             </motion.div>
@@ -126,60 +126,9 @@ export default function About() {
         >
             <h3 style={{ fontFamily: '"Oswald", sans-serif', fontSize: '1.5rem', color: '#6B9BD0', marginBottom: '20px', letterSpacing: '0.1em', textTransform: 'uppercase' }}>Robust Quality Management</h3>
             <p style={{ color: '#EAEAEA', fontSize: '1.15rem', fontStyle: 'italic', maxWidth: '900px', margin: '0 auto', lineHeight: '1.8' }}>
-                "Our organization has implemented a robust Quality Management System to ensure that every product complies with <strong style={{color: '#FFF'}}>ISO 9001:2015 standards</strong>. As a customer-centric company, we are committed to driving operational excellence by delivering high-quality products that meet and exceed customer expectations."
+                "Operating under strict quality management systems, our facility is <strong style={{color: '#FFF'}}>ISO 9001:2015 certificate </strong>and holds a <strong style={{color: '#FFF'}}>ZED Silver Certificate, </strong>reflecting our commitment to zero-defect manufacturing and <br></br> sustainable practices"
             </p>
         </motion.div>
-
-        {/* --- VALUED CUSTOMERS SECTION (Replaced Leadership) --- */}
-        <div>
-            <h2 style={{ fontFamily: '"Oswald", sans-serif', fontSize: '2.5rem', marginBottom: '15px', textAlign: 'center', color: '#FFFFFF' }}>
-                OUR VALUED CUSTOMERS
-            </h2>
-            <p style={{ textAlign: 'center', color: '#888', marginBottom: '50px', fontSize: '1.1rem', maxWidth: '600px', margin: '0 auto 50px auto' }}>
-                Our strengths and commitment to quality have enabled us to successfully serve reputed industry leaders.
-            </p>
-            
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '30px' }}>
-                
-                {/* Customer 1 */}
-                <motion.div 
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5 }}
-                    style={{ background: '#15161A', padding: '40px 30px', borderTop: '3px solid #6B9BD0', textAlign: 'center' }}
-                >
-                    <h3 style={{ color: '#FFF', fontFamily: '"Oswald", sans-serif', fontSize: '1.6rem', margin: '0 0 10px 0', letterSpacing: '0.05em' }}>Rangsons Aerospace</h3>
-                    <p style={{ color: '#6B9BD0', fontSize: '0.85rem', letterSpacing: '0.1em', fontWeight: 'bold', textTransform: 'uppercase' }}>Pvt Ltd</p>
-                </motion.div>
-                
-                {/* Customer 2 */}
-                <motion.div 
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: 0.1 }}
-                    style={{ background: '#15161A', padding: '40px 30px', borderTop: '3px solid #6B9BD0', textAlign: 'center' }}
-                >
-                    <h3 style={{ color: '#FFF', fontFamily: '"Oswald", sans-serif', fontSize: '1.6rem', margin: '0 0 10px 0', letterSpacing: '0.05em' }}>Narasipur Auto Components</h3>
-                    <p style={{ color: '#6B9BD0', fontSize: '0.85rem', letterSpacing: '0.1em', fontWeight: 'bold', textTransform: 'uppercase' }}>Pvt Ltd</p>
-                </motion.div>
-
-                {/* Customer 3 */}
-                <motion.div 
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: 0.2 }}
-                    style={{ background: '#15161A', padding: '40px 30px', borderTop: '3px solid #6B9BD0', textAlign: 'center' }}
-                >
-                    <h3 style={{ color: '#FFF', fontFamily: '"Oswald", sans-serif', fontSize: '1.6rem', margin: '0 0 10px 0', letterSpacing: '0.05em' }}>Molbio Diagnostics</h3>
-                    <p style={{ color: '#6B9BD0', fontSize: '0.85rem', letterSpacing: '0.1em', fontWeight: 'bold', textTransform: 'uppercase' }}>Pvt Ltd</p>
-                </motion.div>
-
-            </div>
-        </div>
-
       </div>
     </section>
   );
