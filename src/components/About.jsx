@@ -57,7 +57,7 @@ export default function About() {
                 Established in 2015 under the leadership of Founder & Proprietor Mr. Varatharajaperumal S, Bunny Industries has grown into a trusted name in precision engineering and high-quality manufacturing.<span style={{ color: '#FFF', fontWeight: 'bold' }}> Over a decade of steady growth, </span>we have partnered with industry leaders across diverse sectors, earning a reputation for mechanical excellence, technical innovation, and operational reliability. 
               </p>
               <p style={{ color: '#B0B0B0', lineHeight: '2.0', fontSize: '1.1rem', marginBottom: '2rem' }}>
-                Driven by a dedicated team of over 25 skilled employees, Bunny Industries achieved a financial turnover of ₹ 4.5 Crores for the financial year 2025–2026, reflecting our strong market presence and continuous scaling capabilities.
+                Driven by a dedicated team of <span style={{ color: '#FFF', fontWeight: 'bold' }}>over 25 skilled employees</span>, Bunny Industries achieved a financial turnover of ₹ 4.5 Crores for the financial year 2025–2026, reflecting our strong market presence and continuous scaling capabilities.
               </p>
             </motion.div>
 
