@@ -23,7 +23,7 @@ export default function Footer() {
   return (
     <>
       <footer style={{ 
-          backgroundColor: '#050608', // Slightly darker than main bg
+          backgroundColor: '#050608', 
           color: '#FFFFFF', 
           padding: '80px 0 30px 0',
           borderTop: '1px solid rgba(255,255,255,0.05)',
@@ -31,7 +31,7 @@ export default function Footer() {
           position: 'relative',
           overflow: 'hidden'
       }}>
-        
+
         {/* Optional: Background Faint Industrial Overlay */}
         <div style={{
             position: 'absolute', inset: 0, 
@@ -54,7 +54,6 @@ export default function Footer() {
             }}>
                 {/* --- COLUMN 1: BRAND & INFO --- */}
                 <div>
-                    {/* LOGO REUSE - perfectly matched to Hero Section font */}
                     <div style={{ marginBottom: '20px' }}>
                         <h1 style={{
                             fontFamily: '"Oswald", sans-serif',
@@ -72,8 +71,7 @@ export default function Footer() {
                             <span style={{ display: 'block' }}>BUNNY</span>
                             <span style={{ display: 'block' }}>INDUSTRIES</span>
                         </h1>
-                        
-                        {/* --- UPDATED: Clickable Addresses linked to exact Google Maps URLs --- */}
+
                         <p style={{ color: '#A0A0A0', lineHeight: '1.6', fontSize: '0.9rem', maxWidth: '300px', marginTop: '15px' }}>
                             <a href="https://maps.app.goo.gl/Aio946K6AKhjp23f7" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.3s' }} onMouseOver={(e) => e.target.style.color = '#FFF'} onMouseOut={(e) => e.target.style.color = '#A0A0A0'}>
                                 <strong style={{ color: '#FFF' }}>Unit-1:</strong> SIDCO Industrial Estate Phase-1, Hosur-635126, Tamil Nadu, India.
@@ -195,7 +193,18 @@ export default function Footer() {
                 gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', 
                 gap: '40px' 
             }}>
-                <div style={{ 
+                {/* UNIT 1 MAP */}
+                <div>
+                    <h4 style={{ 
+                        fontFamily: '"Oswald", sans-serif', 
+                        color: '#FFF', 
+                        fontSize: '1.2rem', 
+                        marginBottom: '15px', 
+                        letterSpacing: '0.05em' 
+                    }}>
+                        BUNNY UNIT-1
+                    </h4>
+                    <div style={{ 
                         width: '100%', 
                         height: '300px', 
                         borderRadius: '8px', 
@@ -209,12 +218,13 @@ export default function Footer() {
                             width="100%"
                             height="100%"
                             style={{ border: 0 }}
-                            allowFullScreen=""
+                            allowFullScreen
                             loading="lazy"
                             referrerPolicy="no-referrer-when-downgrade"
                             title="Bunny Industries Unit 1"
                         ></iframe>
                     </div>
+                </div>
 
                 {/* UNIT 2 MAP */}
                 <div>
@@ -241,7 +251,7 @@ export default function Footer() {
                             width="100%"
                             height="100%"
                             style={{ border: 0 }}
-                            allowFullScreen=""
+                            allowFullScreen
                             loading="lazy"
                             referrerPolicy="no-referrer-when-downgrade"
                             title="Bunny Industries Unit 2"
@@ -323,7 +333,7 @@ export default function Footer() {
                 ✕
               </button>
 
-              {/* Title */}
+              {/* Title - FIX: Added Optional Chaining to prevent crash on exit animation */}
               <h2 style={{ 
                 fontFamily: '"Oswald", sans-serif', 
                 color: '#FFF', 
@@ -333,12 +343,12 @@ export default function Footer() {
                 borderBottom: '1px solid rgba(255,255,255,0.1)',
                 paddingBottom: '15px'
               }}>
-                {legalContent[activeModal].title}
+                {legalContent[activeModal]?.title} 
               </h2>
 
-              {/* Content */}
+              {/* Content - FIX: Added Optional Chaining */}
               <div style={{ color: '#B0B0B0', lineHeight: '1.8', fontSize: '0.95rem', whiteSpace: 'pre-line' }}>
-                {legalContent[activeModal].content}
+                {legalContent[activeModal]?.content}
               </div>
             </motion.div>
           </motion.div>
