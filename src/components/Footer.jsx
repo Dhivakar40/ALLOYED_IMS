@@ -73,13 +73,18 @@ export default function Footer() {
                             <span style={{ display: 'block' }}>INDUSTRIES</span>
                         </h1>
                         
+                        {/* --- UPDATED: Clickable Addresses linked to exact Google Maps URLs --- */}
                         <p style={{ color: '#A0A0A0', lineHeight: '1.6', fontSize: '0.9rem', maxWidth: '300px', marginTop: '15px' }}>
-                            <strong style={{ color: '#FFF' }}>Unit-1:</strong> SIDCO Industrial Estate Phase-1, Hosur-635126, Tamil Nadu, India.
+                            <a href="https://maps.app.goo.gl/Aio946K6AKhjp23f7" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.3s' }} onMouseOver={(e) => e.target.style.color = '#FFF'} onMouseOut={(e) => e.target.style.color = '#A0A0A0'}>
+                                <strong style={{ color: '#FFF' }}>Unit-1:</strong> SIDCO Industrial Estate Phase-1, Hosur-635126, Tamil Nadu, India.
+                            </a>
                         </p>
                     </div>
 
                     <p style={{ color: '#A0A0A0', lineHeight: '1.6', fontSize: '0.9rem', maxWidth: '300px' }}>
-                         <strong style={{ color: '#FFF' }}>Unit-2:</strong> 2/2, VTR Road, SF No. 185/2A, Door No. 185/2, Thiruvalluvar Nagar, Zuzuvadi, Hosur-635126.
+                         <a href="https://maps.app.goo.gl/VXAc7UpvBX72Likc8" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.3s' }} onMouseOver={(e) => e.target.style.color = '#FFF'} onMouseOut={(e) => e.target.style.color = '#A0A0A0'}>
+                             <strong style={{ color: '#FFF' }}>Unit-2:</strong> 2/2, VTR Road, SF No. 185/2A, Door No. 185/2, Thiruvalluvar Nagar, Zuzuvadi, Hosur-635126.
+                         </a>
                     </p>
                 </div>
 
@@ -190,18 +195,7 @@ export default function Footer() {
                 gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', 
                 gap: '40px' 
             }}>
-                {/* UNIT 1 MAP */}
-                <div>
-                    <h4 style={{ 
-                        fontFamily: '"Oswald", sans-serif', 
-                        color: '#FFF', 
-                        fontSize: '1.2rem', 
-                        marginBottom: '15px', 
-                        letterSpacing: '0.05em' 
-                    }}>
-                        BUNNY UNIT-1
-                    </h4>
-                    <div style={{ 
+                <div style={{ 
                         width: '100%', 
                         height: '300px', 
                         borderRadius: '8px', 
@@ -211,7 +205,7 @@ export default function Footer() {
                         position: 'relative'
                     }}>
                         <iframe
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3890.312151670921!2d77.8227656!3d12.7350567!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae713f068565b9%3A0x6e902b740ea50!2sSIDCO%20Industrial%20Estate%2C%20Hosur%2C%20Tamil%20Nadu!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
+                            src="https://maps.google.com/maps?q=Bunny%20Industries,%20SIDCO%20Industrial%20Estate,%20Hosur&t=&z=15&ie=UTF8&iwloc=&output=embed"
                             width="100%"
                             height="100%"
                             style={{ border: 0 }}
@@ -221,7 +215,6 @@ export default function Footer() {
                             title="Bunny Industries Unit 1"
                         ></iframe>
                     </div>
-                </div>
 
                 {/* UNIT 2 MAP */}
                 <div>
@@ -244,7 +237,7 @@ export default function Footer() {
                         position: 'relative'
                     }}>
                         <iframe
-                            src="https://maps.google.com/maps?q=Zuzuvadi,%20Hosur,%20Tamil%20Nadu&t=&z=14&ie=UTF8&iwloc=&output=embed"
+                            src="https://maps.google.com/maps?q=2/2,%20VTR%20Road,%20SF%20No.%20185/2A,%20Door%20No.%20185/2,%20Thiruvalluvar%20Nagar,%20Zuzuvadi,%20Hosur-635126&t=&z=15&ie=UTF8&iwloc=&output=embed"
                             width="100%"
                             height="100%"
                             style={{ border: 0 }}
