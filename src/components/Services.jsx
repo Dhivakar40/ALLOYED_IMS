@@ -6,28 +6,24 @@ const capabilities = [
     {
         id: "01",
         title: "AEROSPACE",
-        tags: ["Turbine Blades", "Avionics Housing", "Landing Gear", "Structural"],
         desc: "Flight-critical engineering. Our components meet the rigorous safety and precision standards required for commercial aviation and defense sectors.",
         image: "flight.jpeg" 
     },
     {
         id: "02",
         title: "MEDICAL",
-        tags: ["Surgical Arms", "Implants", "Micro-Gears", "Bio-Compatible"],
         desc: "Precision that saves lives. We fabricate ultra-precise, sterile-ready components for next-generation surgical robots and medical devices.",
         image: "medi.png"
     },
     {
         id: "03",
         title: "SEMI-CONDUCTOR",
-        tags: ["Wafer Fabrication", "Vacuum Chambers", "Precision Stages", "Cleanroom"],
         desc: "Ultra-high precision for electronics. We machine pristine, critical components designed for complex semiconductor manufacturing equipment.",
         image: "semicond.png" 
     },
     {
         id: "04",
         title: "INDUSTRIAL MACHINERY",
-        tags: ["Heavy Duty Gears", "Hydraulic Manifolds", "Actuators", "Drive Shafts"],
         desc: "Powering global manufacturing. We deliver heavy-duty, durable parts designed to withstand extreme loads and continuous industrial demands.",
         image: "industrial.png" 
     }
@@ -39,7 +35,7 @@ export default function Services() {
     const [isMobile, setIsMobile] = useState(false);
 
     useEffect(() => {
-        const checkMobile = () => setIsMobile(window.innerWidth < 1100); // Trigger mobile stacking a bit earlier since 4 cards need space
+        const checkMobile = () => setIsMobile(window.innerWidth < 1100); 
         window.addEventListener('resize', checkMobile);
         checkMobile(); 
         return () => window.removeEventListener('resize', checkMobile);
@@ -114,7 +110,6 @@ export default function Services() {
                 {/* --- GRID CONTAINER --- */}
                 <div style={{
                     display: 'grid',
-                    // Forces exactly 4 equal columns on desktop, 1 column on mobile
                     gridTemplateColumns: isMobile ? '1fr' : 'repeat(4, 1fr)', 
                     gap: isMobile ? '60px' : '25px', 
                     width: '100%',
@@ -161,31 +156,6 @@ export default function Services() {
                                     {service.id}
                                 </span>
 
-                                {/* TAGS */}
-                                <div style={{ 
-                                    display: 'flex', 
-                                    gap: '8px', 
-                                    flexWrap: 'wrap', 
-                                    justifyContent: 'flex-start',
-                                    alignContent: 'flex-start',
-                                    minHeight: isMobile ? 'auto' : '85px', 
-                                    marginBottom: '1rem'
-                                }}>
-                                    {service.tags.map((tag, t) => (
-                                        <span key={t} style={{ 
-                                            fontSize: '0.75rem', 
-                                            border: '1px solid #444', 
-                                            padding: '6px 10px', 
-                                            borderRadius: '4px',
-                                            color: '#CCC',
-                                            backgroundColor: 'rgba(0,0,0,0.3)',
-                                            whiteSpace: 'nowrap'
-                                        }}>
-                                            {tag}
-                                        </span>
-                                    ))}
-                                </div>
-
                                 {/* TITLE */}
                                 <h3 style={{ 
                                     fontSize: '1.8rem', 
@@ -193,6 +163,7 @@ export default function Services() {
                                     marginBottom: '1rem',
                                     color: '#FFF',
                                     lineHeight: 1.2,
+                                    marginTop: '20px', // Added top margin to compensate for removed tags
                                     minHeight: isMobile ? 'auto' : '70px' 
                                 }}>
                                     {service.title}
