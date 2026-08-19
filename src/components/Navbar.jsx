@@ -30,7 +30,7 @@ export default function Navbar() {
 
   // 2. Detect Mobile Screen Size
   useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 1000);
+    const checkMobile = () => setIsMobile(window.innerWidth < 1100); // Slightly increased breakpoint for 6 items
     window.addEventListener('resize', checkMobile);
     checkMobile();
     return () => window.removeEventListener('resize', checkMobile);
@@ -75,11 +75,14 @@ export default function Navbar() {
           borderBottomColor: isScrolled ? 'rgba(255,255,255,0.1)' : 'transparent',
           display: 'flex',
           alignItems: 'center',
+          // --- FIX 1: Explicitly space out the sections and enforce a hard minimum gap ---
+          justifyContent: 'space-between',
+          gap: '30px', 
           transition: 'padding 0.4s ease, background-color 0.4s ease, border-bottom-color 0.4s ease, backdrop-filter 0.4s ease'
         }}
       >
         {/* --- LEFT: BRAND LOGO --- */}
-        <div style={{ flex: 1, display: 'flex', justifyContent: 'flex-start' }}>
+        <div style={{ flex: 1, display: 'flex', justifyContent: 'flex-start', minWidth: 'max-content' }}>
           <div
             onClick={handleLogoClick}
             style={{
@@ -108,13 +111,13 @@ export default function Navbar() {
           <div style={{ display: 'flex', justifyContent: 'center' }}>
             <ul style={{
               display: 'flex',
-              gap: '30px',
+              // --- FIX 2: Reduced gap and padding so it fits better on laptops ---
+              gap: '20px', 
               listStyle: 'none',
               margin: 0,
-              padding: '0 35px',
+              padding: '0 25px', 
               height: '46px', 
               alignItems: 'center', 
-              // --- UPDATED: Significantly brightened the border and background fill ---
               border: '1px solid rgba(255,255,255,0.4)', 
               borderRadius: '50px',
               backgroundColor: 'rgba(255,255,255,0.06)',
@@ -133,13 +136,13 @@ export default function Navbar() {
                       fontSize: '0.8rem',
                       textTransform: 'uppercase',
                       letterSpacing: '0.1em',
-                      // --- UPDATED: Increased base opacity and font weight for visibility ---
                       opacity: 0.95,
                       transition: 'opacity 0.3s, color 0.3s',
                       fontWeight: '600',
                       position: 'relative',
                       display: 'block',
-                      paddingBottom: '2px'
+                      paddingBottom: '2px',
+                      whiteSpace: 'nowrap'
                     }}
                     className="nav-link"
                     onMouseOver={(e) => { e.target.style.opacity = 1; e.target.style.color = '#6B9BD0'; }}
@@ -164,7 +167,8 @@ export default function Navbar() {
         )}
 
         {/* --- RIGHT: ACTIONS (Download & Contact) --- */}
-        <div style={{ flex: 1, display: 'flex', justifyContent: 'flex-end', alignItems: 'center', gap: '15px' }}>
+        {/* --- FIX 3: Added minWidth: max-content so the buttons never get squished by the center menu --- */}
+        <div style={{ flex: 1, display: 'flex', justifyContent: 'flex-end', alignItems: 'center', gap: '15px', minWidth: 'max-content' }}>
           {!isMobile && (
             <>
               {/* SECONDARY CTA: GHOST BUTTON */}
@@ -173,7 +177,6 @@ export default function Navbar() {
                 download="Bunny_Industries_Brochure.pdf"
                 style={{
                   background: 'transparent',
-                  // --- UPDATED: Brightened border heavily for the Ghost Button ---
                   border: '1px solid rgba(255,255,255,0.8)',
                   color: '#FFF',
                   padding: isScrolled ? '10px 22px' : '12px 26px',
@@ -188,7 +191,6 @@ export default function Navbar() {
                   alignItems: 'center',
                   justifyContent: 'center',
                   textDecoration: 'none',
-                  // --- UPDATED: Increased font weight ---
                   fontWeight: '600',
                   whiteSpace: 'nowrap' 
                 }}
@@ -198,7 +200,6 @@ export default function Navbar() {
                 }}
                 onMouseOut={(e) => {
                   e.target.style.background = 'transparent';
-                  // Restore to the new brighter default border
                   e.target.style.borderColor = 'rgba(255,255,255,0.8)';
                 }}
               >
