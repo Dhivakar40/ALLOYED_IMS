@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 // ---------------- DATA: NEW PROCESS CAPABILITIES ----------------
@@ -40,7 +40,7 @@ const machines = [
   {
     category: "VMC",
     img: "/vmc_machine.png",
-    count: 6,
+    count: 4,
     items: [
       { make: "HASS", capacity: "762x508x508MM", count: 1 },
       { make: "BFW", capacity: "700x400x400MM", count: 1 },
@@ -184,9 +184,22 @@ const machines = [
 
 // ---------------- COMPONENT ----------------
 export default function Portfolio() {
-  const [showAll, setShowAll] = useState(false);
+  const [showAllProjects, setShowAllProjects] = useState(false);
+  const [showAllMachines, setShowAllMachines] = useState(false); 
+  const [isMobile, setIsMobile] = useState(false);
 
-  const visibleProjects = showAll ? projects : projects.slice(0, 3);
+  // Responsive check to gracefully stack the 4-column grid on smaller screens
+  useEffect(() => {
+      const checkMobile = () => setIsMobile(window.innerWidth < 1100); 
+      window.addEventListener('resize', checkMobile);
+      checkMobile(); 
+      return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  const visibleProjects = showAllProjects ? projects : projects.slice(0, 3);
+  
+  // --- UPDATED: Slices exactly 4 machines to fit perfectly in a single row ---
+  const visibleMachines = showAllMachines ? machines : machines.slice(0, 4); 
 
   return (
     <>
@@ -241,7 +254,6 @@ export default function Portfolio() {
         <div
           style={{
             display: 'grid',
-            // Specifically tuned to exactly fit 3 cards in a row beautifully on desktop
             gridTemplateColumns: 'repeat(auto-fit, minmax(380px, 1fr))',
             gap: '30px',
             padding: '0 20px',
@@ -261,7 +273,7 @@ export default function Portfolio() {
                 whileHover={{ y: -5, boxShadow: "0 20px 40px rgba(0,0,0,0.5)" }}
                 style={{
                   position: 'relative',
-                  height: '450px', // slightly adjusted height for a cleaner look
+                  height: '450px',
                   borderRadius: '8px',
                   overflow: 'hidden',
                   cursor: 'pointer',
@@ -326,7 +338,7 @@ export default function Portfolio() {
         {/* --- EXPAND BUTTON --- */}
         <div style={{ textAlign: 'center', marginTop: '60px', marginBottom: '100px' }}>
           <motion.button
-            onClick={() => setShowAll(prev => !prev)}
+            onClick={() => setShowAllProjects(prev => !prev)}
             whileHover={{ scale: 1.05, backgroundColor: '#FFFFFF', color: '#000000' }}
             whileTap={{ scale: 0.95 }}
             style={{
@@ -342,12 +354,12 @@ export default function Portfolio() {
               transition: 'background-color 0.3s, color 0.3s'
             }}
           >
-            {showAll ? 'View Less Capabilities' : 'View Full Capability List'}
+            {showAllProjects ? 'View Less Capabilities' : 'View Full Capability List'}
           </motion.button>
         </div>
       </section>
 
-      {/* --- IMPROVED INFRASTRUCTURE SECTION (NOW ITS OWN SECTION) --- */}
+      {/* --- IMPROVED INFRASTRUCTURE SECTION --- */}
       <section 
         id="infrastructure" 
         style={{ 
@@ -382,89 +394,121 @@ export default function Portfolio() {
             
             <div style={{ 
                 display: 'grid', 
-                gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', 
+                // --- UPDATED: Forces exactly 4 equal columns on desktop ---
+                gridTemplateColumns: isMobile ? 'repeat(auto-fit, minmax(300px, 1fr))' : 'repeat(4, 1fr)',
                 gap: '30px' 
             }}>
-                {machines.map((cat, i) => (
-                    <motion.div 
-                        key={i}
-                        whileHover={{ y: -5, boxShadow: '0 10px 30px rgba(0,0,0,0.5)' }}
-                        style={{
-                            background: 'linear-gradient(145deg, #1A1A1A 0%, #0F1115 100%)',
-                            border: '1px solid rgba(255,255,255,0.05)',
-                            borderRadius: '8px',
-                            position: 'relative',
-                            overflow: 'hidden',
-                            display: 'flex',
-                            flexDirection: 'column'
-                        }}
-                    >
-                        {/* Top Accent Line */}
-                        <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '2px', background: 'linear-gradient(90deg, #00ffcc, transparent)', zIndex: 10 }} />
-                        
-                        {/* IMAGE BANNER: Updated for Edge-to-Edge full visibility */}
-                        <img 
-                          src={cat.img} 
-                          alt={cat.category}
-                          onError={(e) => { e.target.style.display = 'none'; }}
+                <AnimatePresence initial={false}>
+                  {visibleMachines.map((cat, i) => (
+                      <motion.div 
+                          layout
+                          key={cat.category}
+                          initial={{ opacity: 0, scale: 0.95 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          exit={{ opacity: 0, scale: 0.95 }}
+                          transition={{ duration: 0.4 }}
+                          whileHover={{ y: -5, boxShadow: '0 10px 30px rgba(0,0,0,0.5)' }}
                           style={{
-                              width: '100%',
-                              height: '320px', // Dramatically increased height so the machine takes up most of the card
-                              objectFit: 'cover', // Fills the frame edge-to-edge beautifully
-                              objectPosition: 'center', // Keeps the machine perfectly centered
-                              borderBottom: '1px solid rgba(255,255,255,0.05)',
-                              filter: 'brightness(0.95)' // Keeps the image crisp and clear
+                              background: 'linear-gradient(145deg, #1A1A1A 0%, #0F1115 100%)',
+                              border: '1px solid rgba(255,255,255,0.05)',
+                              borderRadius: '8px',
+                              position: 'relative',
+                              overflow: 'hidden',
+                              display: 'flex',
+                              flexDirection: 'column'
                           }}
-                        />
+                      >
+                          {/* Top Accent Line */}
+                          <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '2px', background: 'linear-gradient(90deg, #00ffcc, transparent)', zIndex: 10 }} />
+                          
+                          {/* IMAGE BANNER */}
+                          <img 
+                            src={cat.img} 
+                            alt={cat.category}
+                            onError={(e) => { e.target.style.display = 'none'; }}
+                            style={{
+                                width: '100%',
+                                height: '180px', 
+                                objectFit: 'cover',
+                                objectPosition: 'center', 
+                                borderBottom: '1px solid rgba(255,255,255,0.05)',
+                                filter: 'brightness(0.95)'
+                            }}
+                          />
 
-                        {/* CONTENT WRAPPER: Align items to flex-start prevents spacing issues on short lists */}
-                        <div style={{ padding: '30px', display: 'flex', flexDirection: 'column', flex: 1, justifyContent: 'flex-start' }}>
-                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '25px' }}>
-                                <h4 style={{ 
-                                    color: '#FFFFFF', 
-                                    margin: 0, 
-                                    fontFamily: '"Oswald", sans-serif', 
-                                    fontSize: '1.3rem',
-                                    letterSpacing: '0.05em'
-                                }}>
-                                    {cat.category}
-                                </h4>
-                                <span style={{ 
-                                    background: 'rgba(0, 255, 204, 0.1)', 
-                                    color: '#00ffcc', 
-                                    padding: '4px 10px', 
-                                    borderRadius: '4px',
-                                    fontSize: '0.8rem',
-                                    fontFamily: '"Oswald", sans-serif'
-                                }}>
-                                    {cat.count} {cat.count > 1 ? 'UNITS' : 'UNIT'}
-                                </span>
-                            </div>
+                          {/* CONTENT WRAPPER */}
+                          <div style={{ padding: '25px', display: 'flex', flexDirection: 'column', flex: 1, justifyContent: 'flex-start' }}>
+                              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+                                  <h4 style={{ 
+                                      color: '#FFFFFF', 
+                                      margin: 0, 
+                                      fontFamily: '"Oswald", sans-serif', 
+                                      fontSize: '1.2rem',
+                                      letterSpacing: '0.05em'
+                                  }}>
+                                      {cat.category}
+                                  </h4>
+                                  <span style={{ 
+                                      background: 'rgba(0, 255, 204, 0.1)', 
+                                      color: '#00ffcc', 
+                                      padding: '4px 10px', 
+                                      borderRadius: '4px',
+                                      fontSize: '0.8rem',
+                                      fontFamily: '"Oswald", sans-serif'
+                                  }}>
+                                      {cat.count} {cat.count > 1 ? 'UNITS' : 'UNIT'}
+                                  </span>
+                              </div>
 
-                            <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-                                {cat.items.map((item, j) => (
-                                    <li key={j} style={{ 
-                                        display: 'flex', 
-                                        justifyContent: 'space-between', 
-                                        alignItems: 'flex-start', 
-                                        borderBottom: j !== cat.items.length - 1 ? '1px solid rgba(255,255,255,0.05)' : 'none',
-                                        padding: '12px 0',
-                                        fontSize: '0.95rem'
-                                    }}>
-                                        <div>
-                                          <span style={{ display: 'block', color: '#FFF', fontWeight: '500', marginBottom: '2px' }}>{item.make}</span>
-                                          <span style={{ color: '#777', fontSize: '0.8rem', fontFamily: '"Manrope", sans-serif' }}>{item.capacity}</span>
-                                        </div>
-                                        {item.count > 1 && (
-                                            <span style={{ color: '#AAA', fontSize: '0.85rem' }}>x{item.count}</span>
-                                        )}
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                    </motion.div>
-                ))}
+                              <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+                                  {cat.items.map((item, j) => (
+                                      <li key={j} style={{ 
+                                          display: 'flex', 
+                                          justifyContent: 'space-between', 
+                                          alignItems: 'flex-start', 
+                                          borderBottom: j !== cat.items.length - 1 ? '1px solid rgba(255,255,255,0.05)' : 'none',
+                                          padding: '10px 0',
+                                          fontSize: '0.9rem'
+                                      }}>
+                                          <div>
+                                            <span style={{ display: 'block', color: '#FFF', fontWeight: '500', marginBottom: '2px' }}>{item.make}</span>
+                                            <span style={{ color: '#777', fontSize: '0.75rem', fontFamily: '"Manrope", sans-serif' }}>{item.capacity}</span>
+                                          </div>
+                                          {item.count > 1 && (
+                                              <span style={{ color: '#AAA', fontSize: '0.85rem' }}>x{item.count}</span>
+                                          )}
+                                      </li>
+                                  ))}
+                              </ul>
+                          </div>
+                      </motion.div>
+                  ))}
+                </AnimatePresence>
             </div>
+
+            {/* --- TOGGLE ALL MACHINES BUTTON --- */}
+            <div style={{ textAlign: 'center', marginTop: '50px' }}>
+              <motion.button
+                onClick={() => setShowAllMachines(prev => !prev)}
+                whileHover={{ scale: 1.05, backgroundColor: '#FFFFFF', color: '#000000' }}
+                whileTap={{ scale: 0.95 }}
+                style={{
+                  background: 'transparent',
+                  color: '#FFFFFF',
+                  border: '1px solid rgba(255,255,255,0.4)',
+                  padding: '14px 40px',
+                  fontSize: '0.85rem',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.2em',
+                  cursor: 'pointer',
+                  fontFamily: '"Oswald", sans-serif',
+                  transition: 'background-color 0.3s, color 0.3s'
+                }}
+              >
+                {showAllMachines ? 'View Less Equipment' : 'View All 17 Equipment Types'}
+              </motion.button>
+            </div>
+            
         </div>
       </section>
     </>
